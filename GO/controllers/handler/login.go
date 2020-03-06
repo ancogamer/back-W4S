@@ -8,8 +8,7 @@ import (
 func LoginCheck() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.JSON(http.StatusOK, map[string]string{
-			"Hello": "Word",
+			"Nicolas": "Bemvindo",
 		})
 	}
 }
-
