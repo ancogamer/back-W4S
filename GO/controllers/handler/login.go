@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
 	
 )
@@ -12,5 +11,6 @@ func LoginCheck() gin.HandlerFunc {
 		c.JSON(http.StatusOK, map[string]string{
 			"Nicolas": "Bemvindo",
 		})
+
 	}
 }
