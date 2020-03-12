@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="79136927-06c9-47f6-be4f-28c7e8364e57" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" path="D:\Go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
+  <component name="ProjectId" id="1YmGRMpM2qqcYbYEdlCqkp6kHCi" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Module.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="go.sdk.automatically.set" value="true" />
+    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/gin-bookstore-master" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\TRALHAS\FATEC\W4S\GO\DB" />
+      <recent name="D:\TRALHAS\FATEC\W4S\GO" />
+      <recent name="D:\TRALHAS\FATEC\W4S\GO\models" />
+      <recent name="D:\TRALHAS\FATEC\W4S\GO\controllers" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="go build w4s" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="GO" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+      <package value="w4s" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build w4s" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+    <proxy>direct</proxy>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="452" y="95" key="#Go_Modules_(vgo)" timestamp="1583971949284">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="452" y="95" key="#Go_Modules_(vgo)/0.0.1920.1040@0.0.1920.1040" timestamp="1583971949284" />
+    <state x="452" y="95" key="#Inspections" timestamp="1584015795689">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="452" y="95" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1584015795689" />
+    <state x="414" y="168" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583972954718">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="168" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583972954718" />
+    <state x="721" y="168" key="#com.intellij.ide.util.MemberChooser" timestamp="1584018415242">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="721" y="168" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584018415242" />
+    <state x="1042" y="221" key="FileChooserDialogImpl" timestamp="1584034667843">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1042" y="221" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1584034667843" />
+    <state width="1865" height="371" key="GridCell.Tab.0.bottom" timestamp="1584044433153">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1865" height="371" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584044433153" />
+    <state width="1865" height="371" key="GridCell.Tab.0.center" timestamp="1584044433153">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1865" height="371" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584044433153" />
+    <state width="1865" height="371" key="GridCell.Tab.0.left" timestamp="1584044433153">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1865" height="371" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584044433153" />
+    <state width="1865" height="371" key="GridCell.Tab.0.right" timestamp="1584044433153">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1865" height="371" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584044433153" />
+    <state x="705" y="81" key="SettingsEditor" timestamp="1584022566553">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="705" y="81" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1584022566553" />
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1584015671255">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1584015671255" />
+  </component>
+</project>
