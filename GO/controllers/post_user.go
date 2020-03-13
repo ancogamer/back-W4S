@@ -1,7 +1,9 @@
 //POST /user
 //Create a new user
 package controllers
+
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
@@ -9,6 +11,7 @@ import (
 )
 
 type CreateUserInput struct{
+	ID       uint32 `json:"id" binding:required`
 	Nickname string  `json:"nickname" binding:required`
 	Email 	 string  `json:"email" binding:required `
 	Password string  `json:"password" binding:required`
@@ -25,6 +28,7 @@ func CreateUser( c *gin.Context){
 	//Validating input
 	var input CreateUserInput
 	if err:= c.ShouldBindJSON(&input);err !=nil{
+		fmt.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error":err.Error(),
 		})
@@ -33,6 +37,7 @@ func CreateUser( c *gin.Context){
 
 	//Creating user
 	user:=models.User{
+		ID: 0,
 		Nickname: input.Nickname,
 		Email:input.Email,
 		Password :input.Password,

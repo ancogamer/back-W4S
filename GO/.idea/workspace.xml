@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="79136927-06c9-47f6-be4f-28c7e8364e57" name="Default Changelist" comment="" />
+    <list default="true" id="79136927-06c9-47f6-be4f-28c7e8364e57" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/GO.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/DB/setup.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/post_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/post_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/profile.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/profile.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,7 +33,9 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="configurable.Global.GOPATH.is.expanded" value="true" />
     <property name="configurable.Module.GOPATH.is.expanded" value="true" />
@@ -30,7 +43,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/gin-bookstore-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
@@ -65,6 +78,10 @@
     <proxy>direct</proxy>
   </component>
   <component name="WindowStateProjectService">
+    <state x="452" y="95" key="#Build_Tags_&amp;_Vendoring" timestamp="1584056120382">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="452" y="95" key="#Build_Tags_&amp;_Vendoring/0.0.1920.1040@0.0.1920.1040" timestamp="1584056120382" />
     <state x="452" y="95" key="#Go_Modules_(vgo)" timestamp="1583971949284">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -85,22 +102,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1042" y="221" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1584034667843" />
-    <state width="1865" height="371" key="GridCell.Tab.0.bottom" timestamp="1584044433153">
+    <state width="1003" height="190" key="GridCell.Tab.0.bottom" timestamp="1584060511338">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1865" height="371" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584044433153" />
-    <state width="1865" height="371" key="GridCell.Tab.0.center" timestamp="1584044433153">
+    <state width="1003" height="190" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584060511338" />
+    <state width="1003" height="190" key="GridCell.Tab.0.center" timestamp="1584060511338">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1865" height="371" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584044433153" />
-    <state width="1865" height="371" key="GridCell.Tab.0.left" timestamp="1584044433153">
+    <state width="1003" height="190" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584060511338" />
+    <state width="1003" height="190" key="GridCell.Tab.0.left" timestamp="1584060511337">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1865" height="371" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584044433153" />
-    <state width="1865" height="371" key="GridCell.Tab.0.right" timestamp="1584044433153">
+    <state width="1003" height="190" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584060511337" />
+    <state width="1003" height="190" key="GridCell.Tab.0.right" timestamp="1584060511338">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1865" height="371" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584044433153" />
+    <state width="1003" height="190" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584060511338" />
     <state x="705" y="81" key="SettingsEditor" timestamp="1584022566553">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
