@@ -9,9 +9,9 @@ import (
 
 func FindUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
-
 	var user []models.User
 	db.Find(&user)
+
 	c.JSON(http.StatusOK, gin.H{
 		"user":user,
 	})

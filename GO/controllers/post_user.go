@@ -41,7 +41,9 @@ func CreateUser( c *gin.Context){
 		Lastname: input.Lastname,
 	}
 
-	db.Create(&user)
-
-	c.JSON(http.StatusOK,gin.H{"data":user})
+	if dbc:= db.Create(&user); dbc.Error != nil {
+		c.JSON(http.StatusBadRequest,gin.H{"erro":dbc.Error})
+	}else {
+		c.JSON(http.StatusOK, gin.H{"data": user})
+	}
 }

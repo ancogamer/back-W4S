@@ -1,5 +1,4 @@
 package models
-//model do struct
 
 type User struct {
 	ID       uint32 `json:"id" gorm:"type:bigint;primary_key; AUTO_INCREMENT"`
