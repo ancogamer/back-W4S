@@ -2,15 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="79136927-06c9-47f6-be4f-28c7e8364e57" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/auth/token.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controllers/login_controller.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/security/password.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/get_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/get_user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/post_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/post_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/get_user.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/handler/login.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/login.go" beforeDir="false" afterPath="$PROJECT_DIR$/auth/login.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/post_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/users_con.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/profile.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/profile.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMAGES/Aplication Start_and_system_information/39c67778-e001-43f3-9c53-cf7fbdb9d41f.jfif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMAGES/Chat/09f2961e-2078-4d06-8fc9-741e67d06431.jfif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMAGES/Icons/b9e80163-be6b-4a9e-aaaa-4394c165675e.jfif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMAGES/Main Menu/eddf49a6-caaa-47a7-9537-e788cf2f322e.jfif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMAGES/Side Bar Menu/66d8f08d-5aa7-4c1f-bb7b-f8938a37685e.jfif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMAGES/Table Create/c474092e-ed5c-40f0-a1be-d8e613240f03.jfif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IMAGES/Table Lists(Agenda)/0070250f-f24e-4766-9f8a-892da8851b55.jfif" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
   </component>
   <component name="GOROOT" path="D:\Go" />
   <component name="Git.Settings">
@@ -28,6 +48,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />

@@ -16,11 +16,6 @@ type CreateUserInput struct{
 	Name     string  `json:"name" binding:required`
 	Lastname string  `json:"lastname" binding:required`
 }
-/*type CreateProfile struct{
-	Avatar         string  `json:"avatar" ` //longtext no BD (mysql-MariaDB)
-	DataNascimento string  `json:"datanascimento" `//maximo 8 digitos
-	Nickname       string  `json:"nickname" `
-}*/
 func CreateUser( c *gin.Context){
 	db:= c.MustGet("db").(*gorm.DB)
 	//Validating input
@@ -39,11 +34,21 @@ func CreateUser( c *gin.Context){
 		Password :input.Password,
 		Name: input.Name,
 		Lastname: input.Lastname,
-	}
 
-	if dbc:= db.Create(&user); dbc.Error != nil {
+	}
+	if dbc:= db.Create(&user); dbc.Error != nil {//return the error by JSON
 		c.JSON(http.StatusBadRequest,gin.H{"erro":dbc.Error})
-	}else {
+	}else { //return the post data if is ok, by JSON
 		c.JSON(http.StatusOK, gin.H{"data": user})
 	}
+}
+//Find all users on the database
+func FindUser(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	var user []models.User
+	db.Find(&user)
+
+	c.JSON(http.StatusOK, gin.H{
+		"user":user,
+	})
 }
