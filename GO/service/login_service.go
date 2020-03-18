@@ -1,4 +1,5 @@
-package controllers
+Still think about this
+/*package service
 
 import (
 	"github.com/gin-gonic/gin"
@@ -6,7 +7,9 @@ import (
 	"w4s/models"
 )
 
-// Login is the signIn method
+type LoginService interface {
+	Login(username string, password string) bool
+}
 func (controller *loginController) Login(c *gin.Context) string{
 	db:= c.MustGet("db").(*gorm.DB)
 	user := models.User{}
@@ -22,5 +25,4 @@ func (controller *loginController) Login(c *gin.Context) string{
 	}
 	defer db.Close()
 	return ""
-}
-
+}*/

@@ -25,6 +25,7 @@ func CreateUser( c *gin.Context){
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error":err.Error(),
 		})
+		defer db.Close()
 		return
 	}
 	//Creating user
@@ -34,12 +35,22 @@ func CreateUser( c *gin.Context){
 		Password :input.Password,
 		Name: input.Name,
 		Lastname: input.Lastname,
-
 	}
-	if dbc:= db.Create(&user); dbc.Error != nil {//return the error by JSON
-		c.JSON(http.StatusBadRequest,gin.H{"erro":dbc.Error})
-	}else { //return the post data if is ok, by JSON
-		c.JSON(http.StatusOK, gin.H{"data": user})
+	err := user.Validate("")
+	if err!=nil{
+		defer db.Close()
+		c.JSON(http.StatusNotImplemented, gin.H{
+			"err":err,
+		})
+	}else{
+		user.BeforeSave()
+		if dbc:= db.Create(&user); dbc.Error != nil {//return the error by JSON
+			defer db.Close()
+			c.JSON(http.StatusBadRequest,gin.H{"erro":dbc.Error})
+		}else { //return the post data if is ok, by JSON
+			defer db.Close()
+			c.JSON(http.StatusOK, gin.H{"data": user})
+		}
 	}
 }
 //Find all users on the database
@@ -47,8 +58,14 @@ func FindUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var user []models.User
 	db.Find(&user)
-
-	c.JSON(http.StatusOK, gin.H{
-		"user":user,
-	})
+	defer db.Close()
+	if len(user)==0{//checking if something was returned.
+		c.JSON(http.StatusNotFound, gin.H{
+			"error":"nenhum registro encontrado",
+		})
+	}else{
+		c.JSON(http.StatusOK, gin.H{
+			"user":user,
+		})
+	}
 }

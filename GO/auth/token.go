@@ -2,13 +2,11 @@ package auth
 
 import (
 	"errors"
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"
-	"github.com/dgrijalva/jwt-go/request"
-	"github.com/alfredomendozacap/jwt-auth/config"
-	"github.com/alfredomendozacap/jwt-auth/api/models"
-	"github.com/alfredomendozacap/jwt-auth/api/responses"
-	"github.com/dgrijalva/jwt-go"
+	"w4s/models"
+	jwt "github.com/dgrijalva/jwt-go"
 )
 
 // GenerateJWT creates a new token to the client
@@ -20,22 +18,13 @@ func GenerateJWT(user models.User) (string, error) {
 			ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
 		},
 	}
-
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claim)
 	return token.SignedString(config.SECRETKEY)
 }
+//passar para o GIN
 
 // ExtractToken retrieves the token from headers ans Query
-func ExtractToken(w http.ResponseWriter, r *http.Request) *jwt.Token {
-	token, err := request.ParseFromRequestWithClaims(
-		r,
-		request.OAuth2Extractor,
-		&models.Claim{},
-		func(t *jwt.Token) (interface{}, error) {
-			return config.SECRETKEY, nil
-		},
-	)
-
+func ExtractToken(c *gin.Context) *jwt.Token {
 	if err != nil {
 		code := http.StatusUnauthorized
 		switch err.(type) {
@@ -56,6 +45,5 @@ func ExtractToken(w http.ResponseWriter, r *http.Request) *jwt.Token {
 			}
 		}
 	}
-
 	return token
 }
