@@ -1,6 +1,6 @@
 module w4s
 
-go 1.13
+go 1.14
 
 require (
 	github.com/badoux/checkmail v0.0.0-20181210160741-9661bd69e9ad

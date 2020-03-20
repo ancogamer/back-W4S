@@ -1,4 +1,4 @@
-Still think about this
+//Still think about this
 /*package service
 
 import (

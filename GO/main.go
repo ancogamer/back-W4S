@@ -19,7 +19,7 @@ func main() {
 			c.Set("db", db)
 			c.Next()
 		})
-		token:=loginController
+		//token:=loginController
 		token:=loginController.Login(c)
 		if token!=""{
 			c.JSON(http.StatusOK,gin.H{

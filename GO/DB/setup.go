@@ -10,6 +10,7 @@ import (
 func SetupModels() *gorm.DB {
 	db, err := gorm.Open("mysql",
 		"Saletti:Saletti123@/w4s?charset=utf8&parseTime=True&loc=Local")
+
 	if err != nil {
 		panic("Failed to connect to database!")
 	}

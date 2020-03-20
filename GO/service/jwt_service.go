@@ -7,6 +7,7 @@ import (
 	"w4s/models"
 )
 
+
 type JWTService interface{
 	GenerateToken(user models.User) string
 	ValidateToken(c *gin.Context) (*jwt.Token,error)
