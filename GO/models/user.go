@@ -8,22 +8,28 @@ import (
 )
 
 type User struct {
-	ID       uint32 `json:"id" gorm:"type:bigint;primary_key; AUTO_INCREMENT"`
+	ID       uint64 `json:"id" gorm:"type:bigint;primary_key; AUTO_INCREMENT"`
 	Nickname string `json:"nickname "`
 	Email    string `json:"email" gorm:"type:varchar(100);unique_index" `
 	Password string `json:"password"`
 	Name     string `json:"name"`
 	Lastname string `json:"string"`
 	Deleted  bool    `json:"deleted" gorm:"type:BOOLEAN"`
+	IDProfile uint64 `json:"author_id,omitempty" gorm:"null"`
+	Profile Profile  `json:"profile,omitempty"`
 }
 // BeforeSave hash the user password
 func (u *User) BeforeSave() error {
-	hashedPassword, err := security.Hash(u.Password)
-	if err != nil {
-		return err
+	if len(u.Password) >60{
+		return errors.New("Senha maior que 60 characteres")
+	}else{
+		hashedPassword, err := security.Hash(u.Password)
+		if err != nil {
+			return err
+		}
+		u.Password = string(hashedPassword)
+		return nil
 	}
-	u.Password = string(hashedPassword)
-	return nil
 }
 // Validate validates the inputs
 func (u *User) Validate(action string) error {

@@ -20,6 +20,7 @@ func main() {
 			c.Next()
 		})
 		//token:=loginController
+		token:loginController.Login(c *gin.Context)
 		token:=loginController.Login(c)
 		if token!=""{
 			c.JSON(http.StatusOK,gin.H{

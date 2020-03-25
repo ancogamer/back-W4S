@@ -35,6 +35,7 @@ func CreateUser( c *gin.Context){
 		Password :input.Password,
 		Name: input.Name,
 		Lastname: input.Lastname,
+
 	}
 	err := user.Validate("")
 	if err!=nil{
@@ -43,13 +44,17 @@ func CreateUser( c *gin.Context){
 			"err":err,
 		})
 	}else{
-		user.BeforeSave()
-		if dbc:= db.Create(&user); dbc.Error != nil {//return the error by JSON
-			defer db.Close()
-			c.JSON(http.StatusBadRequest,gin.H{"erro":dbc.Error})
-		}else { //return the post data if is ok, by JSON
-			defer db.Close()
-			c.JSON(http.StatusOK, gin.H{"data": user})
+		err :=user.BeforeSave()
+		if err!=nil{
+			c.JSON(http.StatusConflict, gin.H{"erro":err})
+		}else {
+			if dbc := db.Create(&user); dbc.Error != nil { //return the error by JSON
+				defer db.Close()
+				c.JSON(http.StatusBadRequest, gin.H{"erro": dbc.Error})
+			} else { //return the post data if is ok, by JSON
+				defer db.Close()
+				c.JSON(http.StatusOK, gin.H{"data": user})
+			}
 		}
 	}
 }
@@ -59,7 +64,7 @@ func FindUser(c *gin.Context) {
 	var user []models.User
 	db.Find(&user)
 	defer db.Close()
-	if len(user)==0{//checking if something was returned.
+	if user!=nil{//checking if something was returned.
 		c.JSON(http.StatusNotFound, gin.H{
 			"error":"nenhum registro encontrado",
 		})

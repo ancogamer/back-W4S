@@ -1,12 +1,10 @@
 package auth
 
 import (
-	"errors"
-	"github.com/gin-gonic/gin"
-	"net/http"
-	"time"
-	"w4s/models"
 	jwt "github.com/dgrijalva/jwt-go"
+	"time"
+	"w4s/config"
+	"w4s/models"
 )
 
 // GenerateJWT creates a new token to the client
@@ -24,7 +22,16 @@ func GenerateJWT(user models.User) (string, error) {
 //passar para o GIN
 
 // ExtractToken retrieves the token from headers ans Query
-func ExtractToken(c *gin.Context) *jwt.Token {
+//REVER VALIDAÇÃO DO TOKEN
+/*func ExtractToken(c *gin.Context) *jwt.Token {
+	token, err := request.ParseFromRequestWithClaims(
+		r,
+		request.OAuth2Extractor,
+		&models.Claim{},
+		func(t *jwt.Token) (interface{}, error) {
+			return config.SECRETKEY, nil
+		},
+	)
 	if err != nil {
 		code := http.StatusUnauthorized
 		switch err.(type) {
@@ -47,3 +54,4 @@ func ExtractToken(c *gin.Context) *jwt.Token {
 	}
 	return token
 }
+*/
