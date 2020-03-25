@@ -1,14 +1,15 @@
+//Package
 package config
 
 import (
-	"os"
+	"math/rand"
 )
-
-
-var SECRETKEY []byte
-
-
-func Load() {
-	SECRETKEY = []byte(os.Getenv("API_SECRET"))
+//Generate a new RandomKey
+func NewRandomKey() []byte {
+	key := make([]byte, 32)
+	if _, err := rand.Read(key); err != nil {
+		//what else can i do if the random fails ?
+		panic(err)
+	}
+	return key
 }
-

@@ -1,40 +1,55 @@
 package controllers
 
 import (
+	"net/http"
+	"w4s/authc"
+	"w4s/models"
+	"w4s/security"
+
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"net/http"
-	"w4s/models"
-	"w4s/service"
 )
 
-type loginController struct {
+//
+type LoginUser struct {
 	Email    string `json:"email" binding:required `
 	Password string `json:"password" binding:required`
 }
+
 // Login is the signIn method
-func (controller *loginController) Login(c *gin.Context) {
-	var input models.Login
-	if err:= c.ShouldBindJSON(&input);err !=nil{
+func Login(c *gin.Context){
+	db := c.MustGet("db").(*gorm.DB)
+	var input models.User
+	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error":err.Error(),
+			"error": err.Error(),
+		})
+		defer db.Close()
+		return
+	}
+	login := models.User{}
+
+	if err := db.Where("email = ?", input.Email).Find(&login); err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"erro:": "Email ou senha incorretos",
+		})
+		defer db.Close()
+		return
+	}
+	if err := security.VerifyPassword(login.Password, input.Password); err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"error": "senha incorreta",
+		})
+		defer db.Close()
+		return
+	}
+	token,err:= authc.GenerateJWT(login)
+	if err!=nil{
+		c.JSON(http.StatusInternalServerError,gin.H{
+			"erro":"Não foi possível criar um token de acesso, tente mais tarde",
 		})
 		return
 	}
-	login:=models.Login{
-		Email:    input.Email,
-		Password: input.Password,
-	}
-	if err:=db.Where("email= ?", c.Params("email")).First(&login).Error; err!=nil{
-		c.JSON(http.StatusBadRequest, gin.H{"error":"Email não encontrado"})
-		return
-	}
-	//isAuthenticated:=service.LoginService.Login()
-	//if isAuthenticated{
-	//	defer db.Close()
-	//	return controller.jwtService.GerenateToken(user.Email,true)
-	//}
-	//defer db.Close()
-	//return ""
+	c.JSON(http.StatusOK,token)
+	return
 }
-
