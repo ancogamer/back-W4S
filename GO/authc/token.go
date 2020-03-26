@@ -72,7 +72,6 @@ func TokenInfos(tokenString string) (TokenDetail, error) {
 			detail.Active = false
 			detail.Note = "Timing is everything"
 			return detail, nil
-
 		} else {
 			fmt.Println("Couldn't handle this token:", err)
 			detail.Active = false

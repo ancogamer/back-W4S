@@ -6,7 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
-	"w4s/authc"
 	"w4s/models"
 )
 //Struct from the inputs
@@ -27,7 +26,6 @@ func CreateUser( c *gin.Context){
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error":err.Error(),
 		})
-		defer db.Close()
 		return
 	}
 	//Creating user
@@ -50,24 +48,24 @@ func CreateUser( c *gin.Context){
 		if err!=nil{
 			c.JSON(http.StatusConflict, gin.H{"erro":err})
 		}else {
-			token, err:=authc.GenerateJWT(user)
-			if err!=nil{
-				c.JSON(http.StatusInternalServerError,gin.H{
-					"erro":"Não foi possível criar um token de acesso, tente mais tarde",
+			/*token, err := authc.GenerateJWT(user)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{
+					"erro": "Não foi possível criar um token de acesso, tente mais tarde",
 				})
 				return
-			}
-			user.Token=token
+			}*/
+			user.Token = ""
 			if dbc := db.Create(&user); dbc.Error != nil { //return the error by JSON
-				defer db.Close()
 				c.JSON(http.StatusBadRequest, gin.H{"erro": dbc.Error})
-			} else { //return the post data if is ok, by JSON
-				defer db.Close()
+				return
+			} //return the post data if is ok, by JSON
 				c.JSON(http.StatusOK, gin.H{"data": user})
-			}
+			return
 		}
 	}
 }
+
 //Find all users on the database
 func FindUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
@@ -83,5 +81,5 @@ func FindUser(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"user":user,
 		})
-	
+	return
 }

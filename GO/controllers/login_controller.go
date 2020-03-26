@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"w4s/authc"
 	"w4s/models"
@@ -12,35 +13,52 @@ import (
 
 //
 type LoginUser struct {
-	Email    string `json:"email" binding:required `
-	Password string `json:"password" binding:required`
+	/*Email    string `json:"email" binding:required `
+	Password string `json:"password" binding:required`*/
+
+	Email 	 string  `json:"email" binding:required `
+	Password string  `json:"password" binding:required`
+
 }
 
 // Login is the signIn method
 func Login(c *gin.Context){
 	db := c.MustGet("db").(*gorm.DB)
-	var input models.User
+	var input LoginUser
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
+			"errorrt": err.Error(),
 		})
-		defer db.Close()
 		return
 	}
-	login := models.User{}
-
-	if err := db.Where("email = ?", input.Email).Find(&login); err != nil {
+	//struct to store the data recovered from the database
+	login := models.User{
+		Email:     input.Email,
+		Password:  input.Password,
+	}
+	err := login.Validate("login")
+	if err!=nil {
+		defer db.Close()
+		c.JSON(http.StatusNotImplemented, gin.H{
+			"err": err,
+		})
+		return
+	}
+	fmt.Println(login.Password,input.Password)
+	if err:= db.Where("email = ?", input.Email).Find(&login).Error; err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"erro:": "Email ou senha incorretos",
 		})
-		defer db.Close()
 		return
 	}
-	if err := security.VerifyPassword(login.Password, input.Password); err != nil {
+	//(password,hashadpassword)
+	if err := security.VerifyPassword(input.Password, login.Password); err != nil {
+		fmt.Println(login.Password,input.Password)
+		fmt.Println(err)
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"error": "senha incorreta",
+			"errocode":err,
 		})
-		defer db.Close()
 		return
 	}
 	token,err:= authc.GenerateJWT(login)
