@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"w4s/DB"
 	"w4s/controllers"
+	"w4s/models"
 )
 func AuthRequired(c *gin.Context)  {
 		userToken:= c.Param("token")
-
 		// We want to make sure the token is set, bail if not
 		if userToken ==""  {
 			c.JSON(http.StatusUnauthorized, gin.H{
@@ -16,6 +16,12 @@ func AuthRequired(c *gin.Context)  {
 			})
 			return
 		}
+		user:=models.User{Email:c.Param("email"),
+			Password:c.Param("password"),
+		}
+		c.ShouldBindJSON(user)
+		user.Validate("login")
+		return
 		c.Next()
 }
 
@@ -41,7 +47,6 @@ func main() {
 	{
 		authorized.GET("/user", controllers.FindUser)
 	}
-
 
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080") // listando e escutando no localhost:8080
 }
