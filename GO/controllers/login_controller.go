@@ -38,10 +38,10 @@ func Login(c *gin.Context){
 	}
 	err := login.Validate("login")
 	if err!=nil {
-		defer db.Close()
 		c.JSON(http.StatusNotImplemented, gin.H{
 			"err": err,
 		})
+		db.Close()
 		return
 	}
 	fmt.Println(login.Password,input.Password)
@@ -51,13 +51,12 @@ func Login(c *gin.Context){
 		})
 		return
 	}
-	//(password,hashadpassword)
-	if err := security.VerifyPassword(input.Password, login.Password); err != nil {
+	//(hashadpassword,password)
+	if err := security.VerifyPassword(login.Password, input.Password); err != nil {
 		fmt.Println(login.Password,input.Password)
 		fmt.Println(err)
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"error": "senha incorreta",
-			"errocode":err,
 		})
 		return
 	}
