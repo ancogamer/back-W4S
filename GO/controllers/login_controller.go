@@ -13,12 +13,8 @@ import (
 
 //
 type LoginUser struct {
-	/*Email    string `json:"email" binding:required `
-	Password string `json:"password" binding:required`*/
-
 	Email 	 string  `json:"email" binding:required `
 	Password string  `json:"password" binding:required`
-
 }
 
 // Login is the signIn method
@@ -27,16 +23,16 @@ func Login(c *gin.Context){
 	var input LoginUser
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"errorrt": err.Error(),
+			"error": err.Error(),
 		})
 		return
 	}
-	//struct to store the data recovered from the database
+	//Struct to store the data recovered from the database /Struct para armazenar os dados da base de dados
 	login := models.User{
 		Email:     input.Email,
 		Password:  input.Password,
 	}
-	err := login.Validate("login")
+	err := login.Validate("login") //Validating the login inputs / Validando os inputs do login
 	if err!=nil {
 		c.JSON(http.StatusNotImplemented, gin.H{
 			"err": err,
@@ -51,7 +47,8 @@ func Login(c *gin.Context){
 		})
 		return
 	}
-	//(hashadpassword,password)
+	//(hashadpassword,password),
+	//hashad = crypted password, password is the normal one/ hashadpassword = é a senha cryptografada, passoword é a senha normal
 	if err := security.VerifyPassword(login.Password, input.Password); err != nil {
 		fmt.Println(login.Password,input.Password)
 		fmt.Println(err)
@@ -63,10 +60,13 @@ func Login(c *gin.Context){
 	token,err:= authc.GenerateJWT(login)
 	if err!=nil{
 		c.JSON(http.StatusInternalServerError,gin.H{
-			"erro":"Não foi possível criar um token de acesso, tente mais tarde",
+			"erro":"Não foi possível o acesso, tente mais tarde",
 		})
 		return
 	}
+	//Saving the new token on the user(Database)/ Salvando o novo token no usuario(Database)
+	db.Model(login).Update("token",token)
 	c.JSON(http.StatusOK,token)
+
 	return
 }

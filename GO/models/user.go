@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 	"w4s/security"
 
@@ -25,14 +26,18 @@ type User struct {
 func (u *User) BeforeSave() error {
 	if len(u.Password) > 60 {
 		return errors.New("Senha maior que 60 characteres")
-	} else {
-		hashedPassword, err := security.Hash(u.Password)
-		if err != nil {
-			return err
-		}
-		u.Password = string(hashedPassword)
-		return nil
 	}
+	fmt.Println("senha informada: ", u.Password)
+	hashedPassword, err := security.Hash(u.Password)
+	fmt.Println("hashed em bytes: ", hashedPassword)
+	if err != nil {
+		return err
+		panic("Password hash")
+	}
+	u.Password = string(hashedPassword)
+	fmt.Println("password salva na struct passada: ", u.Password)
+	return nil
+
 }
 
 // Validate validates the inputs

@@ -7,7 +7,7 @@ import (
 
 // Claim is the token payload
 type Claim struct {
-	User User `json:"user,omitempty"`
+	UserEmail string `json:"user,omitempty"`
 	CreatedAt          time.Time
 	UpdatedAt          time.Time
 	jwt.StandardClaims

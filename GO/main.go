@@ -1,26 +1,43 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"w4s/DB"
+	"w4s/authc"
 	"w4s/controllers"
 	"w4s/models"
 )
+//
+type Authc struct {
+	Email string `json:"email" binding:required `
+	Token string `json:"token" binding:required `
+}
 func AuthRequired(c *gin.Context)  {
-		userToken:= c.Param("token")
+	var input Authc
+		fmt.Println(input.Token)
+	if err:=c.ShouldBindJSON(&input);err!=nil{
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error":err.Error(),
+		})
+		return
+	}
 		// We want to make sure the token is set, bail if not
-		if userToken ==""  {
+		if input.Token ==""  {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"Usuario":"não logado",
 			})
 			return
 		}
-		user:=models.User{Email:c.Param("email"),
-			Password:c.Param("password"),
+
+		//Fill up the Struct User model /Preenchendo o model User
+		user := models.User{Email:input.Email,
+			Token:input.Token,
 		}
-		c.ShouldBindJSON(user)
 		user.Validate("login")
+		authc.ValidateToken(user, c )
+
 		return
 		c.Next()
 }
@@ -33,19 +50,20 @@ func main() {
 		c.Set("db", db)
 		c.Next()
 	})
-	//Login
-	// Authorization group
-	// authorized := r.Group("/", AuthRequired())
-	// exactly the same as:
+
 	authorized := r.Group("/v2")
-	// per group middleware! in this case we use the custom created
+
 	// AuthRequired() middleware just in the "authorized" group.
 	r.POST("/login", controllers.Login)
 	//Cria usuario
 	r.POST("/user", controllers.CreateUser)
+	fmt.Println("TO NO MAIN")
+
+
 	authorized.Use(AuthRequired)
 	{
 		authorized.GET("/user", controllers.FindUser)
+		authorized.GET("/seach/:nickname", controllers.FindUserByNick)
 	}
 
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080") // listando e escutando no localhost:8080

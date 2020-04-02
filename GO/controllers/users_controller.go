@@ -3,24 +3,28 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
 	"w4s/models"
 )
 //Struct from the inputs
-type CreateUserInput struct{
+type UserInput struct{
 	Nickname string  `json:"nickname" binding:required`
 	Email 	 string  `json:"email" binding:required `
 	Password string  `json:"password" binding:required`
 	Name     string  `json:"name" binding:required`
 	Lastname string  `json:"lastname" binding:required`
 }
+
+
 //Create User
 func CreateUser( c *gin.Context){
+	fmt.Println("create FUNC")
 	db:= c.MustGet("db").(*gorm.DB)
 	//Validating input
-	var input CreateUserInput
+	var input UserInput
 
 	if err:= c.ShouldBindJSON(&input);err !=nil{
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -37,34 +41,25 @@ func CreateUser( c *gin.Context){
 		Lastname: input.Lastname,
 		Token:"",
 	}
-	err := user.Validate("")
+	err := user.Validate("") //Validating the inputs/ Validando os inputs
 	if err!=nil{
 		defer db.Close()
 		c.JSON(http.StatusNotImplemented, gin.H{
 			"err":err,
 		})
-	}else{
-		err :=user.BeforeSave()
-		if err!=nil{
-			c.JSON(http.StatusConflict, gin.H{"erro":err})
-		}else {
-			/*token, err := authc.GenerateJWT(user)
-			if err != nil {
-				c.JSON(http.StatusInternalServerError, gin.H{
-					"erro": "Não foi possível criar um token de acesso, tente mais tarde",
-				})
-				return
-			}*/
-			user.Token = ""
-			if dbc := db.Create(&user); dbc.Error != nil { //return the error by JSON
-				c.JSON(http.StatusBadRequest, gin.H{"erro": dbc.Error})
-				return
-			} //return the post data if is ok, by JSON
-				c.JSON(http.StatusOK, gin.H{"data": user})
-			return
-		}
+		return
 	}
+	user.Token = ""
+	//Saving the new User on the database/ Salvando o novo usuario na base de dados
+	if dbc := db.Create(&user); dbc.Error != nil { //Return the error by JSON / Retornando o erro por JSON
+		c.JSON(http.StatusBadRequest, gin.H{"erro": dbc.Error})
+		return
+	} //Return the post data if is ok, by JSON/ Retornando o que foi postado se tudo ocorreu certo
+		c.JSON(http.StatusOK, gin.H{"data": user})
+	return
+
 }
+
 
 //Find all users on the database
 func FindUser(c *gin.Context) {
@@ -82,4 +77,19 @@ func FindUser(c *gin.Context) {
 			"user":user,
 		})
 	return
+}
+//Find a user by his(her) nickname/Encontrando um usuario pelo seu nick(url)
+func FindUserByNick(c *gin.Context){
+	db:=c.MustGet("db").(*gorm.DB)
+	var user models.User
+	if err := db.Where("nickname = ?", c.Param("nickname")).First(&user).Error;err!=nil{
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Record not found!",
+		})
+		return
+	}
+	c.JSON(http.StatusOK,gin.H{
+		"User":user,
+	})
+
 }
