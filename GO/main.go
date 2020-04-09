@@ -35,8 +35,11 @@ func AuthRequired(c *gin.Context)  {
 		user := models.User{Email:input.Email,
 			Token:input.Token,
 		}
-		user.Validate("login")
-		authc.ValidateToken(user, c )
+		err:=user.Validate("login")
+		if err!=nil{
+			c.JSON(http.StatusConflict,err)
+		}
+		authc.ValidateToken(c)
 
 		return
 		c.Next()
@@ -57,7 +60,6 @@ func main() {
 	r.POST("/login", controllers.Login)
 	//Cria usuario
 	r.POST("/user", controllers.CreateUser)
-	fmt.Println("TO NO MAIN")
 
 
 	authorized.Use(AuthRequired)

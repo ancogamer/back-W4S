@@ -2,11 +2,13 @@
 package authc
 
 import (
+	"errors"
 	"fmt"
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 	"w4s/models"
 )
@@ -20,6 +22,7 @@ type TokenDetail struct {
 
 // GenerateJWT creates a new token to the client
 func GenerateJWT(user models.User) (string, error) {
+	fmt.Println("gerando token")
 	user.Token=""
 	claims:=models.Claim{
 		UserEmail:user.Email,
@@ -31,74 +34,63 @@ func GenerateJWT(user models.User) (string, error) {
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(os.Getenv("token_password")))
+	tokenpass, err:=os.LookupEnv("TOKEN_PASSWORD")
+	fmt.Println(tokenpass)
+	if err {
+		fmt.Println("sdasdas",tokenpass)
+	}
+	return token.SignedString([]byte(os.Getenv("TOKEN_PASSWORD")))
 }
 
 // ValidateToken validate a JWT
-func ValidateToken(user models.User,c *gin.Context) (bool, error) {
-	valid, err := TokenInfos(user.Token, c)
-	if err != nil {
-		return false, err
-	}
-	ret := valid.Active
-	return ret, nil
-}
 
-// TokenInfos return ifos of JWT
-func TokenInfos(tokenString string, c *gin.Context) (TokenDetail, error) {
-	// mySigningKey := []byte(secret)
-	// Token from another example.  This token is expired
-	fmt.Println(tokenString)
+func ValidateToken(c *gin.Context) bool {
+	userToken := c.Request.Header.Get("Authorization")
 	detail := TokenDetail{
 		Valid:  true,
-		Active: true,
+	//	Active: true,
 	}
-	//Review this part ! -REVER ESTA PARTE
-	token, err := jwt.ParseWithClaims(tokenString, &models.Claim{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte("fiscaluno"), nil
-	})
+	split := strings.Split(userToken, " ")
+	if len(split) != 2 || split[0] != "Bearer" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "não é um token Bearer",
+		})
+		return false
+	}
+	token, err := jwt.ParseWithClaims(split[1], &models.Claim{}, func(token *jwt.Token) (interface{}, error) { return os.Getenv("TOKEN_PASSWORD"), nil })
+	/*if err != nil || token.Valid != true {
+		c.JSON(http.StatusOK, gin.H{
+			"error":"token invalidou ou expirado",
+		})
+		return false
+	}*/
 	if token.Valid {
-		fmt.Println("Acesso permitido")
-		detail.Note = "1"
+		fmt.Println("You look nice today")
+		return true
 	} else if ve, ok := err.(*jwt.ValidationError); ok {
 		detail.Valid = false
 		if ve.Errors&jwt.ValidationErrorMalformed != 0 {
-			fmt.Println("Token invalido")
-			c.JSON(http.StatusBadRequest, gin.H{
-				"error": "Token de acesso invalido",
-			})
-			detail.Valid = false
-			detail.Active = false
-			detail.Note = "2"
-			return detail, nil
+			fmt.Println("That's not even a token")
+			return false
 		} else if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
 			// Token is either expired or not active yet
-			fmt.Println("Token expirado")
-			c.JSON(http.StatusBadRequest, gin.H{
-				"error": "Seu acesso expirou, por favor entre novamente",
-			})
-			detail.Active = false
-			detail.Note = "3"
-			return detail, nil
+			fmt.Println("Timing is everything")
+			c.JSON(http.StatusUnauthorized, errors.New("Token expirado"))
+			//detail.Active = false
+			return false
+
 		} else {
-			fmt.Println("1-Couldn't handle this token:", err)
-			c.JSON(http.StatusBadRequest, gin.H{
-				"error": err.Error(),
-			})
-			detail.Active = false
-			detail.Note = err.Error()
-			return detail, err
+			fmt.Println("Couldn't handle this token:", err)
+			c.JSON(http.StatusUnauthorized, err)
+			c.JSON(http.StatusUnauthorized, gin.H{"Couldn't handle this token": err})
+			return false
 		}
 	} else {
-		fmt.Println("2-Couldn't handle this token:", err)
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
-
+		fmt.Println("Couldn't handle this token:", err)
+		c.JSON(http.StatusUnauthorized, gin.H{"Couldn't handle this token": err})
 		detail.Valid = false
-		detail.Active = false
-		detail.Note = err.Error()
-		return detail, err
+		//detail.Active = false
+		return false
 	}
-	return detail, nil
+	return detail.Valid
 }
