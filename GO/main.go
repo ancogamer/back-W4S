@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"w4s/DB"
@@ -16,20 +15,9 @@ type Authc struct {
 }
 func AuthRequired(c *gin.Context)  {
 	var input Authc
-		fmt.Println(input.Token)
-	if err:=c.ShouldBindJSON(&input);err!=nil{
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":err.Error(),
-		})
-		return
-	}
+
 		// We want to make sure the token is set, bail if not
-		if input.Token ==""  {
-			c.JSON(http.StatusUnauthorized, gin.H{
-				"Usuario":"não logado",
-			})
-			return
-		}
+
 
 		//Fill up the Struct User model /Preenchendo o model User
 		user := models.User{Email:input.Email,
@@ -39,10 +27,13 @@ func AuthRequired(c *gin.Context)  {
 		if err!=nil{
 			c.JSON(http.StatusConflict,err)
 		}
-		authc.ValidateToken(c)
+		authcs:=authc.ValidateToken(c)
+		if authcs==true{
+			return
+			c.Next()
+		}
+	return
 
-		return
-		c.Next()
 }
 
 func main() {
