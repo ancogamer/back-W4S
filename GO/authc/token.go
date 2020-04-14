@@ -44,8 +44,7 @@ func ValidateToken(c *gin.Context) {
 	//Verifing the token/ verificando o token
 	token, err := jwt.ParseWithClaims(split[1], &models.Claim{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(os.Getenv("TOKEN_PASSWORD")), nil
-	},
-	)
+	})
 	_, ok := token.Claims.(*models.Claim)
 	if ok && token.Valid {
 		return

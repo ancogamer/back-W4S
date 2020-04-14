@@ -29,6 +29,10 @@ func main() {
 	{
 		authorized.GET("/searchall", controllers.FindUser)
 		authorized.GET("/search", controllers.FindUserByNick)
+		authorized.PATCH("/update/user", controllers.UpdateUser)
+		//sendo feitos
+		/*authorized.PATCH("/update/user/email",controllers.UpdateUser)
+		authorized.PATCH("/update/user/password",controllers.UpdateUser)*/
 	}
 
 	err := r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080") // listando e escutando no localhost:8080
