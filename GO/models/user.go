@@ -27,11 +27,8 @@ func (u *User) BeforeSave() error {
 	if len(u.Password) > 60 {
 		return errors.New("Senha maior que 60 characteres")
 	}
-	fmt.Println("senha informada: ", u.Password)
 	hashedPassword, err := security.Hash(u.Password)
-	fmt.Println("hashed em bytes: ", hashedPassword)
 	if err != nil {
-		return err
 		panic("Password hash")
 	}
 	u.Password = string(hashedPassword)
