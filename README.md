@@ -1,6 +1,6 @@
 # W4S
 School work, using GO lang on backend, and Flutter at frontend. 
-Frontend end : https://github.com/saulogp/fat-was
+Frontend end : https://github.com/saulogp/find-a-table
 
 
 
