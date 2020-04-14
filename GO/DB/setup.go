@@ -7,7 +7,6 @@ import (
 	"w4s/models"
 )
 
-
 func SetupModels() *gorm.DB {
 	db, err := gorm.Open("mysql",
 		"Saletti:Saletti123@/w4s?charset=utf8&parseTime=True&loc=Local")
@@ -15,11 +14,7 @@ func SetupModels() *gorm.DB {
 	if err != nil {
 		panic("Failed to connect to database!")
 	}
-
-	db.AutoMigrate((&models.User{}))
-	db.AutoMigrate((&models.Profile{}))
-
-
-
+	db.AutoMigrate(&models.User{})
+	db.AutoMigrate(&models.Profile{})
 	return db
 }
