@@ -22,7 +22,7 @@ func Login(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var input LoginUser
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
 		return
@@ -35,13 +35,13 @@ func Login(c *gin.Context) {
 	err := login.Validate("login") //Validating the login inputs / Validando os inputs do login
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusNotImplemented, gin.H{
-			"err": err,
+			"error": err,
 		})
 		return
 	}
 	if err := db.Where("email = ?", input.Email).Find(&login).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-			"erro:": "Email ou senha incorretos",
+			"error:": "Email ou senha incorretos",
 		})
 		return
 	}
@@ -50,7 +50,7 @@ func Login(c *gin.Context) {
 	if err := security.VerifyPassword(login.Password, input.Password); err != nil {
 		fmt.Println(login.Password, input.Password)
 		fmt.Println(err)
-		c.JSON(http.StatusUnauthorized, gin.H{
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 			"error": "senha incorreta",
 		})
 		return
@@ -58,12 +58,12 @@ func Login(c *gin.Context) {
 	token, err := authc.GenerateJWT(login)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			"erro": "Não foi possível o acesso, tente mais tarde",
+			"error": "Não foi possível o acesso, tente mais tarde",
 		})
 		return
 	}
 	//Saving the new token on the user(Database)/ Salvando o novo token no usuario(Database)
 	db.Model(login).Update("token", token)
-	c.JSON(http.StatusOK, token)
+	c.JSON(http.StatusOK, gin.H{"success": token})
 	return
 }
