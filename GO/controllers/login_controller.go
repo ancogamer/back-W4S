@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 	"w4s/authc"
 	"w4s/models"
@@ -48,8 +47,6 @@ func Login(c *gin.Context) {
 	//(hashadpassword,password),
 	//hashad = crypted password, password is the normal one/ hashadpassword = é a senha cryptografada, passoword é a senha normal
 	if err := security.VerifyPassword(login.Password, input.Password); err != nil {
-		fmt.Println(login.Password, input.Password)
-		fmt.Println(err)
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 			"error": "senha incorreta",
 		})
