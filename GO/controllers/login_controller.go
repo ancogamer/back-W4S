@@ -14,12 +14,14 @@ import (
 type LoginUser struct {
 	Email    string `json:"email" binding:"required" `
 	Password string `json:"password" binding:"required"`
+	Token    string `json:"token"`
 }
 
 // Login is the signIn method
 func Login(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var input LoginUser
+	input.Token = c.Request.Header.Get("Authorization")
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
