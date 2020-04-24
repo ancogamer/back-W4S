@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 	"w4s/authc"
 	"w4s/models"
@@ -13,14 +12,17 @@ import (
 
 //
 type LoginUser struct {
-	Email    string `json:"email" binding:"required" `
+	Email    string `json:"email" `
+	Nickname string `json:"nickname" `
 	Password string `json:"password" binding:"required"`
+	Token    string `json:"token"`
 }
 
 // Login is the signIn method
 func Login(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var input LoginUser
+	input.Token = c.Request.Header.Get("Authorization")
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
@@ -30,6 +32,7 @@ func Login(c *gin.Context) {
 	//Struct to store the data recovered from the database /Struct para armazenar os dados da base de dados
 	login := models.User{
 		Email:    input.Email,
+		Nickname: input.Nickname,
 		Password: input.Password,
 	}
 	err := login.Validate("login") //Validating the login inputs / Validando os inputs do login
@@ -39,17 +42,26 @@ func Login(c *gin.Context) {
 		})
 		return
 	}
-	if err := db.Where("email = ?", input.Email).Find(&login).Error; err != nil {
-		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-			"error:": "Email ou senha incorretos",
-		})
-		return
+	//Checking by nickname
+	if login.Email == "" {
+		if err := db.Where("nickname = ?", input.Nickname).Find(&login).Error; err != nil {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+				"error:": "Nickname ou senha incorretos",
+			})
+			return
+		}
+	} else {
+		//Checking by email
+		if err := db.Where("email = ?", input.Email).Find(&login).Error; err != nil {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+				"error:": "Email ou senha incorretos",
+			})
+			return
+		}
 	}
 	//(hashadpassword,password),
 	//hashad = crypted password, password is the normal one/ hashadpassword = é a senha cryptografada, passoword é a senha normal
 	if err := security.VerifyPassword(login.Password, input.Password); err != nil {
-		fmt.Println(login.Password, input.Password)
-		fmt.Println(err)
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 			"error": "senha incorreta",
 		})

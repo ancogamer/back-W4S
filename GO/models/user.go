@@ -2,13 +2,13 @@ package models
 
 import (
 	"errors"
-	"fmt"
 	"strings"
 	"w4s/security"
 
 	"github.com/badoux/checkmail"
 )
 
+//Struct from the User
 type User struct {
 	ID        uint64  `json:"id" gorm:"type:bigint;primary_key; AUTO_INCREMENT"`
 	Nickname  string  `json:"nickname "`
@@ -21,6 +21,8 @@ type User struct {
 	Profile   Profile `json:"profile,omitempty"`
 	Token     string  `json:"token";sql:"-"`
 }
+
+//With biding required in all fields/ Com o biding obrigatorio em todos os campos
 type UserInput struct {
 	Nickname string `json:"nickname" binding:"required"`
 	Email    string `json:"email" binding:"required" `
@@ -28,6 +30,8 @@ type UserInput struct {
 	Name     string `json:"name" binding:"required"`
 	Lastname string `json:"lastname" binding:"required"`
 }
+
+//With out the biding required in all fields/ Sem o biding obrigatorio em todos os campos
 type UserInputUpdate struct {
 	Nickname string `json:"nickname"`
 	Email    string `json:"email"`
@@ -37,18 +41,16 @@ type UserInputUpdate struct {
 }
 
 // BeforeSave hash the user password
-func (u *User) BeforeSave() error {
-	if len(u.Password) > 60 {
-		return errors.New("Senha maior que 60 characteres")
+func BeforeSave(password string) (string, error) {
+	if len(password) > 60 {
+		return "", errors.New("Senha maior que 60 characteres")
 	}
-	hashedPassword, err := security.Hash(u.Password)
+	hashedPassword, err := security.Hash(password)
 	if err != nil {
 		panic("Password hash")
 	}
-	u.Password = string(hashedPassword)
-	fmt.Println("password salva na struct passada: ", u.Password)
-	return nil
-
+	password = string(hashedPassword)
+	return password, nil
 }
 
 // Validate validates the inputs
@@ -61,19 +63,17 @@ func (u *User) Validate(action string) error {
 		if err := checkmail.ValidateFormat(u.Email); err != nil {
 			return errors.New("Invalid email")
 		}
-
 	case "login":
-		if u.Email == "" {
-			return errors.New("Email is required")
+		if u.Nickname == "" && u.Email == "" {
+			return errors.New("Preencha este campo")
 		}
-		if err := checkmail.ValidateFormat(u.Email); err != nil {
+		if err := checkmail.ValidateFormat(u.Email); u.Email != "" && err != nil {
 			return errors.New("Invalid email")
 		}
 		if u.Password == "" {
 			return errors.New("Password is required")
 		}
 	default:
-
 	}
 	return nil
 }

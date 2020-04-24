@@ -21,15 +21,17 @@ func main() {
 		c.Set("db", db)
 		c.Next()
 	})
-	authorized := r.Group("/v2")
+	authorized := r.Group("/v1")
 	r.POST("/login", controllers.Login)
-	//Cria usuario
 	r.POST("/user", controllers.CreateUser)
 	authorized.Use(middleware.AuthRequired)
 	{
 		authorized.GET("/searchall", controllers.FindUser)
 		authorized.GET("/search", controllers.FindUserByNick)
 		authorized.PATCH("/update/user", controllers.UpdateUser)
+		authorized.PATCH("/logoff", controllers.Logoff)
+		authorized.DELETE("/delete/user", controllers.SoftDeletedUserByNick)
+
 		//sendo feitos
 		/*authorized.PATCH("/update/user/email",controllers.UpdateUser)
 		authorized.PATCH("/update/user/password",controllers.UpdateUser)*/
