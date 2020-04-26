@@ -14,6 +14,7 @@ func SetupModels() *gorm.DB {
 	if err != nil {
 		panic("Failed to connect to database!")
 	}
+	db.AutoMigrate(&models.TOTPkey{})
 	db.AutoMigrate(&models.LogoffListTokens{})
 	db.AutoMigrate(&models.User{})
 	db.AutoMigrate(&models.Profile{})

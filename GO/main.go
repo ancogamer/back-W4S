@@ -23,7 +23,8 @@ func main() {
 	})
 	authorized := r.Group("/v1")
 	r.POST("/login", controllers.Login)
-	r.POST("/user", controllers.CreateUser)
+	r.POST("/user/create", controllers.CreateUser)
+	r.POST("/user/confirm", controllers.ConfirmUserTOTP)
 	authorized.Use(middleware.AuthRequired)
 	{
 		authorized.GET("/searchall", controllers.FindUser)

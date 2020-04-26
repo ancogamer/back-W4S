@@ -1,27 +1,15 @@
 package controllers
 
 import (
-	"net/http"
-	"w4s/authc"
-	"w4s/models"
-	"w4s/security"
-
 	"github.com/gin-gonic/gin"
-	"github.com/jinzhu/gorm"
+	"net/http"
+	"w4s/handlers"
+	"w4s/models"
 )
-
-//
-type LoginUser struct {
-	Email    string `json:"email" `
-	Nickname string `json:"nickname" `
-	Password string `json:"password" binding:"required"`
-	Token    string `json:"token"`
-}
 
 // Login is the signIn method
 func Login(c *gin.Context) {
-	db := c.MustGet("db").(*gorm.DB)
-	var input LoginUser
+	var input models.LoginUser
 	input.Token = c.Request.Header.Get("Authorization")
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
@@ -42,40 +30,11 @@ func Login(c *gin.Context) {
 		})
 		return
 	}
-	//Checking by nickname
-	if login.Email == "" {
-		if err := db.Where("nickname = ?", input.Nickname).Find(&login).Error; err != nil {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-				"error:": "Nickname ou senha incorretos",
-			})
-			return
-		}
-	} else {
-		//Checking by email
-		if err := db.Where("email = ?", input.Email).Find(&login).Error; err != nil {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-				"error:": "Email ou senha incorretos",
-			})
-			return
-		}
+	//Separating the where sql find, on other file, so i can use this func in other places if need.
+	token := handlers.LoginFind(c, login, input)
+	if token != "" {
+		c.JSON(http.StatusOK, gin.H{"success": token})
 	}
-	//(hashadpassword,password),
-	//hashad = crypted password, password is the normal one/ hashadpassword = é a senha cryptografada, passoword é a senha normal
-	if err := security.VerifyPassword(login.Password, input.Password); err != nil {
-		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-			"error": "senha incorreta",
-		})
-		return
-	}
-	token, err := authc.GenerateJWT(login)
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
-			"error": "Não foi possível o acesso, tente mais tarde",
-		})
-		return
-	}
-	//Saving the new token on the user(Database)/ Salvando o novo token no usuario(Database)
-	db.Model(login).Update("token", token)
-	c.JSON(http.StatusOK, gin.H{"success": token})
+
 	return
 }

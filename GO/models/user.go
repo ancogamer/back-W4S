@@ -20,6 +20,8 @@ type User struct {
 	IDProfile uint64  `json:"author_id,omitempty" gorm:"null"`
 	Profile   Profile `json:"profile,omitempty"`
 	Token     string  `json:"token";sql:"-"`
+	Actived   bool    `json:"actived" gorm:"type:BOOLEAN"`
+	Created   int64   `json:"created"`
 }
 
 //With biding required in all fields/ Com o biding obrigatorio em todos os campos
@@ -42,9 +44,6 @@ type UserInputUpdate struct {
 
 // BeforeSave hash the user password
 func BeforeSave(password string) (string, error) {
-	if len(password) > 60 {
-		return "", errors.New("Senha maior que 60 characteres")
-	}
 	hashedPassword, err := security.Hash(password)
 	if err != nil {
 		panic("Password hash")
@@ -56,6 +55,23 @@ func BeforeSave(password string) (string, error) {
 // Validate validates the inputs
 func (u *User) Validate(action string) error {
 	switch strings.ToLower(action) {
+	case "createuser":
+		if u.Email == "" {
+			return errors.New("Email is required")
+		}
+		if err := checkmail.ValidateFormat(u.Email); err != nil {
+			return errors.New("Invalid email")
+		}
+		if u.Password == "" {
+			return errors.New("Password is required")
+		}
+		if len(u.Password) > 60 {
+			return errors.New("Senha maior que 60 characteres")
+		}
+		if len(u.Password) < 5 {
+			return errors.New("Senha menor que 5 characteres")
+		}
+
 	case "updateEmail":
 		if u.Email == "" {
 			return errors.New("Email is required")

@@ -6,6 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
+	"time"
+	"w4s/handlers"
 	"w4s/models"
 )
 
@@ -27,6 +29,7 @@ func CreateUser(c *gin.Context) {
 		Password: input.Password,
 		Name:     input.Name,
 		Lastname: input.Lastname,
+		Actived:  false,
 		Token:    "",
 	}
 	err := user.Validate("") //Validating the inputs/ Validando os inputs
@@ -43,82 +46,30 @@ func CreateUser(c *gin.Context) {
 		})
 		return
 	}
+	user.Created = time.Now().Unix()
 	//Saving the new User on the database/ Salvando o novo usuario na base de dados
 	if dbc := db.Create(&user); dbc.Error != nil { //Return the error by JSON / Retornando o erro por JSON
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": dbc.Error})
 		return
 	} //Return the post data if is ok, by JSON/ Retornando o que foi postado se tudo ocorreu certo
-	c.JSON(http.StatusOK, gin.H{"success": user})
+	ConfirmationEmail(user.Email, c)
+	c.JSON(http.StatusOK, gin.H{
+		"waiting": "Verifique seu email !",
+	})
 	return
+}
+func ConfirmUserTOTP(c *gin.Context) {
+	handlers.ConfirmUserTOTP1(c)
 }
 func UpdateUser(c *gin.Context) {
-	db := c.MustGet("db").(*gorm.DB)
-	// Get model if exist
-	var user models.User
-	if err := db.Where("nickname = ?", c.Query("nickname")).First(&user).Error; err != nil {
-		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
-			"error": "Registro não encontrado",
-		})
-		return
-	}
-	// Validate input
-	var input models.UserInputUpdate
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	if err := db.Model(&user).Updates(input).Error; err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"success": user})
+	handlers.UpdateUser1(c)
 }
-
-//Find all users on the database
 func FindUser(c *gin.Context) {
-	db := c.MustGet("db").(*gorm.DB)
-	var users []models.User
-	if err := db.Where("deleted = ?", "0").Find(&users).Error; err != nil {
-		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
-			"error": "nenhum registro encontrado",
-		})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{
-		"success": users,
-	})
-	return
-
+	handlers.FindUser1(c)
 }
-
-//Find a user by his(her) nickname/Encontrando um usuario pelo seu nick(url)
 func FindUserByNick(c *gin.Context) {
-	db := c.MustGet("db").(*gorm.DB)
-	var user models.User
-	if err := db.Where("nickname = ? AND deleted = ?", c.Query("nickname"), "0").First(&user).Error; err != nil {
-		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
-			"error": "Registro não encontrado",
-		})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{
-		"success": user,
-	})
+	handlers.FindUserByNick1(c)
 }
-
-//Maria DB treats false and true as tinyint, 0 for non deleted, 1 for deleted
 func SoftDeletedUserByNick(c *gin.Context) {
-	db := c.MustGet("db").(*gorm.DB)
-	// Get model if exist
-	var user models.User
-	if err := db.Where("nickname = ? AND deleted = ?", c.Query("nickname"), "0").First(&user).Error; err != nil {
-		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
-			"error": "Registro não encontrado",
-		})
-		return
-	}
-	db.Model(&user).Update("deleted", true)
-	c.JSON(http.StatusOK, gin.H{"success": "true"})
+	handlers.SoftDeletedUserByNick1(c)
 }
