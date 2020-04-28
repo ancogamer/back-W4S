@@ -13,10 +13,10 @@ import (
 )
 
 // GenerateJWT creates a new token to the client
-func GenerateJWT(user models.User, experatingtime time.Duration) (string, error) {
+func GenerateJWT(userEmail string, experatingtime time.Duration) (string, error) {
 	// Create the Claims
 	claims := models.Claim{
-		User: user.Email,
+		UserEmail: userEmail,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * experatingtime).Unix(),
 			Issuer:    "Find A Table System",

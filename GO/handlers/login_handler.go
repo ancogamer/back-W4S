@@ -36,7 +36,7 @@ func LoginFind(c *gin.Context, login models.User, input models.LoginUser) string
 		})
 		return ""
 	}
-	token, err := authc.GenerateJWT(login, 24)
+	token, err := authc.GenerateJWT(login.Email, 86400)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 			"error": "Não foi possível o acesso, tente mais tarde",
