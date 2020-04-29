@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="79136927-06c9-47f6-be4f-28c7e8364e57" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/users_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/users_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/tokens.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/tokens.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +137,8 @@
     <MESSAGE value="Small Features and Fix.&#10;Fix: Login&#10;Features: Login with nick or email.&#10;==========================================================" />
     <MESSAGE value="Small Features and Fix.&#10;Fix: Update, Login,CreateUser&#10;Features: Create Account with Email verification.&#10;==========================================================" />
     <MESSAGE value="Small Features and Fix.&#10;Fix: CreateUser, password validation&#10;&#10;==========================================================" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small Features and Fix.&#10;Fix: CreateUser, password validation&#10;&#10;==========================================================" />
+    <MESSAGE value="Small Fix.&#10;Fix: CreateUser&#10;&#10;==========================================================" />
+    <option name="LAST_COMMIT_MESSAGE" value="Small Fix.&#10;Fix: CreateUser&#10;&#10;==========================================================" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -189,10 +190,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="658" y="153" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1587859312394" />
-    <state x="224" y="0" key="CommitChangelistDialog2" timestamp="1588178502917">
+    <state x="224" y="0" key="CommitChangelistDialog2" timestamp="1588180497252">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="224" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1588178502917" />
+    <state x="224" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1588180497252" />
     <state x="315" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1587860838724" />
     <state x="450" y="160" key="EnvironmentVariablesDialog" timestamp="1588156633274">
       <screen x="0" y="0" width="1366" height="728" />
@@ -203,25 +204,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1042" y="221" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1587837721396" />
-    <state width="1323" height="127" key="GridCell.Tab.0.bottom" timestamp="1588180298107">
+    <state width="1323" height="127" key="GridCell.Tab.0.bottom" timestamp="1588181752653">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="127" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1588180298107" />
+    <state width="1323" height="127" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1588181752653" />
     <state width="1865" height="233" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587860441971" />
-    <state width="1323" height="127" key="GridCell.Tab.0.center" timestamp="1588180298107">
+    <state width="1323" height="127" key="GridCell.Tab.0.center" timestamp="1588181752653">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="127" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1588180298107" />
+    <state width="1323" height="127" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1588181752653" />
     <state width="1865" height="233" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587860441971" />
-    <state width="1323" height="127" key="GridCell.Tab.0.left" timestamp="1588180298107">
+    <state width="1323" height="127" key="GridCell.Tab.0.left" timestamp="1588181752652">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="127" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1588180298107" />
+    <state width="1323" height="127" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1588181752652" />
     <state width="1865" height="233" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587860441971" />
-    <state width="1323" height="127" key="GridCell.Tab.0.right" timestamp="1588180298107">
+    <state width="1323" height="127" key="GridCell.Tab.0.right" timestamp="1588181752653">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="127" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1588180298107" />
+    <state width="1323" height="127" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1588181752653" />
     <state width="1865" height="233" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587860441971" />
     <state width="1865" height="280" key="GridCell.Tab.1.bottom" timestamp="1587860363507">
       <screen x="0" y="0" width="1920" height="1040" />
