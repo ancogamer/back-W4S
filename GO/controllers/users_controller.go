@@ -64,7 +64,12 @@ func CreateUser(c *gin.Context) {
 func ConfirmUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var UserToken models.AccountCreatedToken
-	if err := db.Where("token = ?", c.Query("e")).First(&UserToken).Error; err != nil {
+	if err := db.Where("token = ?", c.Query("t")).First(&UserToken).Error; err != nil {
+		UserToken.Token = c.Query("t")
+		if err := db.Create(&UserToken).Error; err != nil {
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+			return
+		}
 		if err := authc.ValidateToken(c.Query("t")); err != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
 			return
