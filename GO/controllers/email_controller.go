@@ -2,30 +2,46 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
+	"net/http"
 	"net/smtp"
 	"os"
 	"w4s/authc"
+	"w4s/models"
 )
 
-func ConfirmationEmail(userEmail string, c *gin.Context) {
-	authc.GenerateJWT(userEmail,14400)
-	SendEmail(userEmail)
-/*	if e := config.SendMail([]string{user.EmailID}, "Verification", emailBody); e != nil {
-		err = fmt.Errorf("Error in sending mail %v", e)
-		log.Println(err)
-		// since there was error in sending mail
-		// hence the user can't sign up
-		// so need to delete the user from db
-		// so that he/she can try again
-		// delete the user details from the db
-		if err := s.DB.DeleteUserDetails(user.EmailID); err != nil {
-			log.Println("Error in deleting user details upon failed verification: ", err)
+func ConfirmationEmail(userEmail string, c *gin.Context) error {
+	userSingUpToken, err := authc.GenerateJWT(userEmail, 14400)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+		return err
+	}
+	if err := SendEmail(userEmail, userSingUpToken); err != nil {
+		//Declaring a new user to be populated/
+		//Declarando um novo usuario que será populado
+		var user models.User
+		//Declaring and inicializing a userAccountCreatedToken
+		//Declarando e inicializando uma variavel userAccount
+		userAccountCreatedToken := models.AccountCreatedToken{
+			Token: userSingUpToken,
 		}
-		http.Error(w, err.Error(), 500)*/
-		return
-
+		db := c.MustGet("db").(*gorm.DB) //Establish conection with database/Estabelecendo conexão com o banco de dados
+		if err := db.Create(userAccountCreatedToken).Error; err != nil {
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+			return err
+		}
+		if err := db.Where("email = ?", userEmail).Find(&user).Error; err != nil {
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+			return err
+		}
+		db.Delete(&user)
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+		return err
+	}
+	return nil
 }
-func SendEmail(userEmail string, userSingup string) error{
+func SendEmail(userEmail string, userSingupToken string) error {
+	userURL := "http://localhost:8080/user/confirm?e=" + userEmail + "&t=" + userSingupToken
 	//Thanks https://blog.mailtrap.io/golang-send-email/#Sending_emails_with_smtpSendMail for the code
 	// Choose auth method and set it up
 	auth := smtp.PlainAuth("", "findatablew4s@gmail.com", os.Getenv("EMAIL_PASSWORD"), "smtp.gmail.com")
@@ -36,10 +52,10 @@ func SendEmail(userEmail string, userSingup string) error{
 		"\r\n" +
 		"Bem vindo ! obrigado por criar uma conta no Find a Table - RPG !\r\n" +
 		"\r\n" +
-		"Clique aqui para confirmar sua conta = " + userSingup +
+		"Clique aqui para confirmar sua conta = " + userURL +
 		"\r\n" +
-		"Caso não consiga, é só copiar o link e colar no navegador ! "+
-		"\r\n"+
+		"Caso não consiga, é só copiar o link e colar no navegador ! " +
+		"\r\n" +
 		"Caso não tenha criado, por favor entrar em contato com findatablew4s@gmail.com, com o Assunto : Conta Criada Indevidamente ")
 	err := smtp.SendMail("smtp.gmail.com:587", auth, "findatablew4s@gmail.com", to, msg)
 	if err != nil {

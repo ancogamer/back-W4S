@@ -17,13 +17,16 @@ func Login(c *gin.Context) {
 		})
 		return
 	}
-	//Struct to store the data recovered from the database /Struct para armazenar os dados da base de dados
+	//Struct to store the data recovered from the database
+	//Struct para armazenar os dados da base de dados
 	login := models.User{
 		Email:    input.Email,
 		Nickname: input.Nickname,
 		Password: input.Password,
 	}
-	err := login.Validate("login") //Validating the login inputs / Validando os inputs do login
+	err := login.Validate("login")
+	//Validating the login inputs
+	//Validando os inputs do login
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusNotImplemented, gin.H{
 			"error": err,
@@ -35,6 +38,5 @@ func Login(c *gin.Context) {
 	if token != "" {
 		c.JSON(http.StatusOK, gin.H{"success": token})
 	}
-
 	return
 }

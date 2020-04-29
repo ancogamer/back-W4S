@@ -4,11 +4,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
+	"time"
 	"w4s/models"
 )
 
 //Maria DB treats false and true as tinyint, 0 for non deleted, 1 for deleted
-func SoftDeletedUserByNick1(c *gin.Context) {
+func SoftDeletedUserByNick(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	// Get model if exist
 	var user models.User
@@ -18,6 +19,6 @@ func SoftDeletedUserByNick1(c *gin.Context) {
 		})
 		return
 	}
-	db.Model(&user).Update("deleted", true)
+	db.Model(&user).Update(map[string]interface{}{"deleted": true, "deleted_at": time.Now().Unix(), "actived": false})
 	c.JSON(http.StatusOK, gin.H{"success": "true"})
 }

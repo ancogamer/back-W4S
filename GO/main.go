@@ -24,7 +24,8 @@ func main() {
 	authorized := r.Group("/v1")
 	r.POST("/login", controllers.Login)
 	r.POST("/user/create", controllers.CreateUser)
-	r.POST("/user/confirm", controllers.ConfirmUserTOTP)
+	r.GET("/user/confirm", controllers.ConfirmUser)
+
 	authorized.Use(middleware.AuthRequired)
 	{
 		authorized.GET("/searchall", controllers.FindUser)
@@ -32,7 +33,6 @@ func main() {
 		authorized.PATCH("/update/user", controllers.UpdateUser)
 		authorized.PATCH("/logoff", controllers.Logoff)
 		authorized.DELETE("/delete/user", controllers.SoftDeletedUserByNick)
-
 		//sendo feitos
 		/*authorized.PATCH("/update/user/email",controllers.UpdateUser)
 		authorized.PATCH("/update/user/password",controllers.UpdateUser)*/

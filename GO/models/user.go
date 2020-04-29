@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"github.com/jinzhu/gorm"
 	"strings"
 	"w4s/security"
 
@@ -10,18 +11,17 @@ import (
 
 //Struct from the User
 type User struct {
-	ID        uint64  `json:"id" gorm:"type:bigint;primary_key; AUTO_INCREMENT"`
+	gorm.Model
 	Nickname  string  `json:"nickname "`
 	Email     string  `json:"email" gorm:"type:varchar(100);unique_index" `
 	Password  string  `json:"password"`
 	Name      string  `json:"name"`
 	Lastname  string  `json:"lastname"`
 	Deleted   bool    `json:"deleted" gorm:"type:BOOLEAN"`
+	Actived   bool    `json:"actived" gorm:"type:BOOLEAN"`
 	IDProfile uint64  `json:"author_id,omitempty" gorm:"null"`
 	Profile   Profile `json:"profile,omitempty"`
 	Token     string  `json:"token";sql:"-"`
-	Actived   bool    `json:"actived" gorm:"type:BOOLEAN"`
-	Created   int64   `json:"created"`
 }
 
 //With biding required in all fields/ Com o biding obrigatorio em todos os campos

@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
-	"time"
+	"w4s/authc"
 	"w4s/handlers"
 	"w4s/models"
 )
@@ -30,6 +30,7 @@ func CreateUser(c *gin.Context) {
 		Name:     input.Name,
 		Lastname: input.Lastname,
 		Actived:  false,
+		Deleted:  false,
 		Token:    "",
 	}
 	err := user.Validate("") //Validating the inputs/ Validando os inputs
@@ -46,30 +47,57 @@ func CreateUser(c *gin.Context) {
 		})
 		return
 	}
-	user.Created = time.Now().Unix()
 	//Saving the new User on the database/ Salvando o novo usuario na base de dados
 	if dbc := db.Create(&user); dbc.Error != nil { //Return the error by JSON / Retornando o erro por JSON
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": dbc.Error})
 		return
 	} //Return the post data if is ok, by JSON/ Retornando o que foi postado se tudo ocorreu certo
-	ConfirmationEmail(user.Email, c)
+	if err := ConfirmationEmail(user.Email, c); err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{
 		"waiting": "Verifique seu email !",
 	})
 	return
 }
-func ConfirmUserTOTP(c *gin.Context) {
-	handlers.ConfirmUserTOTP1(c)
+func ConfirmUser(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	var UserToken models.AccountCreatedToken
+	if err := db.Where("token = ?", c.Query("e")).First(&UserToken).Error; err != nil {
+		if err := authc.ValidateToken(c.Query("t")); err != nil {
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+			return
+		}
+		var user models.User
+		if err := db.Where("email = ?", c.Query("e")).First(&user).Error; err != nil {
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+				"error": "Registro não encontrado",
+			})
+			return
+		}
+		if err := db.Model(&user).Update("actived", true).Error; err != nil {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+			return
+		}
+		//Here i'm returnin the message of account confirmated !/ Aqui estou retornando a mensagem que a conta foi confirmada ! :D
+		//Future plains style with HTML and CSS, maybe some javascript too/ Planos futuros, estilizar com HTML e CSS, talvez um javascript junto
+		c.JSON(http.StatusOK, gin.H{"success": "Conta confirmada ! "})
+		return
+	}
+	c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "link já utilizado"})
+	return
 }
+
 func UpdateUser(c *gin.Context) {
-	handlers.UpdateUser1(c)
+	handlers.UpdateUser(c)
 }
 func FindUser(c *gin.Context) {
-	handlers.FindUser1(c)
+	handlers.FindUser(c)
 }
 func FindUserByNick(c *gin.Context) {
-	handlers.FindUserByNick1(c)
+	handlers.FindUserByNick(c)
 }
 func SoftDeletedUserByNick(c *gin.Context) {
-	handlers.SoftDeletedUserByNick1(c)
+	handlers.SoftDeletedUserByNick(c)
 }

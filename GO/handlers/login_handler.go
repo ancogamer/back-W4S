@@ -13,20 +13,25 @@ func LoginFind(c *gin.Context, login models.User, input models.LoginUser) string
 	db := c.MustGet("db").(*gorm.DB)
 	//Checking by nickname
 	if login.Email == "" {
-		if err := db.Where("nickname = ?", input.Nickname).Find(&login).Error; err != nil {
+		if err := db.Where("nickname = ? ", input.Nickname, true).Find(&login).Error; err != nil {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 				"error:": "Nickname ou senha incorretos",
 			})
 			return ""
 		}
-	} else {
-		//Checking by email
-		if err := db.Where("email = ?", input.Email).Find(&login).Error; err != nil {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-				"error:": "Email ou senha incorretos",
-			})
-			return ""
-		}
+	}
+	//Checking by email
+	if err := db.Where("email = ? ", input.Email).Find(&login).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"error:": "Email ou senha incorretos",
+		})
+		return ""
+	}
+	if login.Actived == false {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"error": "Ative sua conta pelo link enviado no email !",
+		})
+		return ""
 	}
 	//(hashadpassword,password),
 	//hashad = crypted password, password is the normal one/ hashadpassword = é a senha cryptografada, passoword é a senha normal

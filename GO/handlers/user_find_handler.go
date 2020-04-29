@@ -8,7 +8,7 @@ import (
 )
 
 //Find all users on the database
-func FindUser1(c *gin.Context) {
+func FindUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var users []models.User
 	if err := db.Where("deleted = ?", "0").Find(&users).Error; err != nil {
@@ -24,10 +24,10 @@ func FindUser1(c *gin.Context) {
 }
 
 //Find a user by his(her) nickname/Encontrando um usuario pelo seu nick(url)
-func FindUserByNick1(c *gin.Context) {
+func FindUserByNick(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var user models.User
-	if err := db.Where("nickname = ? AND deleted = ?", c.Query("nickname"), "0").First(&user).Error; err != nil {
+	if err := db.Where("nickname = ? AND deleted = ? AND actived = ?", c.Query("nickname"), "0", "1").First(&user).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "Registro não encontrado",
 		})
