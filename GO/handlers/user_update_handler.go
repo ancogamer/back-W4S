@@ -24,22 +24,22 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 	if input.Password != "" {
-		changePassword(input.Password, c)
+		//		changePassword(input.Password, c)
 	}
 	if input.Email != "" {
-		changeEmail(input.Email, c)
+		//controllers.SendConfirmationChangeEmail(input.Email,c)
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Não é possível trocar o email"})
+		return
 	}
+	user.Password = ""
 	if err := db.Model(&user).Updates(input).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
 		return
 	}
-	user.Password = ""
 	c.JSON(http.StatusOK, gin.H{"success": user})
 	return
 }
-func changePassword(password string, c *gin.Context) {
 
-}
-func changeEmail(email string, c *gin.Context) {
+//func changePassword(password string, c *gin.Context) {
 
-}
+//}

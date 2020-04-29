@@ -33,7 +33,7 @@ func CreateUser(c *gin.Context) {
 		Deleted:  false,
 		Token:    "",
 	}
-	err := user.Validate("") //Validating the inputs/ Validando os inputs
+	err := user.Validate("createuser") //Validating the inputs/ Validando os inputs
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusNotImplemented, gin.H{
 			"error": err.Error(),
@@ -52,8 +52,8 @@ func CreateUser(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": dbc.Error})
 		return
 	} //Return the post data if is ok, by JSON/ Retornando o que foi postado se tudo ocorreu certo
-	if err := ConfirmationEmail(user.Email, c); err != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+	if err := SendConfirmationCreateAccountEmail(user.Email, c); err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{

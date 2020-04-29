@@ -25,6 +25,7 @@ func main() {
 	r.POST("/login", controllers.Login)
 	r.POST("/user/create", controllers.CreateUser)
 	r.GET("/user/confirm", controllers.ConfirmUser)
+	// r.GET("/user/confirm/emailchange",controllers.ConfirmAccountEmailChange)
 
 	authorized.Use(middleware.AuthRequired)
 	{

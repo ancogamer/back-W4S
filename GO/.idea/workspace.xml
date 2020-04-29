@@ -2,23 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="79136927-06c9-47f6-be4f-28c7e8364e57" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/middleware/middleware.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/profile.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/security/password.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/DB/setup.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authc/token.go" beforeDir="false" afterPath="$PROJECT_DIR$/authc/token.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/email_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/email_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/login_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/login_controller.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/users_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/users_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/login_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/login_handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/user_confirm_account_handler.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/user_delete_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user_delete_handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/user_find_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user_find_handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/handlers/user_update_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user_update_handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/tokens.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/tokens.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -151,7 +139,8 @@
     <MESSAGE value="Small Fixes and Features.&#10;Fix: User methods, UpdateUser,CreateUser.&#10;Features: SoftDeleted.&#10;==========================================================" />
     <MESSAGE value="Small Features.&#10; Features: Logoff.&#10;                                                          ==========================================================" />
     <MESSAGE value="Small Features and Fix.&#10;Fix: Login&#10;Features: Login with nick or email.&#10;==========================================================" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small Features and Fix.&#10;Fix: Login&#10;Features: Login with nick or email.&#10;==========================================================" />
+    <MESSAGE value="Small Features and Fix.&#10;Fix: Update, Login,CreateUser&#10;Features: Create Account with Email verification.&#10;==========================================================" />
+    <option name="LAST_COMMIT_MESSAGE" value="Small Features and Fix.&#10;Fix: Update, Login,CreateUser&#10;Features: Create Account with Email verification.&#10;==========================================================" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -203,10 +192,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="658" y="153" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1587859312394" />
-    <state x="224" y="0" key="CommitChangelistDialog2" timestamp="1588168577445">
+    <state x="224" y="0" key="CommitChangelistDialog2" timestamp="1588178438800">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="224" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1588168577445" />
+    <state x="224" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1588178438800" />
     <state x="315" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1587860838724" />
     <state x="450" y="160" key="EnvironmentVariablesDialog" timestamp="1588156633274">
       <screen x="0" y="0" width="1366" height="728" />
@@ -217,25 +206,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1042" y="221" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1587837721396" />
-    <state width="1323" height="230" key="GridCell.Tab.0.bottom" timestamp="1588168577942">
+    <state width="1323" height="127" key="GridCell.Tab.0.bottom" timestamp="1588178439089">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="230" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1588168577942" />
+    <state width="1323" height="127" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1588178439089" />
     <state width="1865" height="233" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587860441971" />
-    <state width="1323" height="230" key="GridCell.Tab.0.center" timestamp="1588168577941">
+    <state width="1323" height="127" key="GridCell.Tab.0.center" timestamp="1588178439089">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="230" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1588168577941" />
+    <state width="1323" height="127" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1588178439089" />
     <state width="1865" height="233" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587860441971" />
-    <state width="1323" height="230" key="GridCell.Tab.0.left" timestamp="1588168577941">
+    <state width="1323" height="127" key="GridCell.Tab.0.left" timestamp="1588178439088">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="230" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1588168577941" />
+    <state width="1323" height="127" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1588178439088" />
     <state width="1865" height="233" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587860441971" />
-    <state width="1323" height="230" key="GridCell.Tab.0.right" timestamp="1588168577941">
+    <state width="1323" height="127" key="GridCell.Tab.0.right" timestamp="1588178439089">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="230" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1588168577941" />
+    <state width="1323" height="127" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1588178439089" />
     <state width="1865" height="233" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587860441971" />
     <state width="1865" height="280" key="GridCell.Tab.1.bottom" timestamp="1587860363507">
       <screen x="0" y="0" width="1920" height="1040" />

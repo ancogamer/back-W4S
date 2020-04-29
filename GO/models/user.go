@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/jinzhu/gorm"
 	"strings"
+	"unicode"
 	"w4s/security"
 
 	"github.com/badoux/checkmail"
@@ -60,24 +61,23 @@ func (u *User) Validate(action string) error {
 			return errors.New("Email is required")
 		}
 		if err := checkmail.ValidateFormat(u.Email); err != nil {
-			return errors.New("Invalid email")
+			return errors.New("Digite um endereço de e-mail válido")
 		}
 		if u.Password == "" {
 			return errors.New("Password is required")
 		}
-		if len(u.Password) > 60 {
-			return errors.New("Senha maior que 60 characteres")
+		if len(u.Password) > 20 {
+			return errors.New("Insira uma senha valida")
 		}
-		if len(u.Password) < 5 {
-			return errors.New("Senha menor que 5 characteres")
+		if err := ValidatorPassword(u.Password); err != true {
+			return errors.New("Insira uma senha valida")
 		}
-
 	case "updateEmail":
 		if u.Email == "" {
 			return errors.New("Email is required")
 		}
 		if err := checkmail.ValidateFormat(u.Email); err != nil {
-			return errors.New("Invalid email")
+			return errors.New("Digite um endereço de e-mail válido")
 		}
 	case "login":
 		if u.Nickname == "" && u.Email == "" {
@@ -92,4 +92,42 @@ func (u *User) Validate(action string) error {
 	default:
 	}
 	return nil
+}
+
+func ValidatorPassword(pass string) bool {
+	//Thanks to http://www.inanzzz.com/index.php/post/8l1a/validating-user-password-in-golang-requests
+	//Password validates plain password against the rules defined below.
+	//
+	// upp: at least one upper case letter.
+	// low: at least one lower case letter.
+	// num: at least one digit.
+	// sym: at least one special character.
+	// tot: at least eight characters long.
+	// No empty string or whitespace.
+	var (
+		upp, low, num, sym bool
+		tot                uint8
+	)
+	for _, char := range pass {
+		switch {
+		case unicode.IsUpper(char):
+			upp = true
+			tot++
+		case unicode.IsLower(char):
+			low = true
+			tot++
+		case unicode.IsNumber(char):
+			num = true
+			tot++
+		case unicode.IsPunct(char) || unicode.IsSymbol(char):
+			sym = true
+			tot++
+		default:
+			return false
+		}
+	}
+	if !upp || !low || !num || !sym || tot < 5 {
+		return false
+	}
+	return true
 }
