@@ -21,13 +21,12 @@ func UpdateUser(c *gin.Context) {
 	// Validate input
 	var input models.UserInputUpdate
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error3": err.Error()})
 		return
 	}
 	if input.Password != "" {
-		//changePassword(input.Password, c)
 		if err := security.VerifyPassword(user.Password, input.Password); err != nil {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error1": err})
 			return
 		}
 		if input.NewPassword != input.ConfirmNewPassword {
@@ -35,7 +34,7 @@ func UpdateUser(c *gin.Context) {
 			return
 		}
 		if err := models.PasswordCheck(input.NewPassword); err != nil {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error2": err})
 			return
 		}
 		password, err := models.BeforeSave(input.Password)
@@ -48,6 +47,7 @@ func UpdateUser(c *gin.Context) {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
 			return
 		}
+		c.JSON(http.StatusOK, gin.H{"success": "senha trocada !"})
 	}
 	if input.Email != "" {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Não é possível trocar o email"})
