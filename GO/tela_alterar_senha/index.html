@@ -17,17 +17,15 @@
 </head>
 
 <body>
-
-    <form action="user/password/recovery" method="PUT">
+    <form action="user/password/recovery" method="PUT"  id="formsenha">
         <div class="form-group align-items-center">
             <img src="/images/logo-nome.png" class="displayed" alt="Imagem responsiva">
         </div>
-
         <div class="form-group align-items-center">
-            <h1 class="alt">ALTERAR</h1>
-            <h1 class="altSenha">SENHA DE ACESSO</h1><br>
-            <p class="txtInfo">Preencha os dados abaixo para efetuar a troca de senha</p>
-            <hr>
+                <h1 class="alt">ALTERAR</h1>
+                <h1 class="altSenha">SENHA DE ACESSO</h1><br>
+                <p class="txtInfo">Preencha os dados abaixo para efetuar a troca de senha</p>
+                <hr>
             <div class="form-group">
                 <label for="novaSenha">Nova Senha</label><br>
                 <input class="form-control" id="novaSenha" type="text" placeholder="Sua Nova Senha">
@@ -42,8 +40,6 @@
             </div>
 
         </div>
-
-
     </form>
 
     <!-- Optional JavaScript -->
@@ -52,7 +48,12 @@
         function sendJSON() {
             let password = document.querySelector('#novaSenha');
             let confirmpassword = document.querySelector('#confSenha');
-            if (password.value == confirmpassword.value) {
+            if  (password.value =="") {
+                alert("Preencha o Campo Senha ! ")
+            }
+            else if (confirmpassword.value==""){
+                alert("Preencha o campo Confirmar Senha !")
+            }else if (password.value == confirmpassword.value){
                 const queryString = window.location.search;
                 const urlParams = new URLSearchParams(queryString);
                 let email = urlParams.get('e')
@@ -67,19 +68,20 @@
                 // Create a state change callback
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
+                        alert(this.responseText);
+                        document.getElementById("formsenha").style.display="none";
+                        document.writeln("Já pode voltar para o aplicativo !");
                         // Print received data from server
-                        result.innerHTML = this.responseText;
-
+                    }else if(xhr.readyState === 4){
+                        alert(this.responseText);
                     }
                 };
                 // Converting JSON data to string
                 var data = JSON.stringify({"email": email, "password": password.value,"confirmpassword":confirmpassword.value});
                 // Sending data with the request
                 xhr.send(data);
-            }else if  (password.value =="") {
-                alert("Preencha o Campo Senha ! ")
-            }else if (confirmpassword.value==""){
-                alert("Preencha o campo Confirmar Senha !")
+            }else{
+                alert("As senhas não são iguais")
             }
         }
     </script>

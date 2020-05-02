@@ -4,8 +4,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"w4s/DB"
+	"w4s/authc"
 	"w4s/controllers"
 	"w4s/middleware"
+	"w4s/models"
 )
 
 //
@@ -33,7 +35,18 @@ func main() {
 
 	r.POST("user/password/recovery", controllers.RecoveryPasswordUser)
 	r.GET("user/password/recovery", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{})
+		var token models.UserAccountBadListToken
+		token.Token = c.Query("t")
+		if db.Where("token = ?", token.Token).First(&token).RecordNotFound() {
+			if err := authc.ValidateToken(token.Token); err != nil {
+				c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Alguma coisa não deu certo, por favor, requiste novamente a recuperação de senha"})
+				return
+			}
+			c.HTML(http.StatusOK, "index.html", gin.H{})
+			return
+		}
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Link já utilizado !"})
+		return
 	})
 	r.PUT("user/password/recovery", controllers.ChangeExternalPassword)
 

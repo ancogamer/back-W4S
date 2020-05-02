@@ -3,7 +3,6 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
@@ -100,54 +99,60 @@ func ChangeExternalPassword(c *gin.Context) {
 	var token models.UserAccountBadListToken
 	token.Token = c.Query("t")
 	if token.Token != "" {
-		var input models.UserInputRecoveryPassword
-		if err := c.ShouldBindJSON(&input); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{
-				"error": err.Error(),
-			})
-			return
-		}
-		var user models.User
-		err := db.Where("email = ?", input.Email).First(&user).Error
-		if err != nil {
-			fmt.Println(err)
-			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{ //We do this, to avoid user enumaration
-				//Fazemos isso para evitar enumeração de usuario
-				"error": "Alguma coisa deu errado",
-			})
-			return
-		}
-		if input.Password == "" || input.ConfirmPassword == "" {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Verifique senha !"})
-			return
-		}
-		if input.Password != input.ConfirmPassword {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "As senhas não conferem !"})
-			return
-		}
-		//(hashadpassword,password),
-		//hashad = crypted password, password is the normal one/ hashadpassword = é a senha cryptografada, passoword é a senha normal
-		if err := security.VerifyPassword(user.Password, input.Password); err != nil {
-			if err := models.PasswordCheck(input.Password); err != nil {
-				c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"erro": err})
+		if db.Where("token = ?", token.Token).First(&token).RecordNotFound() {
+			if err := authc.ValidateToken(token.Token); err != nil {
+				c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Alguma coisa não deu certo, por favor, requiste novamente a recuperação de senha"})
 				return
 			}
-			input.Password, err = models.BeforeSave(input.Password)
-			if err != nil {
-				c.AbortWithStatusJSON(http.StatusNotImplemented, gin.H{
+			var input models.UserInputRecoveryPassword
+			if err := c.ShouldBindJSON(&input); err != nil {
+				c.JSON(http.StatusBadRequest, gin.H{
 					"error": err.Error(),
 				})
 				return
 			}
-			if dbc := db.Create(&token); dbc.Error != nil { //Return the error by JSON / Retornando o erro por JSON
-				c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": dbc.Error})
+			var user models.User
+			err := db.Where("email = ?", input.Email).First(&user).Error
+			if err != nil {
+				c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+					"error": "Alguma coisa deu errado",
+				})
 				return
 			}
-			db.Model(&user).Update("password", input.Password)
-			c.JSON(http.StatusOK, gin.H{"succes": "senha alterada ! "})
+			if input.Password == "" || input.ConfirmPassword == "" {
+				c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Verifique senha !"})
+				return
+			}
+			if input.Password != input.ConfirmPassword {
+				c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "As senhas não conferem !"})
+				return
+			}
+			//(hashadpassword,password),
+			//hashad = crypted password, password is the normal one/ hashadpassword = é a senha cryptografada, passoword é a senha normal
+			if err := security.VerifyPassword(user.Password, input.Password); err != nil {
+				if err := models.PasswordCheck(input.Password); err != nil {
+					c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"erro": err.Error()})
+					return
+				}
+				input.Password, err = models.BeforeSave(input.Password)
+				if err != nil {
+					c.AbortWithStatusJSON(http.StatusNotImplemented, gin.H{
+						"error": err.Error(),
+					})
+					return
+				}
+				if dbc := db.Create(&token); dbc.Error != nil { //Return the error by JSON / Retornando o erro por JSON
+					c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": dbc.Error})
+					return
+				}
+				db.Model(&user).Update("password", input.Password)
+				c.JSON(http.StatusOK, gin.H{"succes": "senha alterada ! "})
+				return
+			}
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "A senha não pode ser a mesma que a anterior !"})
 			return
 		}
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "A senha não pode ser a mesma que a anterior !"})
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "LINK JÁ UTILIZADO !"})
 		return
 	}
 	c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "ERROR!"})

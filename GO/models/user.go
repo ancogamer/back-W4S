@@ -44,11 +44,13 @@ type UserInputRecoveryPassword struct {
 
 //With out the biding required in all fields/ Sem o biding obrigatorio em todos os campos
 type UserInputUpdate struct {
-	Nickname string `json:"nickname"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-	Name     string `json:"name"`
-	Lastname string `json:"lastname"`
+	Nickname           string `json:"nickname"`
+	Email              string `json:"email"`
+	Password           string `json:"password"`
+	NewPassword        string `json:"newpassword"`
+	ConfirmNewPassword string `json:"confirmnewpassword"`
+	Name               string `json:"name"`
+	Lastname           string `json:"lastname"`
 }
 
 // BeforeSave hash the user password
