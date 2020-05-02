@@ -3,12 +3,14 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
 	"w4s/authc"
 	"w4s/handlers"
 	"w4s/models"
+	"w4s/security"
 )
 
 //Create User
@@ -63,7 +65,7 @@ func CreateUser(c *gin.Context) {
 }
 func ConfirmUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
-	var UserToken models.AccountCreatedToken
+	var UserToken models.UserAccountBadListToken
 	if err := db.Where("token = ?", c.Query("t")).First(&UserToken).Error; err != nil {
 		UserToken.Token = c.Query("t")
 		if err := db.Create(&UserToken).Error; err != nil {
@@ -91,6 +93,112 @@ func ConfirmUser(c *gin.Context) {
 		return
 	}
 	c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "link já utilizado"})
+	return
+}
+func ChangeExternalPassword(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	var token models.UserAccountBadListToken
+	token.Token = c.Query("t")
+	if token.Token != "" {
+		var input models.UserInputRecoveryPassword
+		if err := c.ShouldBindJSON(&input); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+		var user models.User
+		err := db.Where("email = ?", input.Email).First(&user).Error
+		if err != nil {
+			fmt.Println(err)
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{ //We do this, to avoid user enumaration
+				//Fazemos isso para evitar enumeração de usuario
+				"error": "Alguma coisa deu errado",
+			})
+			return
+		}
+		if input.Password == "" || input.ConfirmPassword == "" {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Verifique senha !"})
+			return
+		}
+		if input.Password != input.ConfirmPassword {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "As senhas não conferem !"})
+			return
+		}
+		//(hashadpassword,password),
+		//hashad = crypted password, password is the normal one/ hashadpassword = é a senha cryptografada, passoword é a senha normal
+		if err := security.VerifyPassword(user.Password, input.Password); err != nil {
+			if err := models.PasswordCheck(input.Password); err != nil {
+				c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"erro": err})
+				return
+			}
+			input.Password, err = models.BeforeSave(input.Password)
+			if err != nil {
+				c.AbortWithStatusJSON(http.StatusNotImplemented, gin.H{
+					"error": err.Error(),
+				})
+				return
+			}
+			if dbc := db.Create(&token); dbc.Error != nil { //Return the error by JSON / Retornando o erro por JSON
+				c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": dbc.Error})
+				return
+			}
+			db.Model(&user).Update("password", input.Password)
+			c.JSON(http.StatusOK, gin.H{"succes": "senha alterada ! "})
+			return
+		}
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "A senha não pode ser a mesma que a anterior !"})
+		return
+	}
+	c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "ERROR!"})
+	return
+}
+func RecoveryPasswordUser(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	if c.Query("e") == "" {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Preencha o campo email"})
+		return
+	}
+	var user models.User
+	if err := db.Where("LOWER(email) = LOWER(?)", c.Query("e")).First(&user).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{ //We do this, to avoid user enumaration
+			//Fazemos isso para evitar enumeração de usuario
+			"success": "email enviado !",
+		})
+		return
+	}
+	userEmail := c.Query("e")
+	userRecoveryPassword, err := authc.GenerateJWT(userEmail, 600)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+	userURL := "http://localhost:8080/user/password/recovery?e=" + userEmail + "&t=" + userRecoveryPassword
+	//Thanks https://blog.mailtrap.io/golang-send-email/#Sending_emails_with_smtpSendMail for the code
+	msg := []byte("To: " + userEmail + "\r\n" +
+		"Subject: NÂO RESPONDA ESTE EMAIL - RECUPERAÇÃO DE SENHA \r\n" +
+		"\r\n" +
+		"Utilize o link abaixo para recuperar a sua senha, ele é valido nos proximos 10 minutos \r\n" +
+		"\r\n" +
+		"Clique aqui para confirmar sua conta = " + userURL +
+		"\r\n" +
+		"Caso não consiga, é só copiar o link e colar no navegador ! " +
+		"\r\n" +
+		"Caso não tenha requistado, sugerimos trocar a senha imediatamente !")
+
+	if err := SendEmail(userEmail, msg); err != nil {
+		//Declaring and inicializing a userAccountCreatedToken
+		//Declarando e inicializando uma variavel userAccount
+		userAccountBadListToken := models.UserAccountBadListToken{
+			Token: userRecoveryPassword,
+		}
+		db := c.MustGet("db").(*gorm.DB) //Establish conection with database/Estabelecendo conexão com o banco de dados
+		if err := db.Create(userAccountBadListToken).Error; err != nil {
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+			return
+		}
+	}
+	c.JSON(http.StatusOK, gin.H{"success": "cheque seu email !"})
 	return
 }
 

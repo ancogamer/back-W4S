@@ -24,7 +24,7 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 	if input.Password != "" {
-		//		changePassword(input.Password, c)
+		//changePassword(input.Password, c)
 	}
 	if input.Email != "" {
 		//controllers.SendConfirmationChangeEmail(input.Email,c)

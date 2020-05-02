@@ -6,7 +6,7 @@ type LogoffListTokens struct {
 	gorm.Model
 	Token string `json:"token"`
 }
-type AccountCreatedToken struct {
+type UserAccountBadListToken struct {
 	gorm.Model
 	Token string `json:"token"`
 }

@@ -33,6 +33,14 @@ type UserInput struct {
 	Name     string `json:"name" binding:"required"`
 	Lastname string `json:"lastname" binding:"required"`
 }
+type UserInputRecoveryPassword struct {
+	Nickname        string `json:"nickname"`
+	Email           string `json:"email"`
+	Password        string `json:"password" binding:"required"`
+	ConfirmPassword string `json:"confirmpassword" binding:"required"`
+	Name            string `json:"name"`
+	Lastname        string `json:"lastname"`
+}
 
 //With out the biding required in all fields/ Sem o biding obrigatorio em todos os campos
 type UserInputUpdate struct {
@@ -63,14 +71,8 @@ func (u *User) Validate(action string) error {
 		if err := checkmail.ValidateFormat(u.Email); err != nil {
 			return errors.New("Digite um endereço de e-mail válido")
 		}
-		if u.Password == "" {
-			return errors.New("Password is required")
-		}
-		if len(u.Password) > 20 {
-			return errors.New("Insira uma senha valida")
-		}
-		if err := ValidatorPassword(u.Password); err != true {
-			return errors.New("Insira uma senha valida")
+		if err := PasswordCheck(u.Password); err != nil {
+			return errors.New(err.Error())
 		}
 	case "updateEmail":
 		if u.Email == "" {
@@ -94,6 +96,18 @@ func (u *User) Validate(action string) error {
 	return nil
 }
 
+func PasswordCheck(password string) error {
+	if password == "" {
+		return errors.New("Password is required")
+	}
+	if len(password) > 20 {
+		return errors.New("Insira uma senha valida")
+	}
+	if err := ValidatorPassword(password); err != true {
+		return errors.New("Insira uma senha valida")
+	}
+	return nil
+}
 func ValidatorPassword(pass string) bool {
 	//Thanks to http://www.inanzzz.com/index.php/post/8l1a/validating-user-password-in-golang-requests
 	//Password validates plain password against the rules defined below.
