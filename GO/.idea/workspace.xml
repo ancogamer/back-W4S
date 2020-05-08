@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="79136927-06c9-47f6-be4f-28c7e8364e57" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/DB/setup.go" afterDir="false" />
-    </list>
+    <list default="true" id="79136927-06c9-47f6-be4f-28c7e8364e57" name="Default Changelist" comment="Small Change:&#10;DB-Setup-&gt; Using ENV variables now&#10;  &#10;&#10;==========================================================" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -115,6 +130,17 @@
       </list>
     </option>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
       <path value="$PROJECT_DIR$/tela-alterar_senha" />
@@ -133,7 +159,8 @@
     <MESSAGE value="Small Feature.&#10;Feature: Recovery password ! need small fix on the return JSON &#10;&#10;==========================================================" />
     <MESSAGE value="Small Fix, Feature.&#10;Fix: Recovery password,&#10;Feature: Change User Password  &#10;&#10;==========================================================" />
     <MESSAGE value="Small Fix.&#10;Fix: change password,&#10;  &#10;&#10;==========================================================" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small Fix.&#10;Fix: change password,&#10;  &#10;&#10;==========================================================" />
+    <MESSAGE value="Small Change:&#10;DB-Setup-&gt; Using ENV variables now&#10;  &#10;&#10;==========================================================" />
+    <option name="LAST_COMMIT_MESSAGE" value="Small Change:&#10;DB-Setup-&gt; Using ENV variables now&#10;  &#10;&#10;==========================================================" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -208,26 +235,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1042" y="221" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1587837721396" />
-    <state width="1340" height="266" key="GridCell.Tab.0.bottom" timestamp="1588947262631">
+    <state width="1340" height="266" key="GridCell.Tab.0.bottom" timestamp="1588948696771">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="127" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1588432906718" />
-    <state width="1340" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588947262631" />
-    <state width="1340" height="266" key="GridCell.Tab.0.center" timestamp="1588947262631">
+    <state width="1340" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588948696771" />
+    <state width="1340" height="266" key="GridCell.Tab.0.center" timestamp="1588948696771">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="127" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1588432906717" />
-    <state width="1340" height="266" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588947262631" />
-    <state width="1340" height="266" key="GridCell.Tab.0.left" timestamp="1588947262631">
+    <state width="1340" height="266" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588948696771" />
+    <state width="1340" height="266" key="GridCell.Tab.0.left" timestamp="1588948696771">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="127" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1588432906717" />
-    <state width="1340" height="266" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588947262631" />
-    <state width="1340" height="266" key="GridCell.Tab.0.right" timestamp="1588947262631">
+    <state width="1340" height="266" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588948696771" />
+    <state width="1340" height="266" key="GridCell.Tab.0.right" timestamp="1588948696771">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1323" height="127" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1588432906718" />
-    <state width="1340" height="266" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588947262631" />
+    <state width="1340" height="266" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588948696771" />
     <state width="1865" height="280" key="GridCell.Tab.1.bottom" timestamp="1587860363507">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
