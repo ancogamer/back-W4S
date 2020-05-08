@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <title>Alterar Senha</title>
+</head>
+
+<body>
+    <form action="user/password/recovery" method="PUT"  id="formsenha">
+        <div class="form-group align-items-center">
+            <img src="/images/logo-nome.png" class="displayed" alt="Imagem responsiva">
+        </div>
+        <div class="form-group align-items-center">
+                <h1 class="alt">ALTERAR</h1>
+                <h1 class="altSenha">SENHA DE ACESSO</h1><br>
+                <p class="txtInfo">Preencha os dados abaixo para efetuar a troca de senha</p>
+                <hr>
+            <div class="form-group">
+                <label for="novaSenha">Nova Senha</label><br>
+                <input class="form-control" id="novaSenha" type="text" placeholder="Sua Nova Senha">
+            </div>
+
+            <div class="form-group">
+                <label for="confSenha">Confirmar Senha</label><br>
+                <input class="form-control" id="confSenha" type="text" placeholder="Confirmar Sua Nova Senha">    
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-cor" onclick="sendJSON()">Alterar</button>
+            </div>
+
+        </div>
+    </form>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="text/javascript" >
+        function sendJSON() {
+            let password = document.querySelector('#novaSenha');
+            let confirmpassword = document.querySelector('#confSenha');
+            if  (password.value =="") {
+                alert("Preencha o Campo Senha ! ")
+            }
+            else if (confirmpassword.value==""){
+                alert("Preencha o campo Confirmar Senha !")
+            }else if (password.value == confirmpassword.value){
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                let email = urlParams.get('e')
+                // Creating a XHR object
+                let xhr = new XMLHttpRequest();
+                let token= urlParams.get('t')
+                let url = "http://localhost:8080/user/password/recovery?t="+token;
+                // open a connections
+                xhr.open("PUT", url, true);
+                // Set the request header i.e. which type of content you are sending
+                xhr.setRequestHeader("Content-Type", "application/json");
+                // Create a state change callback
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        alert(this.responseText);
+                        document.getElementById("formsenha").style.display="none";
+                        document.writeln("Já pode voltar para o aplicativo !");
+                        // Print received data from server
+                    }else if(xhr.readyState === 4){
+                        alert(this.responseText);
+                    }
+                };
+                // Converting JSON data to string
+                var data = JSON.stringify({"email": email, "password": password.value,"confirmpassword":confirmpassword.value});
+                // Sending data with the request
+                xhr.send(data);
+            }else{
+                alert("As senhas não são iguais")
+            }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

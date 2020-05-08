@@ -13,13 +13,13 @@ import (
 )
 
 // GenerateJWT creates a new token to the client
-func GenerateJWT(user models.User) (string, error) {
+func GenerateJWT(userEmail string, experatingTime time.Duration) (string, error) {
 	// Create the Claims
 	claims := models.Claim{
-		User: user.Email,
+		UserEmail: userEmail,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
-			Issuer:    "system",
+			ExpiresAt: time.Now().Add(time.Hour * experatingTime).Unix(),
+			Issuer:    "Find A Table System",
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -27,7 +27,7 @@ func GenerateJWT(user models.User) (string, error) {
 }
 
 // ValidateToken validate a JWT
-func ValidateToken(c *gin.Context) {
+func ValidateLoginToken(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var tokenLogOffList models.LogoffListTokens
 	userToken := c.Request.Header.Get("Authorization")
@@ -49,20 +49,18 @@ func ValidateToken(c *gin.Context) {
 			return
 		}
 		//Verifing the token/ Verificando o token
-		token, err := jwt.ParseWithClaims(split[1], &models.Claim{}, func(token *jwt.Token) (interface{}, error) {
-			return []byte(os.Getenv("TOKEN_PASSWORD")), nil
-		})
-		_, ok := token.Claims.(*models.Claim)
-		if ok && token.Valid {
-			return
+		//This was seperated, to be possible use this on other places/
+		//Isto foi separado para poder ser utilizado em outros lugares
+		err := ValidateToken(split[01])
+		if err != nil {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
 		}
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"Error": "Não foi possível autenticar", "error ": err})
 		return
 	}
 	c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 		"error": "não logado",
 	})
-
+	return
 	/*//IF YOU WANT RETURN ERROS OH A SEPARATED WAY// Caso você queira retornar erros de maneira separada
 	if token.Valid {
 		return
@@ -81,5 +79,16 @@ func ValidateToken(c *gin.Context) {
 			"err":err,
 		})
 	}*/
-	return
+}
+
+//This Parse the token and check if is valid :D
+func ValidateToken(userToken string) error {
+	token, err := jwt.ParseWithClaims(userToken, &models.Claim{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(os.Getenv("TOKEN_PASSWORD")), nil
+	})
+	_, ok := token.Claims.(*models.Claim)
+	if ok && token.Valid {
+		return nil
+	}
+	return err
 }
