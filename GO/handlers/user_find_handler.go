@@ -11,7 +11,8 @@ import (
 func FindUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var users []models.User
-	if err := db.Where("deleted = ?", "0").Find(&users).Error; err != nil {
+	if err := db.Where("deleted = ?", "0").Preload("Profile").Find(&users).Error; err != nil {
+
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "Nenhum registro encontrado",
 		})
@@ -27,7 +28,7 @@ func FindUser(c *gin.Context) {
 func FindUserByNick(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var user models.User
-	if err := db.Where("nickname = ? AND deleted = ? AND actived = ?", c.Query("nickname"), "0", "1").First(&user).Error; err != nil {
+	if err := db.Where("nickname = ? AND deleted = ? AND actived = ?", c.Query("nickname"), "0", "1").Preload("Profile").First(&user).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "Registro não encontrado",
 		})

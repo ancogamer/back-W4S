@@ -197,7 +197,35 @@ func RecoveryPasswordUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"success": "cheque seu email !"})
 	return
 }
-
+func CreateProfile(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	// Get model if exist
+	var user models.User
+	if err := db.Where("nickname = ?", c.Query("nickname")).First(&user).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"error": "não encontrado o nickname",
+		})
+		return
+	}
+	var input models.ProfileInput
+	if err := c.BindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+	profile := models.Profile{
+		IdUser:         user.ID,
+		Avatar:         input.Avatar,
+		DataNascimento: input.DataNascimento,
+	}
+	if err := db.Create(&profile).Error; err != nil { //Return the error by JSON / Retornando o erro por JSON
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"success": profile})
+	return
+}
 func UpdateUser(c *gin.Context) {
 	handlers.UpdateUser(c)
 }

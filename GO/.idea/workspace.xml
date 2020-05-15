@@ -19,116 +19,84 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79136927-06c9-47f6-be4f-28c7e8364e57" name="Default Changelist" comment="Small Change:&#10;DB-Setup-&gt; Using ENV variables now&#10;  &#10;&#10;==========================================================" />
+    <list default="true" id="c3e4c046-f682-41d5-ad1e-f90dab93f84a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/GO.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/DB/setup.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/email_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/email_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/users_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/users_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/user_delete_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user_delete_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/user_find_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user_find_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/user_update_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user_update_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/profile.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/profile.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DatabaseView">
-    <option name="SHOW_INTERMEDIATE" value="true" />
-    <option name="GROUP_DATA_SOURCES" value="true" />
-    <option name="GROUP_SCHEMA" value="true" />
-    <option name="GROUP_CONTENTS" value="false" />
-    <option name="SORT_POSITIONED" value="false" />
-    <option name="SHOW_EMPTY_GROUPS" value="false" />
-    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
-    <option name="HIDDEN_KINDS">
-      <set />
-    </option>
-    <expand />
-    <select />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Go Application" />
-        <option value="Go File" />
-      </list>
-    </option>
-  </component>
   <component name="GOROOT" path="C:\Go" />
   <component name="Git.Settings">
-    <option name="PREVIOUS_COMMIT_AUTHORS">
-      <list>
-        <option value="João Vitor Astori Saletti &lt;39197618+ancogamer@users.noreply.github.com&gt;" />
-        <option value="joao" />
-      </list>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-    <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
   </component>
-  <component name="ProjectId" id="1YmGRMpM2qqcYbYEdlCqkp6kHCi" />
+  <component name="ProjectId" id="1bdHIPd0qDiDnkVEzIlbtsJLXiD" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="DefaultGoTemplateProperty" value="Go File" />
-    <property name="GO_FMT" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
-    <property name="configurable.Module.GOPATH.is.expanded" value="true" />
-    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/main.go" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="go.sdk" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\TRALHAS\FATEC\W4S\back-W4S\GO\handlers" />
-      <recent name="D:\TRALHAS\FATEC\W4S\back-W4S\GO" />
-      <recent name="D:\TRALHAS\FATEC\W4S\back-W4S\GO\controllers\handlers" />
-      <recent name="D:\TRALHAS\FATEC\W4S\back-W4S\GO\auth" />
-      <recent name="D:\TRALHAS\FATEC\W4S\back-W4S\GO\models" />
-    </key>
   </component>
   <component name="RunManager">
-    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="GO" />
-      <working_directory value="$PROJECT_DIR$" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <go_parameters value="-i" />
       <envs>
-        <env name="DB_PASSWORD" value="Saletti123" />
-        <env name="DB_USER" value="Saletti" />
-        <env name="DB_HOST" value="" />
-        <env name="SECRET_LENGHT" value="16" />
         <env name="EMAIL_PASSWORD" value="OjODqzYv9b!/5&amp;%AL53vvk|`v?1kwd" />
+        <env name="SECRET_LENGHT" value="16" />
+        <env name="DB_USER" value="Saletti" />
+        <env name="DB_PASSWORD" value="Saletti123" />
+      </envs>
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/|$PROJECT_DIR$/main.go" />
+      <package value="w4s" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
+      <module name="GO" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <go_parameters value="-i" />
+      <envs>
+        <env name="EMAIL_PASSWORD" value="OjODqzYv9b!/5&amp;%AL53vvk|`v?1kwd" />
+        <env name="SECRET_LENGHT" value="16" />
+        <env name="DB_USER" value="Saletti" />
+        <env name="DB_PASSWORD" value="Saletti123" />
       </envs>
       <kind value="FILE" />
       <filePath value="$PROJECT_DIR$/main.go" />
       <package value="w4s" />
+      <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Go Build.go build main.go" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
-  </component>
-  <component name="Vcs.Log.History.Properties">
-    <option name="COLUMN_ORDER">
-      <list>
-        <option value="0" />
-        <option value="2" />
-        <option value="3" />
-        <option value="1" />
-      </list>
-    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -140,193 +108,43 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <ignored-roots>
-      <path value="$PROJECT_DIR$/tela-alterar_senha" />
-      <path value="$PROJECT_DIR$/tela_alterar_senha" />
-      <path value="$PROJECT_DIR$/templates/tela_alterar_senha" />
-    </ignored-roots>
-    <MESSAGE value="Fixes/TokenVerify/CreateUser/Getuser/GetUserById" />
-    <MESSAGE value="Fixes/Model User&#10;features/Update(except email and or password)&#10;&#10;Established a standard of error returning and of success returning &#10;===============================&#10;Which are: &quot;error&quot; for error &#10;and &quot;success&quot; of success on the first key:value from the returning JSON." />
-    <MESSAGE value="Small Fixes and Features.&#10;Fix: User methods, UpdateUser,CreateUser.&#10;Features: SoftDeleted.&#10;==========================================================" />
-    <MESSAGE value="Small Features.&#10; Features: Logoff.&#10;                                                          ==========================================================" />
-    <MESSAGE value="Small Features and Fix.&#10;Fix: Login&#10;Features: Login with nick or email.&#10;==========================================================" />
-    <MESSAGE value="Small Features and Fix.&#10;Fix: Update, Login,CreateUser&#10;Features: Create Account with Email verification.&#10;==========================================================" />
-    <MESSAGE value="Small Features and Fix.&#10;Fix: CreateUser, password validation&#10;&#10;==========================================================" />
-    <MESSAGE value="Small Fix.&#10;Fix: CreateUser&#10;&#10;==========================================================" />
-    <MESSAGE value="Small Fix.&#10;Fix: CreateUser token, + gorm.Model&#10;&#10;==========================================================" />
-    <MESSAGE value="Small Feature.&#10;Feature: Recovery password ! need small fix on the return JSON &#10;&#10;==========================================================" />
-    <MESSAGE value="Small Fix, Feature.&#10;Fix: Recovery password,&#10;Feature: Change User Password  &#10;&#10;==========================================================" />
-    <MESSAGE value="Small Fix.&#10;Fix: change password,&#10;  &#10;&#10;==========================================================" />
-    <MESSAGE value="Small Change:&#10;DB-Setup-&gt; Using ENV variables now&#10;  &#10;&#10;==========================================================" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small Change:&#10;DB-Setup-&gt; Using ENV variables now&#10;  &#10;&#10;==========================================================" />
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
-    <environment>
-      <map>
-        <entry key="GOPROXY" value="direct" />
-      </map>
-    </environment>
-    <proxy>direct</proxy>
   </component>
   <component name="WindowStateProjectService">
-    <state x="452" y="95" key="#Build_Tags_&amp;_Vendoring" timestamp="1584056120382">
+    <state x="415" y="175" width="1028" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589563849638">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="452" y="95" key="#Build_Tags_&amp;_Vendoring/0.0.1920.1040@0.0.1920.1040" timestamp="1584056120382" />
-    <state x="452" y="95" key="#Docker" timestamp="1587757254670">
+    <state x="415" y="175" width="1028" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1589563849638" />
+    <state x="828" y="270" width="430" height="652" key="EnvironmentVariablesDialog" timestamp="1589563848178">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="452" y="95" key="#Docker/0.0.1920.1040@0.0.1920.1040" timestamp="1587757254670" />
-    <state x="644" y="0" key="#Dockerfile" timestamp="1587757263120">
+    <state x="828" y="270" width="430" height="652" key="EnvironmentVariablesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1589563848178" />
+    <state x="741" y="275" key="FileChooserDialogImpl" timestamp="1588955432072">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="644" y="0" key="#Dockerfile/0.0.1920.1040@0.0.1920.1040" timestamp="1587757263120" />
-    <state x="275" y="22" key="#GOPATH" timestamp="1585158115038">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="275" y="22" key="#GOPATH/0.0.1366.728@0.0.1366.728" timestamp="1585158115038" />
-    <state x="452" y="95" key="#Go_Modules_(vgo)" timestamp="1583971949284">
+    <state x="741" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1588955432072" />
+    <state width="1877" height="139" key="GridCell.Tab.0.bottom" timestamp="1589574449257">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="452" y="95" key="#Go_Modules_(vgo)/0.0.1920.1040@0.0.1920.1040" timestamp="1583971949284" />
-    <state x="452" y="95" key="#Inspections" timestamp="1584015795689">
+    <state width="1557" height="139" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1589568857130" />
+    <state width="1877" height="139" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589574449257" />
+    <state width="1877" height="139" key="GridCell.Tab.0.center" timestamp="1589574449257">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="452" y="95" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1584015795689" />
-    <state x="845" y="383" key="#Notifications" timestamp="1588899526432">
+    <state width="1557" height="139" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1589568857129" />
+    <state width="1877" height="139" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589574449257" />
+    <state width="1877" height="139" key="GridCell.Tab.0.left" timestamp="1589574449256">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="845" y="383" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1588899526432" />
-    <state x="414" y="168" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588947164593">
+    <state width="1557" height="139" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1589568857129" />
+    <state width="1877" height="139" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589574449256" />
+    <state width="1877" height="139" key="GridCell.Tab.0.right" timestamp="1589574449257">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="274" y="38" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1588366748353" />
-    <state x="414" y="168" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588947164593" />
-    <state x="660" y="321" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1587740469980">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="660" y="321" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587740469980" />
-    <state x="721" y="168" key="#com.intellij.ide.util.MemberChooser" timestamp="1584018415242">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="721" y="168" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1584018415242" />
-    <state x="402" y="8" key="#go_build_w4s" timestamp="1588111419146">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="402" y="8" key="#go_build_w4s/0.0.1366.728@0.0.1366.728" timestamp="1588111419146" />
-    <state x="658" y="153" key="#xdebugger.evaluate" timestamp="1587859312394">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="658" y="153" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1587859312394" />
-    <state x="224" y="0" key="CommitChangelistDialog2" timestamp="1588431638553">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="224" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1588431638553" />
-    <state x="315" y="0" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1587860838724" />
-    <state x="633" y="228" width="564" height="489" key="EnvironmentVariablesDialog" timestamp="1588947163239">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="450" y="160" key="EnvironmentVariablesDialog/0.0.1366.728@0.0.1366.728" timestamp="1588156633274" />
-    <state x="633" y="228" width="564" height="489" key="EnvironmentVariablesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588947163239" />
-    <state x="1042" y="221" key="FileChooserDialogImpl" timestamp="1587837721396">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="1042" y="221" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1587837721396" />
-    <state width="1340" height="266" key="GridCell.Tab.0.bottom" timestamp="1588948696771">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1323" height="127" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1588432906718" />
-    <state width="1340" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1588948696771" />
-    <state width="1340" height="266" key="GridCell.Tab.0.center" timestamp="1588948696771">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1323" height="127" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1588432906717" />
-    <state width="1340" height="266" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1588948696771" />
-    <state width="1340" height="266" key="GridCell.Tab.0.left" timestamp="1588948696771">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1323" height="127" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1588432906717" />
-    <state width="1340" height="266" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1588948696771" />
-    <state width="1340" height="266" key="GridCell.Tab.0.right" timestamp="1588948696771">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1323" height="127" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1588432906718" />
-    <state width="1340" height="266" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1588948696771" />
-    <state width="1865" height="280" key="GridCell.Tab.1.bottom" timestamp="1587860363507">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1865" height="280" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587860363507" />
-    <state width="1865" height="280" key="GridCell.Tab.1.center" timestamp="1587860363507">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1865" height="280" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587860363507" />
-    <state width="1865" height="280" key="GridCell.Tab.1.left" timestamp="1587860363507">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1865" height="280" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587860363507" />
-    <state width="1865" height="280" key="GridCell.Tab.1.right" timestamp="1587860363507">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1865" height="280" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587860363507" />
-    <state x="705" y="81" key="SettingsEditor" timestamp="1588899520877">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="368" y="13" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1588364748835" />
-    <state x="705" y="81" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1588899520877" />
-    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1586882990491">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1586882990491" />
-    <state x="481" y="40" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1585832692288">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="481" y="40" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1585832692288" />
-    <state x="738" y="417" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587829003079">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="738" y="417" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1587829003079" />
-    <state x="383" y="4" width="672" height="724" key="search.everywhere.popup" timestamp="1588366169060">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="383" y="4" width="672" height="724" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1588366169060" />
-    <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1584015671255" />
-    <state x="680" y="417" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1587854943950">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="680" y="417" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587854943950" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$USER_HOME$/go/pkg/mod/github.com/dgrijalva/jwt-go@v3.2.0+incompatible/parser.go</url>
-          <line>23</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$USER_HOME$/go/pkg/mod/github.com/dgrijalva/jwt-go@v3.2.0+incompatible/hmac.go</url>
-          <line>50</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$USER_HOME$/go/pkg/mod/github.com/pquerna/otp@v1.2.0/totp/totp.go</url>
-          <line>34</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$USER_HOME$/go/pkg/mod/github.com/pquerna/otp@v1.2.0/totp/totp.go</url>
-          <line>35</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$USER_HOME$/go/pkg/mod/github.com/pquerna/otp@v1.2.0/totp/totp.go</url>
-          <line>95</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state width="1557" height="139" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1589568857130" />
+    <state width="1877" height="139" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589574449257" />
   </component>
 </project>

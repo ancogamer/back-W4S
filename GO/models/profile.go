@@ -1,14 +1,22 @@
 package models
 
-import "strings"
+import (
+	"github.com/jinzhu/gorm"
+	"time"
+)
 
 type Profile struct {
-	ID             uint64 `json:"id" gorm:"type:bigint;primary_key; AUTO_INCREMENT"`
-	Avatar         string `json:"avatar" gorm:"type:longtext"` //longtext no BD (mysql-MariaDB)
-	DataNascimento string `json:"datanascimento" `             //maximo 8 digitos
-	Nickname       string `json:"nickname" `
+	gorm.Model
+	IdUser         uint      `json:"id_user"`
+	Avatar         string    `json:"avatar" gorm:"type:longtext"` //longtext no BD (mysql-MariaDB)
+	DataNascimento time.Time `json:"datanascimento" `             //maximo 8 digitos
+}
+type ProfileInput struct {
+	Avatar         string    `json:"avatar" gorm:"type:longtext"` //longtext no BD (mysql-MariaDB)
+	DataNascimento time.Time `json:"datanascimento" `             //maximo 8 digitos
 }
 
+/*
 func (p *Profile) Validate(action string) error {
 	switch strings.ToLower(action) {
 	case "update":
@@ -20,3 +28,4 @@ func (p *Profile) Validate(action string) error {
 	}
 	return nil
 }
+*/

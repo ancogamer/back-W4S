@@ -19,22 +19,23 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 	// Validate input
+
 	var input models.UserInputUpdate
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error3": err.Error()})
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	if input.Password != "" {
 		if err := security.VerifyPassword(user.Password, input.Password); err != nil {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error1": err})
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
 			return
 		}
 		if input.NewPassword != input.ConfirmNewPassword {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "A nova senha não conhecide !"})
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "A nova senha não coincide !"})
 			return
 		}
 		if err := models.PasswordCheck(input.NewPassword); err != nil {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error2": err})
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
 			return
 		}
 		password, err := models.BeforeSave(input.Password)
@@ -42,8 +43,7 @@ func UpdateUser(c *gin.Context) {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		input.Password = password
-		if err := db.Model(&user).Update("password").Error; err != nil {
+		if err := db.Model(&user).Update("password", password).Error; err != nil {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
 			return
 		}
