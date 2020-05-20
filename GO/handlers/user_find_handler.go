@@ -12,7 +12,6 @@ func FindUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var users []models.User
 	if err := db.Where("deleted = ?", "0").Preload("Profile").Find(&users).Error; err != nil {
-
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "Nenhum registro encontrado",
 		})

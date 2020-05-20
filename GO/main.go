@@ -43,14 +43,15 @@ func main() {
 	authorized.Use(middleware.AuthRequired)
 	{
 		//USER Links URL
-		authorized.GET("/searchall", controllers.FindUser)
-		authorized.GET("/search", controllers.FindUserByNick)
+		authorized.GET("/searchall/user", controllers.FindAllUsers)
+		authorized.GET("/search/user", controllers.FindUserByNick)
 		authorized.PATCH("/create/user/createprofile", controllers.CreateProfile)
 		authorized.PATCH("/update/user", controllers.UpdateUser)
 		authorized.PATCH("/logoff", controllers.Logoff)
 		authorized.DELETE("/delete/user", controllers.SoftDeletedUserByNick)
 		//Table Links URL
-		authorized.POST("/create/table")
+		authorized.POST("/create/table", controllers.CreateTable)
+		authorized.GET("/searchall/table", controllers.FindAllTables)
 
 	}
 

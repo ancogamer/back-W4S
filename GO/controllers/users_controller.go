@@ -215,7 +215,7 @@ func CreateProfile(c *gin.Context) {
 		return
 	}
 	profile := models.Profile{
-		IdUser:         user.ID,
+		IDUser:         user.ID,
 		Avatar:         input.Avatar,
 		DataNascimento: input.DataNascimento,
 	}
@@ -229,7 +229,7 @@ func CreateProfile(c *gin.Context) {
 func UpdateUser(c *gin.Context) {
 	handlers.UpdateUser(c)
 }
-func FindUser(c *gin.Context) {
+func FindAllUsers(c *gin.Context) {
 	handlers.FindUser(c)
 }
 func FindUserByNick(c *gin.Context) {

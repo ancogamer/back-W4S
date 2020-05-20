@@ -17,7 +17,7 @@ func SendConfirmationCreateAccountEmail(userEmail string, c *gin.Context) error 
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
 		return err
 	}
-	userURL := "http://localhost:8080/user/confirm?e=" + userEmail + "&t=" + userSingUpToken
+	userURL := "http://localhost:8080/confirm/user?e=" + userEmail + "&t=" + userSingUpToken
 	//Thanks https://blog.mailtrap.io/golang-send-email/#Sending_emails_with_smtpSendMail for the code
 	// Choose auth method and set it up
 	msg := []byte("To: " + userEmail + "\r\n" +
