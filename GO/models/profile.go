@@ -17,6 +17,7 @@ type ProfileInput struct {
 }
 
 /*
+Case need
 func (p *Profile) Validate(action string) error {
 	switch strings.ToLower(action) {
 	case "update":

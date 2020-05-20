@@ -19,16 +19,19 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3e4c046-f682-41d5-ad1e-f90dab93f84a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/GO.iml" afterDir="false" />
+    <list default="true" id="c3e4c046-f682-41d5-ad1e-f90dab93f84a" name="Default Changelist" comment="FEATURE&#10;FEATURE: create of profile">
+      <change afterPath="$PROJECT_DIR$/controllers/table_controlller.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/otherlinks.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/picure.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/post.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/rpgsystem.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/table.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/typeoftable.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/DB/setup.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/email_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/email_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/users_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/users_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/user_delete_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user_delete_handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/user_find_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user_find_handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/user_update_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user_update_handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/middleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Claim.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/claim.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/login.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/login.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/profile.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/profile.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
     </list>
@@ -36,6 +39,13 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
   </component>
   <component name="GOROOT" path="C:\Go" />
   <component name="Git.Settings">
@@ -51,6 +61,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="GO_FMT" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -110,6 +122,10 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="FEATURE&#10;FEATURE: create of profile" />
+    <option name="LAST_COMMIT_MESSAGE" value="FEATURE&#10;FEATURE: create of profile" />
+  </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
   </component>
@@ -126,25 +142,29 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="741" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1588955432072" />
-    <state width="1877" height="139" key="GridCell.Tab.0.bottom" timestamp="1589574449257">
+    <state width="1877" height="139" key="GridCell.Tab.0.bottom" timestamp="1589574568011">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="139" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1589568857130" />
-    <state width="1877" height="139" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589574449257" />
-    <state width="1877" height="139" key="GridCell.Tab.0.center" timestamp="1589574449257">
+    <state width="1877" height="139" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589574568011" />
+    <state width="1877" height="139" key="GridCell.Tab.0.center" timestamp="1589574568011">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="139" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1589568857129" />
-    <state width="1877" height="139" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589574449257" />
-    <state width="1877" height="139" key="GridCell.Tab.0.left" timestamp="1589574449256">
+    <state width="1877" height="139" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589574568011" />
+    <state width="1877" height="139" key="GridCell.Tab.0.left" timestamp="1589574568011">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="139" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1589568857129" />
-    <state width="1877" height="139" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589574449256" />
-    <state width="1877" height="139" key="GridCell.Tab.0.right" timestamp="1589574449257">
+    <state width="1877" height="139" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589574568011" />
+    <state width="1877" height="139" key="GridCell.Tab.0.right" timestamp="1589574568011">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="139" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1589568857130" />
-    <state width="1877" height="139" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589574449257" />
+    <state width="1877" height="139" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589574568011" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1590000318201">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1590000318201" />
   </component>
 </project>

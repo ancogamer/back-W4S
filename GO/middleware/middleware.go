@@ -8,16 +8,21 @@ import (
 	"w4s/models"
 )
 
+//Normal Middleware
 func AuthRequired(c *gin.Context) {
 	authc.ValidateLoginToken(c)
 	c.Next()
 	return
 }
+
+//Recovery PasswordMiddleware
 func AuthRequired2(c *gin.Context) {
 	tokenCheck(c)
 	c.Next()
 	return
 }
+
+//Cheking Token
 func tokenCheck(c *gin.Context) {
 	var token models.UserAccountBadListToken
 	db := c.MustGet("db").(*gorm.DB)

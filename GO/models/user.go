@@ -32,6 +32,8 @@ type UserInput struct {
 	Name     string `json:"name" binding:"required"`
 	Lastname string `json:"lastname" binding:"required"`
 }
+
+//Separete User Input to recovery password
 type UserInputRecoveryPassword struct {
 	Nickname        string `json:"nickname"`
 	Email           string `json:"email"`
