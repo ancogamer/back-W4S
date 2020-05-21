@@ -25,7 +25,6 @@ func CreateTable(c *gin.Context) {
 			"error": "não encontrado o nickname",
 		})
 		return
-		fmt.Println(err)
 	}
 	table := models.Table{
 		Name:                 input.Name,
@@ -47,7 +46,7 @@ func FindAllTables(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var tables []models.Table
 
-	if err := db.Preload("User").Find(&tables).Error; err != nil {
+	if err := db.Preload("User").Preload("User.Profile").Find(&tables).Error; err != nil {
 		fmt.Println(err)
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "Nenhum registro encontrado",
@@ -63,7 +62,10 @@ func FindAllTables(c *gin.Context) {
 func insertPictures(c *gin.Context, TableId uint) {
 	db := c.MustGet("db").(*gorm.DB)
 	var pictures models.Picture
-	c.BindJSON(pictures)
+	if err := c.BindJSON(pictures); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+	}
+
 	pictures.TableID = TableId
 	split := strings.Split(pictures.PictureFile, " ")
 	for i := 0; i < len(split); i++ {
