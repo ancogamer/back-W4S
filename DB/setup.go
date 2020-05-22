@@ -3,17 +3,21 @@ package DB
 
 import (
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"os"
 	"w4s/models"
 )
 
+//	_ "github.com/jinzhu/gorm/dialects/mysql"
 func SetupModels() *gorm.DB {
-	/*db, err := gorm.Open("mysql",
-	""+os.Getenv("DB_USER")+":"+os.Getenv("DB_PASSWORD")+"@/w4s?charset=utf8&parseTime=True&loc=Local")
+
+	/*
+		db, err := gorm.Open("mysql",
+		""+os.Getenv("DB_USER")+":"+os.Getenv("DB_PASSWORD")+"@/w4s?charset=utf8&parseTime=True&loc=Local")
 	*/
-	db, err := gorm.Open("postgres", ""+os.Getenv("DATABASE_URL")+" port="+os.Getenv("DB_PORT")+
-		" user="+os.Getenv("DB_USER")+" dbname="+os.Getenv("DB_NAME")+" sslmode=disable"+" password="+os.Getenv("DB_PASSWORD"))
+
+	db, err := gorm.Open("postgres", os.Getenv("DATABASE_URL"))
 
 	if err != nil {
 		panic("Failed to connect to database!")

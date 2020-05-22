@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3e4c046-f682-41d5-ad1e-f90dab93f84a" name="Default Changelist" comment="Fix">
+    <list default="true" id="c3e4c046-f682-41d5-ad1e-f90dab93f84a" name="Default Changelist" comment="les">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/DB/setup.go" afterDir="false" />
     </list>
@@ -121,8 +121,7 @@
     <MESSAGE value="Created table, and dependences" />
     <MESSAGE value="Fixed the searchall and searchbynick user.&#10;still trying to fix the return from the findALLTables." />
     <MESSAGE value="Fixed The Preload, on the table get." />
-    <MESSAGE value="Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed The Preload, on the table get." />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>

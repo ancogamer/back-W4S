@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"w4s/DB"
+	"w4s/db"
 	"w4s/controllers"
 	"w4s/middleware"
 )
