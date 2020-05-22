@@ -21,8 +21,8 @@ func SoftDeletedUserByNick(c *gin.Context) {
 		})
 		return
 	}
-	fmt.Println(user.Profile.IdUser)
-	if err := db.Debug().Where("id_user = ?", user.Profile.IdUser).First(&profile).Error; err != nil {
+	fmt.Println(user.Profile.IDUser)
+	if err := db.Debug().Where("id_user = ?", user.Profile.IDUser).First(&profile).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": err,
 		})
