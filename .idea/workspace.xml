@@ -19,7 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3e4c046-f682-41d5-ad1e-f90dab93f84a" name="Default Changelist" comment="les" />
+    <list default="true" id="c3e4c046-f682-41d5-ad1e-f90dab93f84a" name="Default Changelist" comment="les">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/DB/setup.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -85,6 +88,7 @@
         <env name="SECRET_LENGHT" value="16" />
         <env name="DB_USER" value="Saletti" />
         <env name="DB_PASSWORD" value="Saletti123" />
+        <env name="DATABASE_URL" value="postgres://dfqrzowplgbtnt:6473eb63a30e917f7905ecd1322ea6356e2d98628b6e11d9370c8afe8beded35@ec2-34-200-72-77.compute-1.amazonaws.com:5432/ddjsv9bkrvdc7a" />
       </envs>
       <kind value="FILE" />
       <filePath value="$PROJECT_DIR$/main.go" />
@@ -110,7 +114,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
-      <path value="$PROJECT_DIR$" />
+      <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
     <MESSAGE value="FEATURE&#10;FEATURE: create of profile" />
     <MESSAGE value="Fixed some issues and added // comments to explain better the code" />
@@ -123,14 +127,14 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state x="415" y="175" width="1028" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590169978779">
+    <state x="415" y="175" width="1028" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590173554265">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="415" y="175" width="1028" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590169978779" />
-    <state x="828" y="270" width="430" height="652" key="EnvironmentVariablesDialog" timestamp="1590169978067">
+    <state x="415" y="175" width="1028" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590173554265" />
+    <state x="828" y="270" width="430" height="652" key="EnvironmentVariablesDialog" timestamp="1590173552746">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="828" y="270" width="430" height="652" key="EnvironmentVariablesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590169978067" />
+    <state x="828" y="270" width="430" height="652" key="EnvironmentVariablesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590173552746" />
     <state x="741" y="275" key="FileChooserDialogImpl" timestamp="1588955432072">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -155,10 +159,10 @@
     </state>
     <state width="1557" height="139" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1589568857130" />
     <state width="1877" height="188" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590173336226" />
-    <state x="461" y="165" key="SettingsEditor" timestamp="1590172227577">
+    <state x="461" y="165" key="SettingsEditor" timestamp="1590173580215">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1590172227577" />
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1590173580215" />
     <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590018631597">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
