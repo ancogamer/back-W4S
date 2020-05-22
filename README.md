@@ -6,7 +6,11 @@ Frontend end : https://github.com/saulogp/find-a-table
 
 Developers:Andrew Seratti, Leonardo Sudatti, João Vitor Astori Saletti, Yuri Guimarães
 
-Agradecimentos: 
--Folks from Gophers slack ! 
--https://github.com/julioc98 
--https://github.com/brunoksato
+**Agradecimentos(Thanks for the amazing help): **
+
+*Folks from Gophers slack !
+*https://github.com/julioc98 
+*https://github.com/brunoksato
+*https://github.com/theckman 
+*https://github.com/odilonjk 
+*and others <3 
