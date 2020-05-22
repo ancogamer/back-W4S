@@ -10,13 +10,10 @@ import (
 
 func SetupModels() *gorm.DB {
 	/*db, err := gorm.Open("mysql",
-		""+os.Getenv("DB_USER")+":"+os.Getenv("DB_PASSWORD")+"@/w4s?charset=utf8&parseTime=True&loc=Local")*/
-
+		""+os.Getenv("DB_USER")+":"+os.Getenv("DB_PASSWORD")+"@/w4s?charset=utf8&parseTime=True&loc=Local")
+*/
 	db, err := gorm.Open("postgres", "host="+os.Getenv("DATABASE_URL")+" port="+os.Getenv("DB_PORT")+
-		" user="+os.Getenv("DB_USER")+" dbname="+os.Getenv("DB_NAME") +" sslmode=disable"+" password="+os.Getenv("DB_PASSWORD")+"")
-
-	​
-
+		" user="+os.Getenv("DB_USER")+" dbname="+os.Getenv("DB_NAME") +" sslmode=disable"+" password="+os.Getenv("DB_PASSWORD")+os.Getenv("DATABASE_URL"))
 
 
 	if err != nil {
