@@ -19,11 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3e4c046-f682-41d5-ad1e-f90dab93f84a" name="Default Changelist" comment="Fixed The Preload, on the table get.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/DB/setup.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-    </list>
+    <list default="true" id="c3e4c046-f682-41d5-ad1e-f90dab93f84a" name="Default Changelist" comment="les" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,7 +34,7 @@
   </component>
   <component name="GOROOT" path="C:\Go" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
@@ -59,8 +55,9 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/main.go" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
@@ -112,6 +109,9 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
     <MESSAGE value="FEATURE&#10;FEATURE: create of profile" />
     <MESSAGE value="Fixed some issues and added // comments to explain better the code" />
     <MESSAGE value="Created table, and dependences" />
@@ -135,26 +135,30 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="741" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1588955432072" />
-    <state width="1877" height="188" key="GridCell.Tab.0.bottom" timestamp="1590166795253">
+    <state width="1877" height="188" key="GridCell.Tab.0.bottom" timestamp="1590173336226">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="139" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1589568857130" />
-    <state width="1877" height="188" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590166795253" />
-    <state width="1877" height="188" key="GridCell.Tab.0.center" timestamp="1590166795253">
+    <state width="1877" height="188" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590173336226" />
+    <state width="1877" height="188" key="GridCell.Tab.0.center" timestamp="1590173336226">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="139" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1589568857129" />
-    <state width="1877" height="188" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590166795253" />
-    <state width="1877" height="188" key="GridCell.Tab.0.left" timestamp="1590166795253">
+    <state width="1877" height="188" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590173336226" />
+    <state width="1877" height="188" key="GridCell.Tab.0.left" timestamp="1590173336226">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="139" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1589568857129" />
-    <state width="1877" height="188" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590166795253" />
-    <state width="1877" height="188" key="GridCell.Tab.0.right" timestamp="1590166795253">
+    <state width="1877" height="188" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590173336226" />
+    <state width="1877" height="188" key="GridCell.Tab.0.right" timestamp="1590173336226">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="139" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1589568857130" />
-    <state width="1877" height="188" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590166795253" />
+    <state width="1877" height="188" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590173336226" />
+    <state x="461" y="165" key="SettingsEditor" timestamp="1590172227577">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1590172227577" />
     <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590018631597">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
