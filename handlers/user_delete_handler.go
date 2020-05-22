@@ -9,7 +9,7 @@ import (
 	"w4s/models"
 )
 
-//Maria DB treats false and true as tinyint, 0 for non deleted, 1 for deleted
+//Maria db treats false and true as tinyint, 0 for non deleted, 1 for deleted
 func SoftDeletedUserByNick(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	// Get model if exist

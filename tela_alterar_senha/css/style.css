@@ -1,64 +1,64 @@
-body{
-  font-family: 'Roboto', sans-serif;
+body {
+    font-family: 'Roboto', sans-serif;
 }
 
-h1,p{
+h1, p {
     text-align: center;
 }
 
-.form-group{
+.form-group {
     padding: 10px;
 }
 
-h1.alt{
+h1.alt {
     font-weight: lighter;
 }
 
-h1.altSenha{
+h1.altSenha {
     font-weight: 600;
     color: #022A32;
 }
 
-h1{
+h1 {
     font-size: large;
 }
 
-p{
+p {
     padding: 10px, 10px, 0px, 10px;
     font-weight: 400;
     font-size: 15px;
 }
 
-hr{
+hr {
     margin: 20px;
     border-top: 1px solid #022A32;
 }
 
-label{
+label {
     color: #022A32;
 }
 
 
-input{
+input {
     border-color: #022A32;
     border-width: medium;
 }
 
-.btn-cor{
+.btn-cor {
     background-color: #022A32;
     color: white;
 }
 
-button:active{
+button:active {
     background-color: #022A32;
     color: white;
 }
 
-img{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-height: 150px;
-  max-width: 150px;
-  margin-top: 30px;
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 150px;
+    max-width: 150px;
+    margin-top: 30px;
 }

@@ -19,9 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3e4c046-f682-41d5-ad1e-f90dab93f84a" name="Default Changelist" comment="Fix">
+    <list default="true" id="c3e4c046-f682-41d5-ad1e-f90dab93f84a" name="Default Changelist" comment="Fix now for god love">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/DB/setup.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/user_delete_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user_delete_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +102,16 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -122,44 +134,53 @@
     <MESSAGE value="Fixed the searchall and searchbynick user.&#10;still trying to fix the return from the findALLTables." />
     <MESSAGE value="Fixed The Preload, on the table get." />
     <MESSAGE value="Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+    <MESSAGE value="Fix now for god love" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix now for god love" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state x="415" y="175" width="1028" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590173554265">
+    <state x="415" y="175" width="1028" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590175371434">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="415" y="175" width="1028" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590173554265" />
-    <state x="828" y="270" width="430" height="652" key="EnvironmentVariablesDialog" timestamp="1590173552746">
+    <state x="415" y="175" width="1028" height="690" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590175371434" />
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1590176114452">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="828" y="270" width="430" height="652" key="EnvironmentVariablesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590173552746" />
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590176114452" />
+    <state x="828" y="270" width="430" height="652" key="EnvironmentVariablesDialog" timestamp="1590175370310">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="828" y="270" width="430" height="652" key="EnvironmentVariablesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590175370310" />
     <state x="741" y="275" key="FileChooserDialogImpl" timestamp="1588955432072">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="741" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1588955432072" />
-    <state width="1877" height="188" key="GridCell.Tab.0.bottom" timestamp="1590173336226">
+    <state width="1877" height="188" key="GridCell.Tab.0.bottom" timestamp="1590175953596">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="139" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1589568857130" />
-    <state width="1877" height="188" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590173336226" />
-    <state width="1877" height="188" key="GridCell.Tab.0.center" timestamp="1590173336226">
+    <state width="1877" height="188" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590175953596" />
+    <state width="1877" height="188" key="GridCell.Tab.0.center" timestamp="1590175953596">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="139" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1589568857129" />
-    <state width="1877" height="188" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590173336226" />
-    <state width="1877" height="188" key="GridCell.Tab.0.left" timestamp="1590173336226">
+    <state width="1877" height="188" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590175953596" />
+    <state width="1877" height="188" key="GridCell.Tab.0.left" timestamp="1590175953596">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="139" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1589568857129" />
-    <state width="1877" height="188" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590173336226" />
-    <state width="1877" height="188" key="GridCell.Tab.0.right" timestamp="1590173336226">
+    <state width="1877" height="188" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590175953596" />
+    <state width="1877" height="188" key="GridCell.Tab.0.right" timestamp="1590175953596">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1557" height="139" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1589568857130" />
-    <state width="1877" height="188" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590173336226" />
+    <state width="1877" height="188" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590175953596" />
+    <state x="841" y="240" key="RollbackChangesDialog" timestamp="1590176062319">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="841" y="240" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590176062319" />
     <state x="461" y="165" key="SettingsEditor" timestamp="1590173580215">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
