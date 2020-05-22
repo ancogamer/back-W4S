@@ -9,8 +9,15 @@ import (
 )
 
 func SetupModels() *gorm.DB {
-	db, err := gorm.Open("mysql",
-		""+os.Getenv("DB_USER")+":"+os.Getenv("DB_PASSWORD")+"@/w4s?charset=utf8&parseTime=True&loc=Local")
+	/*db, err := gorm.Open("mysql",
+		""+os.Getenv("DB_USER")+":"+os.Getenv("DB_PASSWORD")+"@/w4s?charset=utf8&parseTime=True&loc=Local")*/
+
+	db, err := gorm.Open("postgres", "host="+os.Getenv("DATABASE_URL")+" port="+os.Getenv("DB_PORT")+
+		" user="+os.Getenv("DB_USER")+" dbname="+os.Getenv("DB_NAME") +" sslmode=disable"+" password="+os.Getenv("DB_PASSWORD")+"")
+
+	​
+
+
 
 	if err != nil {
 		panic("Failed to connect to database!")
@@ -25,6 +32,6 @@ func SetupModels() *gorm.DB {
 	db.AutoMigrate(&models.RpgSystem{})
 	db.AutoMigrate(&models.LogoffListTokens{})
 	db.AutoMigrate(&models.User{})
-	//db.AutoMigrate(&models.Profile{})
+
 	return db
 }

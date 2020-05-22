@@ -27,7 +27,7 @@ func main() {
 	r.POST("/create/user", controllers.CreateUser)
 	r.GET("/confirm/user", controllers.ConfirmUser)
 	//User Recovery Password stuff
-	r.POST("user/password/recovery", controllers.RecoveryPasswordUser)
+	r.POST("/user/password/recovery", controllers.RecoveryPasswordUser)
 	recoveryPassword := r.Group("/user/password/recovery")
 	//Uses a 2 middleware called AuthRequired2
 	recoveryPassword.Use(middleware.AuthRequired2)
