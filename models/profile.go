@@ -8,12 +8,12 @@ import (
 type Profile struct {
 	gorm.Model
 	IDUser         uint      `json:"id_user"`
-	Avatar         string    `json:"avatar" gorm:"type:longtext"` //longtext no BD (mysql-MariaDB)
-	DataNascimento time.Time `json:"datanascimento" `             //maximo 8 digitos
+	Avatar         string    `json:"avatar"`          //longtext no BD (mysql-MariaDB)
+	DataNascimento time.Time `json:"datanascimento" ` //maximo 8 digitos
 }
 type ProfileInput struct {
-	Avatar         string    `json:"avatar" gorm:"type:longtext"` //longtext no BD (mysql-MariaDB)
-	DataNascimento time.Time `json:"datanascimento" `             //maximo 8 digitos
+	Avatar         string    `json:"avatar"`          //longtext no BD (mysql-MariaDB)
+	DataNascimento time.Time `json:"datanascimento" ` //maximo 8 digitos
 }
 
 /*
