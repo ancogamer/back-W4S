@@ -3,15 +3,16 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"w4s/db"
 	"w4s/controllers"
+	"w4s/db"
 	"w4s/middleware"
 )
 
 func main() {
 	//creating connection with database
-	r := gin.Default()     //starting the gin. //Iniciando o gin
-	db := DB.SetupModels() //Connection database //Conexão banco de dados
+	r := gin.Default() //starting the gin. //Iniciando o gin
+
+	db := DB.SetupModels()
 	r.Use(func(c *gin.Context) {
 		c.Set("db", db)
 		c.Next()

@@ -7,7 +7,7 @@ type Table struct {
 	Name                 string     `json:"name"`
 	Description          string     `json:"description"`
 	NumberOfParticipants int        `json:"numberofparticipants"`
-	Thumbnail            string     `json:"thumbnail" gorm:"type:longtext"`
+	Thumbnail            string     `json:"thumbnail"`
 	AdventureLink        string     `json:"adventurelink" gorm:"foreignkey:TableID"`
 	RpgSystem            RpgSystem  `json:"rpgsystem" gorm:"foreignkey:TableID"`
 	OthersLinks          OtherLinks `json:"otherlinks" gorm:"foreignkey:TableID"`

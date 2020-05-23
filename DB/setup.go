@@ -1,15 +1,18 @@
-//Database connections with gorm
 package DB
+
+//Database connections with gorm
 
 import (
 	"github.com/jinzhu/gorm"
-
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+
+	//_ "github.com/jinzhu/gorm/dialects/mysql"
 	"os"
 	"w4s/models"
 )
 
 //	_ "github.com/jinzhu/gorm/dialects/mysql"
+
 func SetupModels() *gorm.DB {
 
 	/*
