@@ -1,4 +1,4 @@
-package DB
+package db
 
 //Database connections with gorm
 
