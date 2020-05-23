@@ -12,9 +12,9 @@ func main() {
 	//creating connection with database
 	r := gin.Default() //starting the gin. //Iniciando o gin
 
-	db := DB.SetupModels()
+	DB := db.SetupModels()
 	r.Use(func(c *gin.Context) {
-		c.Set("db", db)
+		c.Set("db", DB)
 		c.Next()
 	})
 
