@@ -7,6 +7,7 @@ type Table struct {
 	Name                 string     `json:"name"`
 	Description          string     `json:"description"`
 	NumberOfParticipants int        `json:"numberofparticipants"`
+	MaxOfParticipants    int        `json:"maxofparticipants"`
 	Thumbnail            string     `json:"thumbnail"`
 	AdventureLink        string     `json:"adventurelink" gorm:"foreignkey:TableID"`
 	RpgSystem            RpgSystem  `json:"rpgsystem" gorm:"foreignkey:TableID"`
@@ -20,6 +21,7 @@ type TableInput struct {
 	Name                 string     `json:"name" binding:"required"`
 	Description          string     `json:"description" binding:"required"`
 	NumberOfParticipants int        `json:"numberofparticipants"`
+	MaxOfParticipants    int        `json:"maxofparticipants"`
 	Thumbnail            string     `json:"thumbnail"`
 	AdventureLink        string     `json:"adventurelink" gorm:"foreignkey:TableID"`
 	RpgSystem            RpgSystem  `json:"rpgsystem" gorm:"foreignkey:TableID"`
