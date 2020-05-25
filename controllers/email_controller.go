@@ -17,7 +17,8 @@ func SendConfirmationCreateAccountEmail(userEmail string, c *gin.Context) error 
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
 		return err
 	}
-	userURL := "https://w4s.herokuapp.com/confirm/user?e=" + userEmail + "&t=" + userSingUpToken
+	//	userURL := "https://w4s.herokuapp.com/confirm/user?e=" + userEmail + "&t=" + userSingUpToken
+	userURL := os.Getenv("EMAIL_URL") + userEmail + "&t=" + userSingUpToken
 	//Thanks https://blog.mailtrap.io/golang-send-email/#Sending_emails_with_smtpSendMail for the code
 	// Choose auth method and set it up
 	msg := []byte("To: " + userEmail + "\r\n" +

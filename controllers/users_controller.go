@@ -23,44 +23,49 @@ func CreateUser(c *gin.Context) {
 		})
 		return
 	}
-	//Creating user
-	user := models.User{
-		Nickname: input.Nickname,
-		Email:    input.Email,
-		Password: input.Password,
-		Name:     input.Name,
-		Lastname: input.Lastname,
-		Actived:  false,
-		Deleted:  false,
-		Token:    "",
-	}
-	err := user.Validate("createuser") //Validating the inputs/ Validando os inputs
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusNotImplemented, gin.H{
-			"error": err.Error(),
+	var user models.User
+	if db.Where("nickname = ?", input.Nickname).Find(&user).RecordNotFound() {
+		//Creating user
+		user.Nickname = input.Nickname
+		user.Email = input.Email
+		user.Password = input.Password
+		user.Name = input.Name
+		user.Lastname = input.Lastname
+		user.Actived = false
+		user.Deleted = false
+		user.Token = ""
+
+		err := user.Validate("createuser") //Validating the inputs/ Validando os inputs
+		if err != nil {
+			c.AbortWithStatusJSON(http.StatusNotImplemented, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+		user.Password, err = models.BeforeSave(user.Password)
+		if err != nil {
+			c.AbortWithStatusJSON(http.StatusNotImplemented, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+		//Saving the new User on the database/ Salvando o novo usuario na base de dados
+		if dbc := db.Create(&user); dbc.Error != nil { //Return the error by JSON / Retornando o erro por JSON
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": dbc.Error})
+			return
+		} //Return the post data if is ok, by JSON/ Retornando o que foi postado se tudo ocorreu certo
+		if err := SendConfirmationCreateAccountEmail(user.Email, c); err != nil {
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"waiting": "Verifique seu email !",
 		})
 		return
 	}
-	user.Password, err = models.BeforeSave(user.Password)
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusNotImplemented, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
-	//Saving the new User on the database/ Salvando o novo usuario na base de dados
-	if dbc := db.Create(&user); dbc.Error != nil { //Return the error by JSON / Retornando o erro por JSON
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": dbc.Error})
-		return
-	} //Return the post data if is ok, by JSON/ Retornando o que foi postado se tudo ocorreu certo
-	if err := SendConfirmationCreateAccountEmail(user.Email, c); err != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{
-		"waiting": "Verifique seu email !",
-	})
+	c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "nickname em uso"})
 	return
+
 }
 func ConfirmUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
@@ -203,7 +208,13 @@ func CreateProfile(c *gin.Context) {
 	var user models.User
 	if err := db.Where("nickname = ?", c.Query("nickname")).First(&user).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
-			"error": "não encontrado o nickname",
+			"error": "nickname not found",
+		})
+		return
+	}
+	if user.Profile.ID == 0 {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"error": "user already have a profile",
 		})
 		return
 	}
