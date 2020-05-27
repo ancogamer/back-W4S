@@ -259,8 +259,12 @@ func CreateProfile(c *gin.Context) {
 	}
 	profile := models.Profile{
 		IDUser:         user.ID,
+		Nickname:       input.Nickname,
+		Name:           input.Name,
+		Lastname:       input.Lastname,
 		Avatar:         input.Avatar,
 		DataNascimento: input.DataNascimento,
+		Deleted:        false,
 	}
 	if err := db.Create(&profile).Error; err != nil { //Return the error by JSON / Retornando o erro por JSON
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})

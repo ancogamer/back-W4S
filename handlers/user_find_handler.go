@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
@@ -28,7 +29,8 @@ func FindUser(c *gin.Context) {
 func FindUserByNick(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var user models.Profile
-	if err := db.Where("nickname = ? AND deleted = ?", c.Query("e"), "0", "1").Preload("User").Preload("Tables").First(&user).Error; err != nil {
+	if err := db.Debug().Where("nickname = ? AND deleted = ?", c.Query("e"), "0").Preload("Profile.User").First(&user).Error; err != nil {
+		fmt.Println(err.Error())
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "Registro não encontrado",
 		})

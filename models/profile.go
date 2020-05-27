@@ -10,7 +10,7 @@ import (
 type Profile struct {
 	gorm.Model
 	IDUser         uint      `json:"id_user"`
-	Nickname       string    `json:"nickname "` //max 15
+	Nickname       string    `json:"nickname"` //max 15
 	Name           string    `json:"name"`
 	Lastname       string    `json:"lastname"`
 	Avatar         string    `json:"avatar"`          //longtext no BD (mysql-MariaDB)
