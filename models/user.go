@@ -13,46 +13,34 @@ import (
 //Struct from the User
 type User struct {
 	gorm.Model
-	Nickname string  `json:"nickname "`
 	Email    string  `json:"email" gorm:"type:varchar(100);unique_index" `
 	Password string  `json:"-"`
-	Name     string  `json:"name"`
-	Lastname string  `json:"lastname"`
 	Deleted  bool    `json:"deleted" gorm:"type:BOOLEAN"`
 	Actived  bool    `json:"actived" gorm:"type:BOOLEAN"`
 	Profile  Profile `json:"profile,omitempty" gorm:"foreignkey:IDUser;auto_preload"`
 	Tables   []Table `json:"tables" gorm:"many2many:user_Tables;ForeignKey:id;AssociationForeignKey:id"`
-	Token    string  `json:"token";sql:"-"`
+	Token    string  `json:"token"`
 }
 
 //With biding required in all fields/ Com o biding obrigatorio em todos os campos
 type UserInput struct {
-	Nickname string `json:"nickname" binding:"required"`
 	Email    string `json:"email" binding:"required" `
 	Password string `json:"password" binding:"required"`
-	Name     string `json:"name" binding:"required"`
-	Lastname string `json:"lastname" binding:"required"`
 }
 
 //Separete User Input to recovery password
 type UserInputRecoveryPassword struct {
-	Nickname        string `json:"nickname"`
 	Email           string `json:"email"`
 	Password        string `json:"password" binding:"required"`
 	ConfirmPassword string `json:"confirmpassword" binding:"required"`
-	Name            string `json:"name"`
-	Lastname        string `json:"lastname"`
 }
 
 //With out the biding required in all fields/ Sem o biding obrigatorio em todos os campos
 type UserInputUpdate struct {
-	Nickname           string `json:"nickname"`
 	Email              string `json:"email"`
 	Password           string `json:"password"`
 	NewPassword        string `json:"newpassword"`
 	ConfirmNewPassword string `json:"confirmnewpassword"`
-	Name               string `json:"name"`
-	Lastname           string `json:"lastname"`
 }
 
 // BeforeSave hash the user password
@@ -78,7 +66,7 @@ func (u *User) Validate(action string) error {
 		if err := PasswordCheck(u.Password); err != nil {
 			return errors.New(err.Error())
 		}
-	case "updateEmail":
+	case "updateemailandresendlink":
 		if u.Email == "" {
 			return errors.New("Email is required")
 		}
@@ -86,9 +74,6 @@ func (u *User) Validate(action string) error {
 			return errors.New("Digite um endereço de e-mail válido")
 		}
 	case "login":
-		if u.Nickname == "" && u.Email == "" {
-			return errors.New("Preencha este campo")
-		}
 		if err := checkmail.ValidateFormat(u.Email); u.Email != "" && err != nil {
 			return errors.New("Invalid email")
 		}

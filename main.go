@@ -26,6 +26,7 @@ func main() {
 	//Un Authorized Routes
 	r.POST("/login", controllers.Login)
 	r.POST("/create/user", controllers.CreateUser)
+	r.POST("/create/user/resendlink", controllers.ResentCreateAccountLink)
 	r.GET("/confirm/user", controllers.ConfirmUser)
 	//User Recovery Password stuff
 	r.POST("/user/password/recovery", controllers.RecoveryPasswordUser)

@@ -3,6 +3,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
@@ -24,13 +25,10 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 	var user models.User
-	if db.Where("nickname = ?", input.Nickname).Find(&user).RecordNotFound() {
+	if db.Where("email = ?", input.Email).Find(&user).RecordNotFound() {
 		//Creating user
-		user.Nickname = input.Nickname
 		user.Email = input.Email
 		user.Password = input.Password
-		user.Name = input.Name
-		user.Lastname = input.Lastname
 		user.Actived = false
 		user.Deleted = false
 		user.Token = ""
@@ -66,6 +64,28 @@ func CreateUser(c *gin.Context) {
 	c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "nickname em uso"})
 	return
 
+}
+func ResentCreateAccountLink(c *gin.Context) {
+	if c.Query("e") == "" {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Email not send"})
+		return
+	}
+	var user models.User
+	user.Email = c.Query("e")
+	if err := user.Validate("updateEmailAndResendLink"); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	db := c.MustGet("db").(*gorm.DB)
+	if err := db.Where("email = ?", user.Email).Find(&user).Error; err != nil {
+		fmt.Println("ERROR", err.Error())
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"succes": "emailsend"})
+		return
+	}
+	InvalideToken(c, user.Token)
+	ResendConfirmationCreateAccountLink(user.Email, c)
+	c.JSON(http.StatusOK, gin.H{"succes": "email reenviado"})
+	return
 }
 func ConfirmUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)

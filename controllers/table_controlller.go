@@ -60,7 +60,6 @@ func UserJoinTable(c *gin.Context) {
 		return
 	}
 	//=========================
-
 	db := c.MustGet("db").(*gorm.DB)
 	var userToADD models.User
 	if err := db.Where("deleted = ? AND actived = ?", "0", true).Preload("Profile").Preload("Tables").Find(&userToADD).Error; err != nil {
@@ -115,7 +114,7 @@ func FindAllTables(c *gin.Context) {
 }
 
 /*func insertPictures(c *gin.Context, TableId uint) {
-	db := c.MustGet("db").(*gorm.DB)
+	db := c.MustGet("db").(*gorm.db)
 	var pictures models.Picture
 	if err := c.BindJSON(pictures); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})

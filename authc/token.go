@@ -31,6 +31,7 @@ func ValidateLoginToken(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var tokenLogOffList models.LogoffListTokens
 	userToken := c.Request.Header.Get("Authorization")
+	//userEmail:=c.Query()
 	if userToken == "" {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 			"error": "não logado",
