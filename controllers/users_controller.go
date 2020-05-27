@@ -63,7 +63,7 @@ func CreateUser(c *gin.Context) {
 		})
 		return
 	}
-	c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "nickname em uso"})
+	c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Email já esta em uso"})
 	return
 
 }
