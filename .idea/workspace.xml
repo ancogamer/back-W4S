@@ -19,8 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="Fix profile and user models">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="Fix the search by nick">
       <change beforePath="$PROJECT_DIR$/handlers/user_find_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user_find_handler.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -118,7 +117,8 @@
     <MESSAGE value="Changing the Create Profile, now is ok with the documentation." />
     <MESSAGE value="Fix the create base profile (profile)" />
     <MESSAGE value="Fix profile and user models" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix profile and user models" />
+    <MESSAGE value="Fix the search by nick" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix the search by nick" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>

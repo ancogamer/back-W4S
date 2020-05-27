@@ -51,6 +51,7 @@ func FindUserByNick(c *gin.Context) {
 	user.Profile.Deleted = profile.Deleted
 	user.Profile.ID = profile.ID
 	user.Profile.Lastname = profile.Lastname
+	user.Profile.Nickname = profile.Nickname
 	user.Profile.Name = profile.Name
 	user.Profile.DataNascimento = profile.DataNascimento
 	user.Profile.Avatar = profile.Avatar
