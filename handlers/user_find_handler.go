@@ -44,17 +44,7 @@ func FindUserByNick(c *gin.Context) {
 			return
 		}
 	*/
-	user.Profile.CreatedAt = profile.CreatedAt
-	user.Profile.UpdatedAt = profile.UpdatedAt
-	user.Profile.Deleted = profile.Deleted
-	user.Profile.IDUser = profile.ID
-	user.Profile.Deleted = profile.Deleted
-	user.Profile.ID = profile.ID
-	user.Profile.Lastname = profile.Lastname
-	user.Profile.Nickname = profile.Nickname
-	user.Profile.Name = profile.Name
-	user.Profile.DataNascimento = profile.DataNascimento
-	user.Profile.Avatar = profile.Avatar
+	user.Profile = profile
 
 	c.JSON(http.StatusOK, gin.H{
 		"success": user,
