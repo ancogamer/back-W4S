@@ -15,6 +15,7 @@ type Profile struct {
 	Lastname       string    `json:"lastname"`
 	Avatar         string    `json:"avatar"`          //longtext no BD (mysql-MariaDB)
 	DataNascimento time.Time `json:"datanascimento" ` //maximo 8 digitos
+	Deleted        bool      `json:"deleted" gorm:"type:BOOLEAN"`
 }
 type ProfileInput struct {
 	Nickname       string    `json:"nickname" binding:"required"`

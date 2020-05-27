@@ -51,7 +51,9 @@ func CreateUser(c *gin.Context) {
 		if dbc := db.Create(&user); dbc.Error != nil { //Return the error by JSON / Retornando o erro por JSON
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": dbc.Error})
 			return
-		} //Return the post data if is ok, by JSON/ Retornando o que foi postado se tudo ocorreu certo
+		}
+		//Return the post data if is ok, by JSON/ Retornando o que foi postado se tudo ocorreu certo
+		//This func is inside the Email controller file
 		if err := SendConfirmationCreateAccountEmail(user.Email, c); err != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
@@ -65,6 +67,8 @@ func CreateUser(c *gin.Context) {
 	return
 
 }
+
+//Resending the user created account link
 func ResentCreateAccountLink(c *gin.Context) {
 	if c.Query("e") == "" {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Email not send"})
@@ -87,6 +91,8 @@ func ResentCreateAccountLink(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"succes": "email reenviado"})
 	return
 }
+
+//Confirm the user registration
 func ConfirmUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var UserToken models.UserAccountBadListToken
@@ -119,6 +125,58 @@ func ConfirmUser(c *gin.Context) {
 	c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "link já utilizado"})
 	return
 }
+
+//Recovery the user password
+func RecoveryPasswordUser(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	if c.Query("e") == "" {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Preencha o campo email"})
+		return
+	}
+	var user models.User
+	if err := db.Where("LOWER(email) = LOWER(?)", c.Query("e")).First(&user).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{ //We do this, to avoid user enumaration
+			//Fazemos isso para evitar enumeração de usuario
+			"success": "email enviado !",
+		})
+		return
+	}
+	userEmail := c.Query("e")
+	userRecoveryPassword, err := authc.GenerateJWT(userEmail, 600)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+		return
+	}
+	userURL := "http://localhost:8080/user/password/recovery?e=" + userEmail + "&t=" + userRecoveryPassword
+	//Thanks https://blog.mailtrap.io/golang-send-email/#Sending_emails_with_smtpSendMail for the code
+	msg := []byte("To: " + userEmail + "\r\n" +
+		"Subject: NÂO RESPONDA ESTE EMAIL - RECUPERAÇÃO DE SENHA \r\n" +
+		"\r\n" +
+		"Utilize o link abaixo para recuperar a sua senha, ele é valido nos proximos 10 minutos \r\n" +
+		"\r\n" +
+		"Clique aqui para confirmar sua conta = " + userURL +
+		"\r\n" +
+		"Caso não consiga, é só copiar o link e colar no navegador ! " +
+		"\r\n" +
+		"Caso não tenha requistado, sugerimos trocar a senha imediatamente !")
+
+	if err := SendEmail(userEmail, msg); err != nil {
+		//Declaring and inicializing a userAccountCreatedToken
+		//Declarando e inicializando uma variavel userAccount
+		userAccountBadListToken := models.UserAccountBadListToken{
+			Token: userRecoveryPassword,
+		}
+		db := c.MustGet("db").(*gorm.DB) //Establish conection with database/Estabelecendo conexão com o banco de dados
+		if err := db.Create(userAccountBadListToken).Error; err != nil {
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
+			return
+		}
+	}
+	c.JSON(http.StatusOK, gin.H{"success": "cheque seu email !"})
+	return
+}
+
+//Changes the user password/ Middleware Used(AuthRequired2)
 func ChangeExternalPassword(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var token models.UserAccountBadListToken
@@ -174,65 +232,19 @@ func ChangeExternalPassword(c *gin.Context) {
 	c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "A senha não pode ser a mesma que a anterior !"})
 	return
 }
-func RecoveryPasswordUser(c *gin.Context) {
-	db := c.MustGet("db").(*gorm.DB)
-	if c.Query("e") == "" {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Preencha o campo email"})
-		return
-	}
-	var user models.User
-	if err := db.Where("LOWER(email) = LOWER(?)", c.Query("e")).First(&user).Error; err != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{ //We do this, to avoid user enumaration
-			//Fazemos isso para evitar enumeração de usuario
-			"success": "email enviado !",
-		})
-		return
-	}
-	userEmail := c.Query("e")
-	userRecoveryPassword, err := authc.GenerateJWT(userEmail, 600)
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
-		return
-	}
-	userURL := "http://localhost:8080/user/password/recovery?e=" + userEmail + "&t=" + userRecoveryPassword
-	//Thanks https://blog.mailtrap.io/golang-send-email/#Sending_emails_with_smtpSendMail for the code
-	msg := []byte("To: " + userEmail + "\r\n" +
-		"Subject: NÂO RESPONDA ESTE EMAIL - RECUPERAÇÃO DE SENHA \r\n" +
-		"\r\n" +
-		"Utilize o link abaixo para recuperar a sua senha, ele é valido nos proximos 10 minutos \r\n" +
-		"\r\n" +
-		"Clique aqui para confirmar sua conta = " + userURL +
-		"\r\n" +
-		"Caso não consiga, é só copiar o link e colar no navegador ! " +
-		"\r\n" +
-		"Caso não tenha requistado, sugerimos trocar a senha imediatamente !")
 
-	if err := SendEmail(userEmail, msg); err != nil {
-		//Declaring and inicializing a userAccountCreatedToken
-		//Declarando e inicializando uma variavel userAccount
-		userAccountBadListToken := models.UserAccountBadListToken{
-			Token: userRecoveryPassword,
-		}
-		db := c.MustGet("db").(*gorm.DB) //Establish conection with database/Estabelecendo conexão com o banco de dados
-		if err := db.Create(userAccountBadListToken).Error; err != nil {
-			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
-			return
-		}
-	}
-	c.JSON(http.StatusOK, gin.H{"success": "cheque seu email !"})
-	return
-}
+//Creating base profile/Middleware Used(AuthRequired)
 func CreateProfile(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	// Get model if exist
 	var user models.User
-	if err := db.Where("nickname = ?", c.Query("nickname")).First(&user).Error; err != nil {
+	if err := db.Where("email= ?", c.Query("e")).First(&user).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
-			"error": "nickname not found",
+			"error": "Internal error, user not found",
 		})
 		return
 	}
-	if user.Profile.ID == 0 {
+	if user.Profile.ID != 0 {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "user already have a profile",
 		})
@@ -257,15 +269,23 @@ func CreateProfile(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"success": profile})
 	return
 }
+
+//Middleware Used(AuthRequired)
 func UpdateUser(c *gin.Context) {
 	handlers.UpdateUser(c)
 }
+
+//Search all users //Middleware Used(AuthRequired)
 func FindAllUsers(c *gin.Context) {
 	handlers.FindUser(c)
 }
+
+//Search by nick //Middleware Used(AuthRequired)
 func FindUserByNick(c *gin.Context) {
 	handlers.FindUserByNick(c)
 }
+
+//Middleware Used(AuthRequired)
 func SoftDeletedUserByNick(c *gin.Context) {
 	handlers.SoftDeletedUserByNick(c)
 }

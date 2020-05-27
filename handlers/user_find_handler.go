@@ -27,8 +27,8 @@ func FindUser(c *gin.Context) {
 //Find a user by his(her) nickname/Encontrando um usuario pelo seu nick(url)
 func FindUserByNick(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
-	var user models.User
-	if err := db.Where("nickname = ? AND deleted = ? AND actived = ?", c.Query("nickname"), "0", "1").Preload("Profile").Preload("Tables").First(&user).Error; err != nil {
+	var user models.Profile
+	if err := db.Where("nickname = ? AND deleted = ?", c.Query("e"), "0", "1").Preload("User").Preload("Tables").First(&user).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "Registro não encontrado",
 		})
