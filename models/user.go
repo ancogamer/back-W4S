@@ -13,13 +13,14 @@ import (
 //Struct from the User
 type User struct {
 	gorm.Model
-	Email    string  `json:"email" gorm:"type:varchar(100);unique_index" `
-	Password string  `json:"-"`
-	Deleted  bool    `json:"deleted" gorm:"type:BOOLEAN"`
-	Actived  bool    `json:"actived" gorm:"type:BOOLEAN"`
-	Profile  Profile `json:"profile,omitempty" gorm:"foreignkey:IDUser;auto_preload"`
-	Tables   []Table `json:"tables" gorm:"many2many:user_Tables;ForeignKey:id;AssociationForeignKey:id"`
-	Token    string  `json:"token"`
+	Email     string  `json:"email" gorm:"type:varchar(100);unique_index" `
+	Password  string  `json:"-"`
+	Deleted   bool    `json:"deleted" gorm:"type:BOOLEAN"`
+	Actived   bool    `json:"actived" gorm:"type:BOOLEAN"`
+	ProfileID uint    `json:"profileid"`
+	Profile   Profile `json:"profile"`
+	Tables    []Table `json:"tables" gorm:"many2many:user_Tables;ForeignKey:id;AssociationForeignKey:id"`
+	Token     string  `json:"token"`
 }
 
 //With biding required in all fields/ Com o biding obrigatorio em todos os campos

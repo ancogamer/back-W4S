@@ -244,7 +244,7 @@ func CreateProfile(c *gin.Context) {
 		})
 		return
 	}
-	if user.Profile.ID != 0 {
+	if user.ProfileID != 0 {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "user already have a profile",
 		})
@@ -270,6 +270,9 @@ func CreateProfile(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
 		return
 	}
+	db.Model(&user).Update("ProfileID", profile.ID)
+	fmt.Println(user.ProfileID)
+
 	c.JSON(http.StatusOK, gin.H{"success": profile})
 	return
 }
