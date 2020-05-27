@@ -12,6 +12,7 @@ func UpdateUser(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	// Get model if exist
 	var user models.User
+	//
 	if err := db.Where("nickname = ?", c.Query("nickname")).First(&user).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "Registro não encontrado",

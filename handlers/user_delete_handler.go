@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
@@ -21,13 +20,13 @@ func SoftDeletedUserByNick(c *gin.Context) {
 		})
 		return
 	}
-	fmt.Println(user.Profile.IDUser)
-	if err := db.Debug().Where("id_user = ?", user.Profile.IDUser).First(&profile).Error; err != nil {
+	//fmt.Println(user.Profile.IDUser)
+	/*if err := db.Debug().Where("id_user = ?", user.Profile.IDUser).First(&profile).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": err,
 		})
 		return
-	}
+	}*/
 	db.Model(&profile).Update("deleted_at", time.Now())
 	db.Model(&user).Update(map[string]interface{}{"deleted": true, "deleted_at": time.Now(), "actived": false})
 	c.JSON(http.StatusOK, gin.H{"success": "true"})

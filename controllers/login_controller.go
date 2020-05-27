@@ -19,12 +19,11 @@ func Login(c *gin.Context) {
 	}
 	//Struct to store the data recovered from the database
 	//Struct para armazenar os dados da base de dados
-	login := models.User{
+	user := models.User{
 		Email:    input.Email,
-		Nickname: input.Nickname,
 		Password: input.Password,
 	}
-	err := login.Validate("login")
+	err := user.Validate("login")
 	//Validating the login inputs
 	//Validando os inputs do login
 	if err != nil {
@@ -34,7 +33,7 @@ func Login(c *gin.Context) {
 		return
 	}
 	//Separating the where sql find, on other file, so i can use this func in other places if need.
-	token := handlers.LoginFind(c, login, input)
+	token := handlers.LoginFind(c, user, input)
 	if token != "" {
 		c.JSON(http.StatusOK, gin.H{"success": token})
 	}
