@@ -54,6 +54,7 @@ func ValidateLoginToken(c *gin.Context) string {
 		//This was seperated, to be possible use this on other places/
 		//Isto foi separado para poder ser utilizado em outros lugares
 		claim, err := ValidateToken(split[01])
+
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
 			return ""

@@ -16,17 +16,31 @@ func AuthRequired(c *gin.Context) {
 }
 
 //Recovery PasswordMiddleware
-func AuthRequired2(c *gin.Context) {
+func AuthRequiredRecoveryPassword(c *gin.Context) {
 	tokenCheck(c)
 	c.Next()
 	return
 }
 
 //Check if the user created a base profile
-func AuthRequired3(c *gin.Context) {
+func AuthRequired2(c *gin.Context) {
 	claim := authc.ValidateLoginToken(c)
 	if claim != c.Query("e") {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "internal server error"})
+		return
+	}
+	db := c.MustGet("db").(*gorm.DB)
+	if claim != c.Query("e") {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "internal server error"})
+		return
+	}
+	var user models.User
+	if db.Where("email = ? and actived = ?", c.Query("e"), true).Find(&user).RecordNotFound() {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "internal server error"})
+		return
+	}
+	if user.ProfileID == 0 {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "crie um perfil base"})
 		return
 	}
 	c.Next()
