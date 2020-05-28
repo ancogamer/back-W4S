@@ -102,7 +102,7 @@ func ConfirmUser(c *gin.Context) {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
 			return
 		}
-		if err := authc.ValidateToken(c.Query("t")); err != nil {
+		if _, err := authc.ValidateToken(c.Query("t")); err != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
 			return
 		}
@@ -181,7 +181,7 @@ func ChangeExternalPassword(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var token models.UserAccountBadListToken
 	token.Token = c.Query("t")
-	if err := authc.ValidateToken(token.Token); err != nil {
+	if _, err := authc.ValidateToken(token.Token); err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Alguma coisa não deu certo, por favor, requiste novamente a recuperação de senha"})
 		return
 	}

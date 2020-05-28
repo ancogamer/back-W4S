@@ -41,16 +41,20 @@ func main() {
 
 	//Normal Middleware
 	authorized := r.Group("/v1")
+	authorized2 := r.Group("/v1/v2")
 	authorized.Use(middleware.AuthRequired)
+	{
+		//Create the profile, only free, without check if the user already have a base profile
+		//Cria o perfil, unica liberada, sem checar se o usuario já tem perfil base
+		authorized.PATCH("/create/user/createprofile", controllers.CreateProfile) //Cria um perfil base
+	}
+	authorized2.Use(middleware.AuthRequired3)
 	{
 		//USER Links URL
 		//encontra o perfil do usuario, busca pelo email e puxa junto o perfil do usuario
 		//Find the user profile, search by the email and preload the user profile
 		authorized.GET("/searchall/user", controllers.FindAllUsers)        //Search all the users
 		authorized.GET("/search/user/profile", controllers.FindUserByNick) //Search the by nick, preload the user
-		//Create the profile
-		//Cria o perfil
-		authorized.PATCH("/create/user/createprofile", controllers.CreateProfile) //Cria um perfil base
 		//Updates
 		//Atualizações
 		authorized.PATCH("/update/user", controllers.UpdateUser) //Involves the User model, email or password
@@ -63,7 +67,6 @@ func main() {
 		authorized.POST("/create/table", controllers.CreateTable)             //Create table
 		authorized.GET("/searchall/table", controllers.FindAllTables)         //Search by all the tables//Procura por todas as tabelas
 		authorized.PATCH("/update/table/userjoin", controllers.UserJoinTable) //Join a user to the table//Coloca um usuario a mesa
-
 	}
 	//Run the ser
 	err := r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080") // listando e escutando no localhost:8080

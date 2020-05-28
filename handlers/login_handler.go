@@ -41,5 +41,6 @@ func LoginFind(c *gin.Context, user models.User, input models.LoginUser) string 
 	}
 	//Saving the new token on the user(Database)/ Salvando o novo token no usuario(Database)
 	db.Model(user).Update("token", token)
+
 	return token
 }
