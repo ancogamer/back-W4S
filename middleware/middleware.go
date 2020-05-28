@@ -22,6 +22,9 @@ func AuthRequiredRecoveryPassword(c *gin.Context) {
 	return
 }
 
+/*func LoginMiddleware(c *gin.Context){
+	c.Request.
+}*/
 //Check if the user created a base profile
 func AuthRequired2(c *gin.Context) {
 	claim := authc.ValidateLoginToken(c)

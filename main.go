@@ -23,7 +23,9 @@ func main() {
 	r.Static("/images", "tela_alterar_senha/images")
 	r.LoadHTMLFiles("tela_alterar_senha/index.html")
 	//Un Authorized Routes
+
 	r.POST("/login", controllers.Login)
+
 	r.POST("/create/user", controllers.CreateUser)
 	r.POST("/create/user/resendlink", controllers.ResentCreateAccountLink)
 	r.GET("/confirm/user", controllers.ConfirmUser)

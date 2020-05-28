@@ -61,6 +61,9 @@ func (u *User) Validate(action string) error {
 		if u.Email == "" {
 			return errors.New("Email is required")
 		}
+		if len(u.Email) > 75 {
+			return errors.New("Email is too big")
+		}
 		if err := checkmail.ValidateFormat(u.Email); err != nil {
 			return errors.New("Digite um endereço de e-mail válido")
 		}
@@ -71,10 +74,17 @@ func (u *User) Validate(action string) error {
 		if u.Email == "" {
 			return errors.New("Email is required")
 		}
+		if len(u.Email) > 75 {
+			return errors.New("Email is too big")
+		}
 		if err := checkmail.ValidateFormat(u.Email); err != nil {
 			return errors.New("Digite um endereço de e-mail válido")
 		}
+
 	case "login":
+		if len(u.Email) > 75 {
+			return errors.New("Email is too big")
+		}
 		if err := checkmail.ValidateFormat(u.Email); u.Email != "" && err != nil {
 			return errors.New("Invalid email")
 		}
