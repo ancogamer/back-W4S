@@ -27,7 +27,7 @@ func GenerateJWT(userEmail string, experatingTime time.Duration) (string, error)
 }
 
 // ValidateToken validate a JWT
-func ValidateLoginToken(c *gin.Context) {
+func ValidateLoginToken(c *gin.Context) string {
 	db := c.MustGet("db").(*gorm.DB)
 	var tokenLogOffList models.LogoffListTokens
 	userToken := c.Request.Header.Get("Authorization")
@@ -36,8 +36,9 @@ func ValidateLoginToken(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 			"error": "não logado",
 		})
-		return
+		return ""
 	}
+
 	//Checking if the token are on the Logoff list/ Checando se o token esta na lista de deslogados
 	if err := db.Where("token = ?", userToken).Find(&tokenLogOffList).Error; gorm.IsRecordNotFoundError(err) {
 		//If this Record Was not found, it means that the user is loged/ Se o registro não foi encontrado, significa que o usuario esta logado
@@ -47,21 +48,23 @@ func ValidateLoginToken(c *gin.Context) {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 				"error": "não é um token Bearer",
 			})
-			return
+			return ""
 		}
 		//Verifing the token/ Verificando o token
 		//This was seperated, to be possible use this on other places/
 		//Isto foi separado para poder ser utilizado em outros lugares
-		err := ValidateToken(split[01])
+		claim, err := ValidateToken(split[01])
+
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+			return ""
 		}
-		return
+		return claim
 	}
 	c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 		"error": "não logado",
 	})
-	return
+	return ""
 	/*//IF YOU WANT RETURN ERROS OH A SEPARATED WAY// Caso você queira retornar erros de maneira separada
 	if token.Valid {
 		return
@@ -83,13 +86,21 @@ func ValidateLoginToken(c *gin.Context) {
 }
 
 //This Parse the token and check if is valid :D
-func ValidateToken(userToken string) error {
+func ValidateToken(userToken string) (string, error) {
 	token, err := jwt.ParseWithClaims(userToken, &models.Claim{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(os.Getenv("TOKEN_PASSWORD")), nil
 	})
-	_, ok := token.Claims.(*models.Claim)
-	if ok && token.Valid {
-		return nil
+	//_, ok := token.Claims.(*models.Claim)
+
+	if claims, ok := token.Claims.(*models.Claim); ok && token.Valid {
+		return claims.UserEmail, nil
 	}
-	return err
+
+	/*
+	   if ok && token.Valid {
+	   		return nil
+	   	}
+	*/
+
+	return "", err
 }

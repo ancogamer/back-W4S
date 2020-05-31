@@ -16,8 +16,36 @@ func AuthRequired(c *gin.Context) {
 }
 
 //Recovery PasswordMiddleware
-func AuthRequired2(c *gin.Context) {
+func AuthRequiredRecoveryPassword(c *gin.Context) {
 	tokenCheck(c)
+	c.Next()
+	return
+}
+
+/*func LoginMiddleware(c *gin.Context){
+	c.Request.
+}*/
+//Check if the user created a base profile
+func AuthRequired2(c *gin.Context) {
+	claim := authc.ValidateLoginToken(c)
+	if claim != c.Query("e") {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "internal server error"})
+		return
+	}
+	db := c.MustGet("db").(*gorm.DB)
+	if claim != c.Query("e") {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "internal server error"})
+		return
+	}
+	var user models.User
+	if db.Where("email = ? and actived = ?", c.Query("e"), true).Find(&user).RecordNotFound() {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "internal server error"})
+		return
+	}
+	if user.ProfileID == 0 {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "crie um perfil base"})
+		return
+	}
 	c.Next()
 	return
 }
@@ -28,7 +56,7 @@ func tokenCheck(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	token.Token = c.Query("t")
 	if db.Where("token = ?", token.Token).First(&token).RecordNotFound() {
-		if err := authc.ValidateToken(token.Token); err != nil {
+		if _, err := authc.ValidateToken(token.Token); err != nil {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Alguma coisa não deu certo, por favor, requiste novamente a recuperação de senha"})
 			return
 		}

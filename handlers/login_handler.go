@@ -10,11 +10,12 @@ import (
 )
 
 func LoginFind(c *gin.Context, user models.User, input models.LoginUser) string {
+
 	db := c.MustGet("db").(*gorm.DB)
 	//Checking by email
 	if err := db.Where("email = ? ", input.Email).Find(&user).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-			"error:": "Email ou senha incorretos",
+			"error:": "Não\nencontramos sua ficha em local algum, por favor, nos dê\ncredenciais válidas, ou vá fazer seu registro com o\nRegistrador.”",
 		})
 		return ""
 	}
@@ -28,7 +29,7 @@ func LoginFind(c *gin.Context, user models.User, input models.LoginUser) string 
 	//hashad = crypted password, password is the normal one/ hashadpassword = é a senha cryptografada, passoword é a senha normal
 	if err := security.VerifyPassword(user.Password, input.Password); err != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-			"error": "senha incorreta",
+			"error": "Não\nencontramos sua ficha em local algum, por favor, nos dê\ncredenciais válidas, ou vá fazer seu registro com o\nRegistrador.”",
 		})
 		return ""
 	}
@@ -41,5 +42,6 @@ func LoginFind(c *gin.Context, user models.User, input models.LoginUser) string 
 	}
 	//Saving the new token on the user(Database)/ Salvando o novo token no usuario(Database)
 	db.Model(user).Update("token", token)
+
 	return token
 }

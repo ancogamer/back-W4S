@@ -19,9 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="Fix the search by nick">
+    <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="Add a check, to see if the token belongs to the user, and if the user exists and if they have a basic profile">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/user_find_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/user_find_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/login_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/login_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/middleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +122,10 @@
     <MESSAGE value="Fix the create base profile (profile)" />
     <MESSAGE value="Fix profile and user models" />
     <MESSAGE value="Fix the search by nick" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix the search by nick" />
+    <MESSAGE value="Fix email return, when created" />
+    <MESSAGE value="Still working on this" />
+    <MESSAGE value="Add a check, to see if the token belongs to the user, and if the user exists and if they have a basic profile" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add a check, to see if the token belongs to the user, and if the user exists and if they have a basic profile" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -129,54 +135,54 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="752" y="353" key="#Go_Modules/0.0.1920.1040@0.0.1920.1040" timestamp="1590188235966" />
-    <state x="485" y="230" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590600351939">
+    <state x="485" y="230" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590620828715">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="485" y="230" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590600351939" />
+    <state x="485" y="230" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590620828715" />
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1590188641924">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590188641924" />
-    <state x="1429" y="143" key="EnvironmentVariablesDialog" timestamp="1590600348529">
+    <state x="1018" y="143" width="676" height="489" key="EnvironmentVariablesDialog" timestamp="1590620828118">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1429" y="143" key="EnvironmentVariablesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590600348529" />
+    <state x="1018" y="143" width="676" height="489" key="EnvironmentVariablesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590620828118" />
     <state x="900" y="266" key="FileChooserDialogImpl" timestamp="1590192790236">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="900" y="266" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590192790236" />
-    <state width="1877" height="289" key="GridCell.Tab.0.bottom" timestamp="1590613498232">
+    <state width="1877" height="348" key="GridCell.Tab.0.bottom" timestamp="1590698062945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590613498232" />
-    <state width="1877" height="289" key="GridCell.Tab.0.center" timestamp="1590613498232">
+    <state width="1877" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590698062945" />
+    <state width="1877" height="348" key="GridCell.Tab.0.center" timestamp="1590698062945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590613498232" />
-    <state width="1877" height="289" key="GridCell.Tab.0.left" timestamp="1590613498231">
+    <state width="1877" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590698062945" />
+    <state width="1877" height="348" key="GridCell.Tab.0.left" timestamp="1590698062945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590613498231" />
-    <state width="1877" height="289" key="GridCell.Tab.0.right" timestamp="1590613498232">
+    <state width="1877" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590698062945" />
+    <state width="1877" height="348" key="GridCell.Tab.0.right" timestamp="1590698062945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590613498232" />
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1590611265727">
+    <state width="1877" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590698062945" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1590698062945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590611265727" />
-    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1590611265726">
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590698062945" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1590698062945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590611265726" />
-    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1590611265726">
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590698062945" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1590698062945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590611265726" />
-    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1590611265726">
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590698062945" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1590698062945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590611265726" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590698062945" />
     <state x="621" y="156" key="SettingsEditor" timestamp="1590192852368">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
