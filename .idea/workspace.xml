@@ -19,12 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="Add a check, to see if the token belongs to the user, and if the user exists and if they have a basic profile">
+    <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="Fix login, now is ok with doc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/login_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/login_handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/middleware.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/profile.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/profile.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +122,8 @@
     <MESSAGE value="Fix email return, when created" />
     <MESSAGE value="Still working on this" />
     <MESSAGE value="Add a check, to see if the token belongs to the user, and if the user exists and if they have a basic profile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add a check, to see if the token belongs to the user, and if the user exists and if they have a basic profile" />
+    <MESSAGE value="Fix login, now is ok with doc" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix login, now is ok with doc" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -135,18 +133,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="752" y="353" key="#Go_Modules/0.0.1920.1040@0.0.1920.1040" timestamp="1590188235966" />
-    <state x="485" y="230" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590620828715">
+    <state x="485" y="230" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590942229420">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="485" y="230" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590620828715" />
+    <state x="485" y="230" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590942229420" />
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1590188641924">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590188641924" />
-    <state x="1018" y="143" width="676" height="489" key="EnvironmentVariablesDialog" timestamp="1590620828118">
+    <state x="1018" y="143" width="676" height="489" key="EnvironmentVariablesDialog" timestamp="1590942217598">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1018" y="143" width="676" height="489" key="EnvironmentVariablesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590620828118" />
+    <state x="1018" y="143" width="676" height="489" key="EnvironmentVariablesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590942217598" />
     <state x="900" y="266" key="FileChooserDialogImpl" timestamp="1590192790236">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
