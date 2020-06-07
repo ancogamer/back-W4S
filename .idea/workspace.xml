@@ -20,12 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="Refactor of the table, add permission levels">
-      <change afterPath="$PROJECT_DIR$/models/TablePermitions.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/login_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/login_controller.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/table_controlller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/table_controlller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/setup.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/profile.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/profile.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/table.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/table.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/users_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/users_controller.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,22 +154,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="900" y="266" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590192790236" />
-    <state width="1877" height="289" key="GridCell.Tab.0.bottom" timestamp="1591556169755">
+    <state width="1877" height="289" key="GridCell.Tab.0.bottom" timestamp="1591556191299">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591556169755" />
-    <state width="1877" height="289" key="GridCell.Tab.0.center" timestamp="1591556169754">
+    <state width="1877" height="289" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591556191299" />
+    <state width="1877" height="289" key="GridCell.Tab.0.center" timestamp="1591556191299">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591556169754" />
-    <state width="1877" height="289" key="GridCell.Tab.0.left" timestamp="1591556169754">
+    <state width="1877" height="289" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591556191299" />
+    <state width="1877" height="289" key="GridCell.Tab.0.left" timestamp="1591556191299">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591556169754" />
-    <state width="1877" height="289" key="GridCell.Tab.0.right" timestamp="1591556169755">
+    <state width="1877" height="289" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591556191299" />
+    <state width="1877" height="289" key="GridCell.Tab.0.right" timestamp="1591556191299">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="289" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591556169755" />
+    <state width="1877" height="289" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591556191299" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1590698062945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

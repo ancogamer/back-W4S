@@ -75,34 +75,32 @@ func UserJoinTable(c *gin.Context) {
 	}
 	//=========================
 	db := c.MustGet("db").(*gorm.DB)
-	var userToADD models.User
-	if err := db.Where("deleted = ? AND actived = ?", "0", true).Preload("Profile").Preload("Tables").Find(&userToADD).Error; err != nil {
-		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
-			"error": "Nenhum registro encontrado",
-		})
-		return
-	}
-	if userToADD.Profile.IDUser == 0 {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Not have profile"})
-		return
-	}
-	var table models.Table
-	if err := db.Where("name = ?", c.Query("table")).Preload("User").Find(&table).Error; err != nil {
+	var userTobeAdd models.Profile
+	if err := db.Where("nickname = ? AND deleted = ?", c.Query("nickname"), false).Find(&userTobeAdd).Error; err != nil {
 		fmt.Println(err)
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "Nenhum registro encontrado",
 		})
 		return
 	}
+	var table models.Table
+	if err := db.Where("name = ?", c.Query("table")).Preload("User").Find(&table).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"error": "Nenhum registro encontrado",
+		})
+		return
+	}
+
 	for i := 0; i < len(table.User); i++ {
-		if table.User[i].ID == userToADD.ID {
+		if table.User[i].ID == userTobeAdd.ID {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "User already is in the table"})
 			return
 		}
 	}
 	if table.NumberOfParticipants != table.MaxOfParticipants {
 		//.Where("name = ? ", c.Query("table"))
-		db.Model(&table).Association("User").Append([]*models.User{&userToADD})
+		db.Model(&table).Association("User").Append([]*models.Profile{&userTobeAdd})
+
 		db.Model(&table).Update("numberofparticipants", table.NumberOfParticipants+1)
 		c.JSON(http.StatusOK, gin.H{"success": "join in the table"})
 		return
