@@ -9,8 +9,8 @@ import (
 
 type Profile struct {
 	gorm.Model
-	IDUser         uint      `json:"id_user"`
-	Nickname       string    `json:"nickname gorm:"unique_index"` //max 15
+	IDUser         uint      `json:"id_user" gorm:"default:0"`
+	Nickname       string    `json:"nickname" gorm:"unique_index"` //max 15
 	Name           string    `json:"name"`
 	Lastname       string    `json:"lastname"`
 	Avatar         string    `json:"avatar"`          //longtext no BD (mysql-MariaDB)

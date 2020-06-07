@@ -36,6 +36,6 @@ func Login(c *gin.Context) {
 	token := handlers.LoginFind(c, user, input)
 	if token != "" {
 		c.JSON(http.StatusOK, gin.H{"success": token})
+		return
 	}
-	return
 }

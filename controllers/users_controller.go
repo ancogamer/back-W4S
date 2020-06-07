@@ -271,8 +271,6 @@ func CreateProfile(c *gin.Context) {
 		return
 	}
 	db.Model(&user).Update("ProfileID", profile.ID)
-	fmt.Println(user.ProfileID)
-
 	c.JSON(http.StatusOK, gin.H{"success": profile})
 	return
 }
