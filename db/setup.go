@@ -48,6 +48,7 @@ func SetupModels() *gorm.DB {
 	db.AutoMigrate(&models.RpgSystem{})
 	db.AutoMigrate(&models.LogoffListTokens{})
 	db.AutoMigrate(&models.User{})
+	db.AutoMigrate(&models.PermissionTable{})
 
 	return db
 }

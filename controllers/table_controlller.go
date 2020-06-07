@@ -19,8 +19,8 @@ func CreateTable(c *gin.Context) {
 	}
 	var table models.Table
 	if db.Where("name = ?", input.Name).Find(&table).RecordNotFound() {
-		var user models.User
-		if err := db.Where("nickname = ? AND actived = ?", c.Query("nickname"), true).First(&user).Error; err != nil {
+		var user models.Profile
+		if err := db.Where("nickname = ? AND deleted= ?", c.Query("nickname"), false).First(&user).Error; err != nil {
 			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 				"error": "não encontrado o nickname",
 			})
@@ -30,14 +30,28 @@ func CreateTable(c *gin.Context) {
 		table.Description = input.Description
 		table.NumberOfParticipants = 1
 		table.Thumbnail = input.Thumbnail
-		table.AdventureLink = input.AdventureLink
 		table.MaxOfParticipants = input.MaxOfParticipants
-
+		table.RpgSystem = input.RpgSystem
+		table.Links = input.Links
+		table.Privacy = input.Privacy
 		if err := db.Create(&table).Error; err != nil { //Return the error by JSON / Retornando o erro por JSON
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
 			return
 		}
-		db.Model(table).Association("User").Append([]*models.User{&user})
+		tablePermission := models.PermissionTable{
+			Permission:      0,
+			ProfileNickname: user.ID,
+			TableId:         table.ID,
+		}
+		if err := db.Create(&tablePermission).Error; err != nil { //Return the error by JSON / Retornando o erro por JSON
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+			return
+		}
+
+		db.Model(table).Association("User").Append([]*models.Profile{&user})
+
+		db.Model(table).Association("Permitions").Append([]*models.PermissionTable{&tablePermission})
+
 		/* if err:=db.Model(table).Association("User").Append([]*models.User{&user}).Error;err!=nil{
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
 			return
@@ -100,7 +114,7 @@ func FindAllTables(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var tables []models.Table
 
-	if err := db.Preload("User").Preload("User.Profile").Find(&tables).Error; err != nil {
+	if err := db.Preload("User").Preload("Permitions").Find(&tables).Error; err != nil {
 		fmt.Println(err)
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "Nenhum registro encontrado",
