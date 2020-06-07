@@ -38,25 +38,13 @@ func CreateTable(c *gin.Context) {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
 			return
 		}
-		tablePermission := models.PermissionTable{
-			Permission:      0,
-			ProfileNickname: user.ID,
-			TableId:         table.ID,
-		}
-		if err := db.Create(&tablePermission).Error; err != nil { //Return the error by JSON / Retornando o erro por JSON
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+
+		tablePermission, err := userPermissionCreate(c, "0", user.ID, table.ID)
+		if err != nil {
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Interno"})
 			return
 		}
-
-		db.Model(table).Association("User").Append([]*models.Profile{&user})
-
-		db.Model(table).Association("Permitions").Append([]*models.PermissionTable{&tablePermission})
-
-		/* if err:=db.Model(table).Association("User").Append([]*models.User{&user}).Error;err!=nil{
-			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
-			return
-		}*/
-
+		userAndPermissonAppend(c, table, tablePermission, user)
 		c.JSON(http.StatusOK, gin.H{"success": "table created"})
 		return
 	}
@@ -99,8 +87,17 @@ func UserJoinTable(c *gin.Context) {
 	}
 	if table.NumberOfParticipants != table.MaxOfParticipants {
 		//.Where("name = ? ", c.Query("table"))
-		db.Model(&table).Association("User").Append([]*models.Profile{&userTobeAdd})
-
+		p := c.Query("p")
+		if p == "" || p == "0" {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "permissao invalida"})
+			return
+		}
+		tablePermission, err := userPermissionCreate(c, p, userTobeAdd.ID, table.ID)
+		if err != nil {
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Interno"})
+			return
+		}
+		userAndPermissonAppend(c, table, tablePermission, userTobeAdd)
 		db.Model(&table).Update("numberofparticipants", table.NumberOfParticipants+1)
 		c.JSON(http.StatusOK, gin.H{"success": "join in the table"})
 		return
@@ -123,6 +120,24 @@ func FindAllTables(c *gin.Context) {
 		"success": tables,
 	})
 	return
+}
+func userAndPermissonAppend(c *gin.Context, table models.Table, tablePermission models.PermissionTable, user models.Profile) {
+	db := c.MustGet("db").(*gorm.DB)
+	db.Model(&table).Association("Permitions").Append([]*models.PermissionTable{&tablePermission})
+	db.Model(&table).Association("User").Append([]*models.Profile{&user})
+}
+func userPermissionCreate(c *gin.Context, permission string, userID uint, tableID uint) (models.PermissionTable, error) {
+	db := c.MustGet("db").(*gorm.DB)
+	tablePermission := models.PermissionTable{
+		Permission:      permission,
+		ProfileNickname: userID,
+		TableId:         tableID,
+	}
+	if err := db.Create(&tablePermission).Error; err != nil { //Return the error by JSON / Retornando o erro por JSON
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+		return tablePermission, err
+	}
+	return tablePermission, nil
 }
 
 /*func insertPictures(c *gin.Context, TableId uint) {

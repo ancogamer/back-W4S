@@ -4,7 +4,7 @@ import "github.com/jinzhu/gorm"
 
 type PermissionTable struct {
 	gorm.Model
-	Permission      int  `json:"permission"`
-	ProfileNickname uint `json:"-"`
-	TableId         uint `json:"-"`
+	Permission      string `json:"permission"`
+	ProfileNickname uint   `json:"-"`
+	TableId         uint   `json:"-"`
 }
