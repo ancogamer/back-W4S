@@ -1,5 +1,3 @@
-//POST /user
-//Create a new user
 package controllers
 
 import (
@@ -7,8 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
+	"time"
 	"w4s/authc"
-	"w4s/handlers"
 	"w4s/models"
 	"w4s/security"
 )
@@ -277,20 +275,127 @@ func CreateProfile(c *gin.Context) {
 
 //Middleware Used(AuthRequired)
 func UpdateUser(c *gin.Context) {
-	handlers.UpdateUser(c)
+	db := c.MustGet("db").(*gorm.DB)
+	// Get model if exist
+	var user models.User
+	//
+	if err := db.Where("nickname = ?", c.Query("nickname")).First(&user).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"error": "Registro não encontrado",
+		})
+		return
+	}
+	// Validate input
+
+	var input models.UserInputUpdate
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	if input.Password != "" {
+		if err := security.VerifyPassword(user.Password, input.Password); err != nil {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+			return
+		}
+		if input.NewPassword != input.ConfirmNewPassword {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "A nova senha não coincide !"})
+			return
+		}
+		if err := models.PasswordCheck(input.NewPassword); err != nil {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+			return
+		}
+		password, err := models.BeforeSave(input.Password)
+		if err != nil {
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		if err := db.Model(&user).Update("password", password).Error; err != nil {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{"success": "senha trocada !"})
+	}
+	if input.Email != "" {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Não é possível trocar o email"})
+		return
+	}
+	if err := db.Model(&user).Updates(input).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"success": user})
+	return
 }
 
 //Search all users //Middleware Used(AuthRequired)
 func FindAllUsers(c *gin.Context) {
-	handlers.FindUser(c)
+	db := c.MustGet("db").(*gorm.DB)
+	var users []models.User
+	if err := db.Where("deleted = ? AND actived = ?", "0", true).Preload("Profile").Preload("Tables").Find(&users).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"error": "Nenhum registro encontrado",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"success": users,
+	})
+	return
 }
 
-//Search by nick //Middleware Used(AuthRequired)
+//Find a user by his(her) nickname/Encontrando um usuario pelo seu nick(url)
 func FindUserByNick(c *gin.Context) {
-	handlers.FindUserByNick(c)
+	db := c.MustGet("db").(*gorm.DB)
+	var user models.User
+	var profile models.Profile
+	//db.Table("users").Select("users.name, emails.email").Joins("left join emails on emails.user_id = users.id").Scan(&results)
+	if err := db.Table("users").Select("*").Joins("inner join profiles on profiles.id = profile_id").
+		Where("nickname = ?", c.Query("nickname")).Scan(&profile).Scan(&user).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"error": "Registro não encontrado",
+		})
+		return
+	}
+	/*
+		if err := db.Debug().Preload("Profile").First(&userProfile, "id_user = ?", c.Query("nickname")).Error; err != nil {
+			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+				"error": "Registro não encontrado",
+			})
+			return
+		}
+	*/
+	user.Profile = profile
+
+	c.JSON(http.StatusOK, gin.H{
+		"success": user,
+	})
 }
 
 //Middleware Used(AuthRequired)
+
+//Maria db treats false and true as tinyint, 0 for non deleted, 1 for deleted
 func SoftDeletedUserByNick(c *gin.Context) {
-	handlers.SoftDeletedUserByNick(c)
+	db := c.MustGet("db").(*gorm.DB)
+	// Get model if exist
+	var user models.User
+	var profile models.Profile
+	if err := db.Where("nickname = ? AND deleted = ?", c.Query("nickname"), "0").Preload("Profile").First(&user).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"error": "Registro não encontrado",
+		})
+		return
+	}
+	//fmt.Println(user.Profile.IDUser)
+	/*if err := db.Debug().Where("id_user = ?", user.Profile.IDUser).First(&profile).Error; err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"error": err,
+		})
+		return
+	}*/
+	db.Model(&profile).Update("deleted_at", time.Now())
+	db.Model(&user).Update(map[string]interface{}{"deleted": true, "deleted_at": time.Now(), "actived": false})
+	c.JSON(http.StatusOK, gin.H{"success": "true"})
+	return
 }
+

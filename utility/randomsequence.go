@@ -1,11 +1,6 @@
 package utility
 
-import (
-	"crypto/rand"
-	"math/big"
-	"strings"
-)
-
+/*
 func Randomsequence() string {
 	var sequence []string
 	for i := 0; i < 6; i++ {
@@ -14,3 +9,4 @@ func Randomsequence() string {
 	}
 	return strings.Join(sequence, "")
 }
+*/
