@@ -121,6 +121,63 @@ func FindAllTables(c *gin.Context) {
 	})
 	return
 }
+
+func FindOneTables(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	var tables []models.Table
+	id := c.Params.ByName("id")
+
+	if err := db.Preload("User").Preload("Permitions").Where("id = ?", id).Find(&tables).Error; err != nil {
+		fmt.Println(err)
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"error": "Nenhum registro encontrado",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"success": tables,
+	})
+	return
+}
+
+func UpdateTable(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	var table []models.Table	
+	id := c.Params.ByName("id")
+	
+	if err := db.Preload("User").Preload("Permitions").Where("id = ?", id).First(&table).Error; err != nil {
+		fmt.Println(err)
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"error": "Nenhum registro encontrado",
+		})
+		return
+	}
+
+	c.BindJSON(&table)
+
+	db.Save(&table)
+	c.JSON(http.StatusOK, gin.H{
+		"success": table,
+	})
+	return
+}
+
+func DeleteTable(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)	
+	var table []models.Table
+	id := c.Params.ByName("id")
+	d := db.Where("id = ?", id).Delete(&table)
+	fmt.Println(d)
+	c.JSON(http.StatusOK, gin.H{
+		"success": table,
+	})
+	return
+}
+
+
+// referencia 
+// https://medium.com/@cgrant/developing-a-simple-crud-api-with-go-gin-and-gorm-df87d98e6ed1
+
 func userAndPermissonAppend(c *gin.Context, table models.Table, tablePermission models.PermissionTable, user models.Profile) {
 	db := c.MustGet("db").(*gorm.DB)
 	db.Model(&table).Association("Permitions").Append([]*models.PermissionTable{&tablePermission})
