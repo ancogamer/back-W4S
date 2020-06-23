@@ -66,8 +66,12 @@ func main() {
 		//Deletar soft
 		authorized2.DELETE("/delete/user", controllers.SoftDeletedUserByNick) //Soft delete
 		//Table Links URL
-		authorized2.POST("/create/table", controllers.CreateTable)             //Create table
-		authorized2.GET("/searchall/table", controllers.FindAllTables)         //Search by all the tables//Procura por todas as tabelas
+		authorized2.POST("/create/table", controllers.CreateTable)     //Create table
+		authorized2.GET("/searchall/table", controllers.FindAllTables) //Search by all the tables//Procura por todas as tabelas
+		authorized2.GET("/searchone/table", controllers.FindOneTables) //Search one table//Procura por uma mesa
+
+		authorized2.PUT("/update/table", controllers.UpdateTable)              //Update one table//Atualiza uma mesa
+		authorized2.DELETE("/delete/table", controllers.DeleteTable)           //Delete one table//Deleta uma mesa
 		authorized2.PATCH("/update/table/userjoin", controllers.UserJoinTable) //Join a user to the table//Coloca um usuario a mesa
 	}
 	//Run the ser

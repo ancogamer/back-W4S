@@ -98,7 +98,7 @@ func UserJoinTable(c *gin.Context) {
 			return
 		}
 		userAndPermissonAppend(c, table, tablePermission, userTobeAdd)
-		db.Model(&table).Update("numberofparticipants", table.NumberOfParticipants+1)
+		db.Model(&table).Update("number_of_participants", table.NumberOfParticipants+1)
 		c.JSON(http.StatusOK, gin.H{"success": "join in the table"})
 		return
 	}
@@ -121,6 +121,71 @@ func FindAllTables(c *gin.Context) {
 	})
 	return
 }
+
+func FindOneTables(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	var tables []models.Table
+	id := c.Params.ByName("id")
+
+	if err := db.Preload("User").Preload("Permitions").Where("id = ?", id).Find(&tables).Error; err != nil {
+		fmt.Println(err)
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"error": "Nenhum registro encontrado",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"success": tables,
+	})
+	return
+}
+
+func UpdateTable(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	var table models.Table
+	id := c.Query("id")
+
+	if err := db.Debug().Preload("User").Preload("Permitions").Where("id = ?", id).First(&table).Error; err != nil {
+		fmt.Println(err)
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"error": "Nenhum registro encontrado",
+		})
+		return
+	}
+
+	if err := c.BindJSON(&table); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	db.Model(&table).Updates(table)
+	c.JSON(http.StatusOK, gin.H{
+		"success": table,
+	})
+	return
+}
+
+func DeleteTable(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	var table []models.Table
+	id := c.Query("id")
+	err := db.Where("id = ?", id).Preload("Users").Preload("Permitions").Delete(&table).Error
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"success": table,
+	})
+	return
+}
+
+// referencia
+// https://medium.com/@cgrant/developing-a-simple-crud-api-with-go-gin-and-gorm-df87d98e6ed1
+
 func userAndPermissonAppend(c *gin.Context, table models.Table, tablePermission models.PermissionTable, user models.Profile) {
 	db := c.MustGet("db").(*gorm.DB)
 	db.Model(&table).Association("Permitions").Append([]*models.PermissionTable{&tablePermission})

@@ -38,7 +38,6 @@ func ValidateLoginToken(c *gin.Context) string {
 		})
 		return ""
 	}
-
 	//Checking if the token are on the Logoff list/ Checando se o token esta na lista de deslogados
 	if err := db.Where("token = ?", userToken).Find(&tokenLogOffList).Error; gorm.IsRecordNotFoundError(err) {
 		//If this Record Was not found, it means that the user is loged/ Se o registro não foi encontrado, significa que o usuario esta logado
@@ -51,10 +50,7 @@ func ValidateLoginToken(c *gin.Context) string {
 			return ""
 		}
 		//Verifing the token/ Verificando o token
-		//This was seperated, to be possible use this on other places/
-		//Isto foi separado para poder ser utilizado em outros lugares
 		claim, err := ValidateToken(split[01])
-
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
 			return ""
@@ -65,24 +61,6 @@ func ValidateLoginToken(c *gin.Context) string {
 		"error": "não logado",
 	})
 	return ""
-	/*//IF YOU WANT RETURN ERROS OH A SEPARATED WAY// Caso você queira retornar erros de maneira separada
-	if token.Valid {
-		return
-	} else if ve, ok := err.(*jwt.ValidationError); ok {
-		if ve.Errors&jwt.ValidationErrorMalformed != 0 {
-			c.AbortWithStatusJSON(http.StatusBadRequest,gin.H{"error ":"NOT A TOKEN"})
-		} else if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) != 0 {
-			// Token is either expired or not active yet
-			c.AbortWithStatusJSON(http.StatusBadRequest,gin.H{"error ":"TOKEN EXPIRED"})
-		} else {
-			c.AbortWithStatusJSON(http.StatusBadRequest,gin.H{"error ":"Couldn't handle this token:"})
-		}
-	} else {
-		c.AbortWithStatusJSON(http.StatusBadRequest,gin.H{
-			"error ":"Couldn't handle this token:",
-			"err":err,
-		})
-	}*/
 }
 
 //This Parse the token and check if is valid :D
@@ -90,17 +68,8 @@ func ValidateToken(userToken string) (string, error) {
 	token, err := jwt.ParseWithClaims(userToken, &models.Claim{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(os.Getenv("TOKEN_PASSWORD")), nil
 	})
-	//_, ok := token.Claims.(*models.Claim)
-
 	if claims, ok := token.Claims.(*models.Claim); ok && token.Valid {
 		return claims.UserEmail, nil
 	}
-
-	/*
-	   if ok && token.Valid {
-	   		return nil
-	   	}
-	*/
-
 	return "", err
 }
