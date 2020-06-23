@@ -19,10 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="Add permissions to the user when it join in the table">
+    <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="Delete, update, by Yuri">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/table_controlller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/table_controlller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/rpgsystem.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/table.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/table.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +63,7 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
   </component>
@@ -129,7 +130,8 @@
     <MESSAGE value="Refactor of the table, add permission levels" />
     <MESSAGE value="Fix user join in the table." />
     <MESSAGE value="Add permissions to the user when it join in the table" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add permissions to the user when it join in the table" />
+    <MESSAGE value="Delete, update, by Yuri" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete, update, by Yuri" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -155,22 +157,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="900" y="266" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590192790236" />
-    <state width="1877" height="220" key="GridCell.Tab.0.bottom" timestamp="1592588334533">
+    <state width="1877" height="220" key="GridCell.Tab.0.bottom" timestamp="1592943082921">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="220" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1592588334533" />
-    <state width="1877" height="220" key="GridCell.Tab.0.center" timestamp="1592588334532">
+    <state width="1877" height="220" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1592943082921" />
+    <state width="1877" height="220" key="GridCell.Tab.0.center" timestamp="1592943082921">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="220" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1592588334532" />
-    <state width="1877" height="220" key="GridCell.Tab.0.left" timestamp="1592588334532">
+    <state width="1877" height="220" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1592943082921" />
+    <state width="1877" height="220" key="GridCell.Tab.0.left" timestamp="1592943082921">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="220" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1592588334532" />
-    <state width="1877" height="220" key="GridCell.Tab.0.right" timestamp="1592588334533">
+    <state width="1877" height="220" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1592943082921" />
+    <state width="1877" height="220" key="GridCell.Tab.0.right" timestamp="1592943082921">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="220" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1592588334533" />
+    <state width="1877" height="220" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1592943082921" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1590698062945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
