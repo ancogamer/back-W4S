@@ -19,9 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="arrumado a mesa, falta tipo.">
+    <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/setup.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/email_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/email_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/users_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/users_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/TablePermitions.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/TablePermitions.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +79,7 @@
         <env name="DB_USER" value="Saletti" />
         <env name="DB_PASSWORD" value="Saletti123" />
         <env name="DATABASE_URL" value="postgres://hjzeikolfabjut:a047ef36c073db342573152b8655349ec00634b30a44e0acf37bf10394bf9831@ec2-18-233-32-61.compute-1.amazonaws.com:5432/d14q50rgc7ceti" />
-        <env name="EMAIL_URL" value="http://localhost:8080/confirm/user?e=" />
+        <env name="EMAIL_URL" value="http://localhost:8080" />
         <env name="BD-LOCATION" value="0" />
       </envs>
       <kind value="FILE" />
@@ -132,7 +134,8 @@
     <MESSAGE value="Delete, update, by Yuri" />
     <MESSAGE value="arrumado a mesa, falta tipo" />
     <MESSAGE value="arrumado a mesa, falta tipo." />
-    <option name="LAST_COMMIT_MESSAGE" value="arrumado a mesa, falta tipo." />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -142,38 +145,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="752" y="353" key="#Go_Modules/0.0.1920.1040@0.0.1920.1040" timestamp="1590188235966" />
-    <state x="485" y="230" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590942229420">
+    <state x="485" y="230" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1593026024025">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="485" y="230" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590942229420" />
+    <state x="485" y="230" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593026024025" />
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1590188641924">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590188641924" />
-    <state x="1018" y="143" width="676" height="489" key="EnvironmentVariablesDialog" timestamp="1590942217598">
+    <state x="1018" y="143" width="676" height="489" key="EnvironmentVariablesDialog" timestamp="1593026022713">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1018" y="143" width="676" height="489" key="EnvironmentVariablesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590942217598" />
+    <state x="1018" y="143" width="676" height="489" key="EnvironmentVariablesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593026022713" />
     <state x="900" y="266" key="FileChooserDialogImpl" timestamp="1590192790236">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="900" y="266" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590192790236" />
-    <state width="1877" height="220" key="GridCell.Tab.0.bottom" timestamp="1592943082921">
+    <state width="1877" height="220" key="GridCell.Tab.0.bottom" timestamp="1593025891495">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="220" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1592943082921" />
-    <state width="1877" height="220" key="GridCell.Tab.0.center" timestamp="1592943082921">
+    <state width="1877" height="220" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1593025891495" />
+    <state width="1877" height="220" key="GridCell.Tab.0.center" timestamp="1593025891495">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="220" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1592943082921" />
-    <state width="1877" height="220" key="GridCell.Tab.0.left" timestamp="1592943082921">
+    <state width="1877" height="220" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1593025891495" />
+    <state width="1877" height="220" key="GridCell.Tab.0.left" timestamp="1593025891495">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="220" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1592943082921" />
-    <state width="1877" height="220" key="GridCell.Tab.0.right" timestamp="1592943082921">
+    <state width="1877" height="220" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1593025891494" />
+    <state width="1877" height="220" key="GridCell.Tab.0.right" timestamp="1593025891495">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="220" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1592943082921" />
+    <state width="1877" height="220" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1593025891495" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1590698062945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

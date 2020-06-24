@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
+	"os"
 	"time"
 	"w4s/authc"
 	"w4s/models"
@@ -145,7 +146,7 @@ func RecoveryPasswordUser(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
-	userURL := "http://localhost:8080/user/password/recovery?e=" + userEmail + "&t=" + userRecoveryPassword
+	userURL := os.Getenv("EMAIL_URL") + "/user/password/recovery?e=" + userEmail + "&t=" + userRecoveryPassword
 	//Thanks https://blog.mailtrap.io/golang-send-email/#Sending_emails_with_smtpSendMail for the code
 	msg := []byte("To: " + userEmail + "\r\n" +
 		"Subject: NÂO RESPONDA ESTE EMAIL - RECUPERAÇÃO DE SENHA \r\n" +
@@ -398,4 +399,3 @@ func SoftDeletedUserByNick(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"success": "true"})
 	return
 }
-
