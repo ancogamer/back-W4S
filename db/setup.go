@@ -41,11 +41,11 @@ func SetupModels() *gorm.DB {
 	db.AutoMigrate(&models.UserAccountBadListToken{})
 	db.AutoMigrate(&models.Table{})
 	db.AutoMigrate(&models.Picture{})
-	db.AutoMigrate(&models.OtherLinks{})
+
 	db.AutoMigrate(&models.Post{})
 	db.AutoMigrate(&models.Profile{})
 	db.AutoMigrate(&models.TypeofTable{})
-	db.AutoMigrate(&models.RpgSystem{})
+
 	db.AutoMigrate(&models.LogoffListTokens{})
 	db.AutoMigrate(&models.User{})
 	db.AutoMigrate(&models.PermissionTable{})
