@@ -19,12 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="fix">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/email_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/email_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/users_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/users_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/TablePermitions.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/TablePermitions.go" afterDir="false" />
-    </list>
+    <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="fix" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

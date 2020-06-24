@@ -59,7 +59,7 @@
             // Creating a XHR object
             let xhr = new XMLHttpRequest();
             let token = urlParams.get('t')
-            let url = "http://localhost:8080/user/password/recovery?t=" + token;
+            let url = "https://w4s.herokuapp.com/user/password/recovery?t=" + token;
             // open a connections
             xhr.open("PUT", url, true);
             // Set the request header i.e. which type of content you are sending
