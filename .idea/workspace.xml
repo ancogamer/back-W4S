@@ -19,10 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="Delete, update, by Yuri">
+    <list default="true" id="e3cfc03f-34ad-4c24-8992-7ba6c996da4f" name="Default Changelist" comment="arrumado a mesa, falta tipo.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/rpgsystem.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/table.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/table.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/setup.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/setup.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +130,9 @@
     <MESSAGE value="Fix user join in the table." />
     <MESSAGE value="Add permissions to the user when it join in the table" />
     <MESSAGE value="Delete, update, by Yuri" />
-    <option name="LAST_COMMIT_MESSAGE" value="Delete, update, by Yuri" />
+    <MESSAGE value="arrumado a mesa, falta tipo" />
+    <MESSAGE value="arrumado a mesa, falta tipo." />
+    <option name="LAST_COMMIT_MESSAGE" value="arrumado a mesa, falta tipo." />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
