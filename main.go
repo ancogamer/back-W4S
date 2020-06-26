@@ -57,6 +57,7 @@ func main() {
 		//Find the user profile, search by the email and preload the user profile
 		authorized2.GET("/searchall/user", controllers.FindAllUsers)        //Search all the users
 		authorized2.GET("/search/user/profile", controllers.FindUserByNick) //Search the by nick, preload the user
+		authorized2.POST("")
 		//Updates
 		//Atualizações
 		authorized2.PATCH("/update/user", controllers.UpdateUser) //Involves the User model, email or password

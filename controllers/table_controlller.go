@@ -11,7 +11,7 @@ import (
 func CreateTable(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var input models.TableInput
-	if err := c.BindJSON(&input); err != nil {
+	if err := c.Bind(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
@@ -153,7 +153,7 @@ func UpdateTable(c *gin.Context) {
 		return
 	}
 
-	if err := c.BindJSON(&table); err != nil {
+	if err := c.Bind(&table); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
