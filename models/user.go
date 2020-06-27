@@ -19,8 +19,8 @@ type User struct {
 	Actived   bool    `json:"actived" gorm:"type:BOOLEAN"`
 	ProfileID uint    `json:"profileid"`
 	Profile   Profile `json:"profile"`
-	Tables    []Table `json:"tables" gorm:"many2many:user_Tables;ForeignKey:id;AssociationForeignKey:id"`
-	Token     string  `json:"token"`
+	//Tables    []Table `json:"tables" gorm:"many2many:user_Tables;ForeignKey:id;AssociationForeignKey:id"`
+	Token string `json:"token"`
 }
 
 //With biding required in all fields/ Com o biding obrigatorio em todos os campos

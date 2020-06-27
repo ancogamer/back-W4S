@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -31,6 +32,11 @@ func CreateTable(c *gin.Context) {
 		table.NumberOfParticipants = 1
 		table.Thumbnail = input.Thumbnail
 		table.MaxOfParticipants = input.MaxOfParticipants
+		if len(input.Links) > 255 {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": errors.New("link muito grande")})
+			return
+		}
+
 		table.RpgSystem = input.RpgSystem
 		table.Links = input.Links
 		table.Privacy = input.Privacy
@@ -116,6 +122,24 @@ func FindAllTables(c *gin.Context) {
 		})
 		return
 	}
+	c.JSON(http.StatusOK, gin.H{
+		"success": tables,
+	})
+	return
+}
+
+/*type result struct {
+	 id int
+}*/
+func FindAllUserTables(c *gin.Context) {
+	db := c.MustGet("db").(*gorm.DB)
+	var tables []models.Profile
+	if err := db.Preload("Tables").Find(&tables).Where("nickname=?", c.Query("ancogamer")); err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"error": "Nenhum registro encontrado",
+		})
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"success": tables,
 	})
