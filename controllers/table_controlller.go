@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -27,16 +26,33 @@ func CreateTable(c *gin.Context) {
 			})
 			return
 		}
-		table.Name = input.Name
-		table.Description = input.Description
-		table.NumberOfParticipants = 1
-		table.Thumbnail = input.Thumbnail
-		table.MaxOfParticipants = input.MaxOfParticipants
-		if len(input.Links) > 255 {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": errors.New("link muito grande")})
+		if len(input.Name) >= 20 {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Nome muito grande"})
 			return
 		}
 
+		table.Name = input.Name
+		if len(input.Description) >= 360 {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Descricao muito grande"})
+			return
+		}
+
+		table.Description = input.Description
+		table.NumberOfParticipants = 1
+		if len(input.Thumbnail) <= 0 {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "sem imagem"})
+			return
+		}
+		table.Thumbnail = input.Thumbnail
+		table.MaxOfParticipants = input.MaxOfParticipants
+		if len(input.Links) >= 255 || len(input.Links) <= 0 {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "link invalido"})
+			return
+		}
+		if len(input.RpgSystem) <= 0 {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "sem sistema de rpg"})
+			return
+		}
 		table.RpgSystem = input.RpgSystem
 		table.Links = input.Links
 		table.Privacy = input.Privacy
@@ -45,7 +61,7 @@ func CreateTable(c *gin.Context) {
 			return
 		}
 
-		tablePermission, err := userPermissionCreate(c, "0", user.ID, table.ID)
+		tablePermission, err := userPermissionCreate(c, "1", user.ID, table.ID)
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Interno"})
 			return
@@ -71,7 +87,6 @@ func UserJoinTable(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var userTobeAdd models.Profile
 	if err := db.Where("nickname = ? AND deleted = ?", c.Query("nickname"), false).Find(&userTobeAdd).Error; err != nil {
-		fmt.Println(err)
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "Nenhum registro encontrado",
 		})
@@ -79,6 +94,7 @@ func UserJoinTable(c *gin.Context) {
 	}
 	var table models.Table
 	if err := db.Where("name = ?", c.Query("table")).Preload("User").Find(&table).Error; err != nil {
+		fmt.Println(err)
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "Nenhum registro encontrado",
 		})
@@ -100,7 +116,7 @@ func UserJoinTable(c *gin.Context) {
 		}
 		tablePermission, err := userPermissionCreate(c, p, userTobeAdd.ID, table.ID)
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Interno"})
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internos"})
 			return
 		}
 		userAndPermissonAppend(c, table, tablePermission, userTobeAdd)
@@ -128,16 +144,14 @@ func FindAllTables(c *gin.Context) {
 	return
 }
 
-/*type result struct {
-	 id int
-}*/
 func FindAllUserTables(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var tables []models.Profile
-	if err := db.Preload("Tables").Find(&tables).Where("nickname=?", c.Query("ancogamer")); err != nil {
+	if err := db.Where("nickname = ?", c.Query("nickname")).Preload("Tables").Find(&tables).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
-			"error": "Nenhum registro encontrado",
+			"error": "Nenhuma mesa encontrada! ",
 		})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -169,14 +183,21 @@ func UpdateTable(c *gin.Context) {
 	var table models.Table
 	id := c.Query("id")
 
-	if err := db.Debug().Preload("User").Preload("Permitions").Where("id = ?", id).First(&table).Error; err != nil {
+	if err := db.Preload("User").Preload("Permitions", "permission NOT IN ('3')").Where("id = ?", id).First(&table).Error; err != nil {
 		fmt.Println(err)
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "Nenhum registro encontrado",
 		})
 		return
 	}
-
+	var profile models.Profile
+	for _, permission := range table.Permitions {
+		db.Where("id = ?", permission.Permission).Find(&profile)
+		if profile.Nickname != c.Query("nickname") {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "não tem permissão de administrador"})
+			return
+		}
+	}
 	if err := c.Bind(&table); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),

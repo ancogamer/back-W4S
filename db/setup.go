@@ -40,9 +40,8 @@ func SetupModels() *gorm.DB {
 	}
 	db.AutoMigrate(&models.UserAccountBadListToken{})
 	db.AutoMigrate(&models.Table{})
-	db.AutoMigrate(&models.Picture{})
+	//db.AutoMigrate(&models.Picture{})
 
-	db.AutoMigrate(&models.Post{})
 	db.AutoMigrate(&models.Profile{})
 	db.AutoMigrate(&models.TypeofTable{})
 

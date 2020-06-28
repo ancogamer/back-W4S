@@ -5,7 +5,7 @@ import "github.com/jinzhu/gorm"
 type Table struct {
 	gorm.Model
 	Thumbnail            string            `json:"thumbnail" form:"thumbnail"`                                                                          //capa
-	Name                 string            `json:"name" form:"name"`                                                                                    //nome
+	Name                 string            `json:"name" form:"name" gorm:"unique_index"`                                                                //nome
 	Description          string            `json:"description" form:"description" `                                                                     //descrição
 	NumberOfParticipants int               `json:"numberofparticipants" form:"numberofparticipants"`                                                    //numero de participantes
 	MaxOfParticipants    int               `json:"maxofparticipants" form:"maxofparticipants"`                                                          //numero maximo de participantes

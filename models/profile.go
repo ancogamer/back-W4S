@@ -1,9 +1,7 @@
 package models
 
 import (
-	"errors"
 	"github.com/jinzhu/gorm"
-	"strings"
 )
 
 type Profile struct {
@@ -24,19 +22,4 @@ type ProfileInput struct {
 	DataNascimento string `json:"datanascimento" form:"datanascimento" ` //maximo 8 digitos
 	Name           string `json:"name" form:"name" binding:"required"`
 	Lastname       string `json:"lastname" form:"lastname" binding:"required"`
-}
-
-func (p *Profile) Validate(action string) error {
-	switch strings.ToLower(action) {
-	case "createprofile":
-		if len(p.Nickname) > 15 {
-			return errors.New("Nickname Invalido maior que 15")
-		}
-
-	case "login":
-
-	default:
-
-	}
-	return nil
 }
