@@ -109,12 +109,14 @@ func UserJoinTable(c *gin.Context) {
 	}
 	if table.NumberOfParticipants != table.MaxOfParticipants {
 		//.Where("name = ? ", c.Query("table"))
-		p := c.Query("p")
-		if p == "" || p == "0" {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "permissao invalida"})
-			return
-		}
-		tablePermission, err := userPermissionCreate(c, p, userTobeAdd.ID, table.ID)
+		/*
+			p := c.Query("p")
+			if p == "" || p == "0" {
+				c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "permissao invalida"})
+				return
+			}
+		*/
+		tablePermission, err := userPermissionCreate(c, "3", userTobeAdd.ID, table.ID)
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Internos"})
 			return
@@ -214,16 +216,27 @@ func UpdateTable(c *gin.Context) {
 
 func DeleteTable(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
-	var table []models.Table
+	var table models.Table
 	id := c.Query("id")
-	err := db.Where("id = ?", id).Preload("Users").Preload("Permitions").Delete(&table).Error
+
+	err := db.Where("id = ?", id).Preload("User").Preload("Permitions", "permission NOT IN ('2,3')").Find(&table).Error
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
+		return
 	}
+	var profile models.Profile
+	for _, permission := range table.Permitions {
+		db.Where("id = ?", permission.Permission).Find(&profile)
+		if profile.Nickname != c.Query("nickname") {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "não tem permissão de administrador"})
+			return
+		}
+	}
+	db.Unscoped().Delete(&table)
 	c.JSON(http.StatusOK, gin.H{
-		"success": table,
+		"success": "deleted",
 	})
 	return
 }
@@ -238,6 +251,7 @@ func userAndPermissonAppend(c *gin.Context, table models.Table, tablePermission 
 }
 func userPermissionCreate(c *gin.Context, permission string, userID uint, tableID uint) (models.PermissionTable, error) {
 	db := c.MustGet("db").(*gorm.DB)
+
 	tablePermission := models.PermissionTable{
 		Permission:      permission,
 		ProfileNickname: userID,
