@@ -39,10 +39,12 @@ func CreateTable(c *gin.Context) {
 
 		table.Description = input.Description
 		table.NumberOfParticipants = 1
-		if len(input.Thumbnail) <= 0 {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "sem imagem"})
-			return
-		}
+		/*
+			if len(input.Thumbnail) <= 0 {
+				c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "sem imagem"})
+				return
+			}
+		*/
 		table.Thumbnail = input.Thumbnail
 		table.MaxOfParticipants = input.MaxOfParticipants
 		if len(input.Links) >= 255 || len(input.Links) <= 0 {

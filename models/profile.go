@@ -10,7 +10,7 @@ type Profile struct {
 	Nickname       string  `json:"nickname" form:"nickname" gorm:"unique_index"` //max 15
 	Name           string  `json:"name" form:"name"`
 	Lastname       string  `json:"lastname" form:"lastname"`
-	Avatar         string  `json:"avatar" form:"avatar"`                  //longtext no BD (mysql-MariaDB)
+	Avatar         string  `json:"avatar" form:"avatar" gorm:"type:text"` //longtext no BD (mysql-MariaDB)
 	DataNascimento string  `json:"datanascimento" form:"datanascimento" ` //maximo 8 digitos
 	Deleted        bool    `json:"deleted" form:"deleted" gorm:"type:BOOLEAN"`
 	Tables         []Table `json:"tables" gorm:"many2many:user_Tables;ForeignKey:id;AssociationForeignKey:id"`
