@@ -252,7 +252,7 @@ func CreateProfile(c *gin.Context) {
 	var input models.ProfileInput
 	if err := c.BindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err,
+			"error": err.Error(),
 		})
 		return
 	}
