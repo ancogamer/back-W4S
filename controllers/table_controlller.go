@@ -19,13 +19,14 @@ func CreateTable(c *gin.Context) {
 	}
 	var table models.Table
 	if db.Where("name = ?", input.Name).Find(&table).RecordNotFound() {
-		var user models.Profile
-		if err := db.Where("nickname = ? AND deleted= ?", c.Query("nickname"), false).First(&user).Error; err != nil {
+		var user2 models.User
+		if err := db.Preload("Profile").Where("email = ? and deleted = ? ", c.Query("e"), false).First(&user2).Error; err != nil {
 			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 				"error": "não encontrado o nickname",
 			})
 			return
 		}
+
 		if len(input.Name) >= 20 {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Nome muito grande"})
 			return
@@ -47,7 +48,7 @@ func CreateTable(c *gin.Context) {
 		*/
 		table.Thumbnail = input.Thumbnail
 		table.MaxOfParticipants = input.MaxOfParticipants
-		if len(input.Links) >= 255 || len(input.Links) <= 0 {
+		if len(input.Links) >= 255 || len(input.Links) == 0 {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "link invalido"})
 			return
 		}
@@ -63,12 +64,12 @@ func CreateTable(c *gin.Context) {
 			return
 		}
 
-		tablePermission, err := userPermissionCreate(c, "1", user.ID, table.ID)
+		tablePermission, err := userPermissionCreate(c, "1", user2.ProfileID, table.ID)
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": "Interno"})
 			return
 		}
-		userAndPermissonAppend(c, table, tablePermission, user)
+		userAndPermissonAppend(c, table, tablePermission, user2.Profile)
 		c.JSON(http.StatusOK, gin.H{"success": "table created"})
 		return
 	}
