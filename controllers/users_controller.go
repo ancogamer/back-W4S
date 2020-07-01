@@ -252,7 +252,7 @@ func CreateProfile(c *gin.Context) {
 	var input models.ProfileInput
 	if err := c.BindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
+			"error": err,
 		})
 		return
 	}
@@ -273,15 +273,15 @@ func CreateProfile(c *gin.Context) {
 			"error": "nick name invalido",
 		})
 		return
-	} 
-/*
-	if len(input.Avatar) <= 0 {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "sem foto de perfil",
-		})
-		return
 	}
-*/
+	/*
+		if len(input.Avatar) <= 0 {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "sem foto de perfil",
+			})
+			return
+		}
+	*/
 
 	profile := models.Profile{
 		IDUser:         user.ID,
