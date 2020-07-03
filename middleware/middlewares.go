@@ -28,10 +28,6 @@ func AuthRequiredRecoveryPassword(c *gin.Context) {
 //Check if the user created a base profile
 func AuthRequired2(c *gin.Context) {
 	claim := authc.ValidateLoginToken(c)
-	if claim != c.Query("e") {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "internal server error"})
-		return
-	}
 	db := c.MustGet("db").(*gorm.DB)
 	if claim != c.Query("e") {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "internal server error"})

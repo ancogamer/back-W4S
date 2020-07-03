@@ -23,7 +23,7 @@ func main() {
 	r.Static("/images", "tela_alterar_senha/images")
 	r.LoadHTMLFiles("tela_alterar_senha/index.html")
 	//Un Authorized Routes
-
+	r.GET("", controllers.Ping)
 	r.POST("/login", controllers.Login)
 
 	r.POST("/create/user", controllers.CreateUser)
@@ -66,7 +66,8 @@ func main() {
 		//Deletar soft
 		authorized2.DELETE("/delete/user", controllers.SoftDeletedUserByNick) //Soft delete
 		//Table Links URL
-		authorized2.POST("/create/table", controllers.CreateTable)     //Create table
+		authorized2.POST("/create/table", controllers.CreateTable) //Create table
+		authorized2.GET("/searchall/user/table", controllers.FindAllUserTables)
 		authorized2.GET("/searchall/table", controllers.FindAllTables) //Search by all the tables//Procura por todas as tabelas
 		authorized2.GET("/searchone/table", controllers.FindOneTables) //Search one table//Procura por uma mesa
 

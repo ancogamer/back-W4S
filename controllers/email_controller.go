@@ -17,7 +17,7 @@ func ResendConfirmationCreateAccountLink(userEmail string, c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
-	userURL := os.Getenv("EMAIL_URL") + userEmail + "&t=" + userSingUpToken
+	userURL := os.Getenv("EMAIL_URL") + "/confirm/user?e=" + userEmail + "&t=" + userSingUpToken
 	msg := []byte("To: " + userEmail + "\r\n" +
 		"Subject: NÂO RESPONDA ESTE EMAIL - Confirmação de Conta(Reenvio) \r\n" +
 		"\r\n" +
@@ -50,7 +50,7 @@ func SendConfirmationCreateAccountEmail(userEmail string, c *gin.Context) error 
 		return err
 	}
 
-	userURL := os.Getenv("EMAIL_URL") + userEmail + "&t=" + userSingUpToken
+	userURL := os.Getenv("EMAIL_URL") + "/confirm/user?e=" + userEmail + "&t=" + userSingUpToken
 	//Thanks https://blog.mailtrap.io/golang-send-email/#Sending_emails_with_smtpSendMail for the code
 	// Choose auth method and set it up
 	msg := []byte("To: " + userEmail + "\r\n" +

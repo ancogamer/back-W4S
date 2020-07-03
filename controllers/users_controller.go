@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
+	"os"
 	"time"
 	"w4s/authc"
 	"w4s/models"
@@ -145,7 +146,7 @@ func RecoveryPasswordUser(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
-	userURL := "http://localhost:8080/user/password/recovery?e=" + userEmail + "&t=" + userRecoveryPassword
+	userURL := os.Getenv("EMAIL_URL") + "/user/password/recovery?e=" + userEmail + "&t=" + userRecoveryPassword
 	//Thanks https://blog.mailtrap.io/golang-send-email/#Sending_emails_with_smtpSendMail for the code
 	msg := []byte("To: " + userEmail + "\r\n" +
 		"Subject: NÂO RESPONDA ESTE EMAIL - RECUPERAÇÃO DE SENHA \r\n" +
@@ -255,6 +256,33 @@ func CreateProfile(c *gin.Context) {
 		})
 		return
 	}
+	if len(input.Name) >= 20 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "nome muito grande",
+		})
+		return
+	}
+	if len(input.Lastname) >= 20 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "sobrenome muito grande",
+		})
+		return
+	}
+	if len(input.Nickname) > 15 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "nick name invalido",
+		})
+		return
+	}
+	/*
+		if len(input.Avatar) <= 0 {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "sem foto de perfil",
+			})
+			return
+		}
+	*/
+
 	profile := models.Profile{
 		IDUser:         user.ID,
 		Nickname:       input.Nickname,
@@ -332,7 +360,7 @@ func UpdateUser(c *gin.Context) {
 func FindAllUsers(c *gin.Context) {
 	db := c.MustGet("db").(*gorm.DB)
 	var users []models.User
-	if err := db.Where("deleted = ? AND actived = ?", "0", true).Preload("Profile").Preload("Tables").Find(&users).Error; err != nil {
+	if err := db.Where("deleted = ? AND actived = ?", "0", true).Preload("Profile").Preload("Profile.Tables").Find(&users).Error; err != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
 			"error": "Nenhum registro encontrado",
 		})
@@ -398,4 +426,3 @@ func SoftDeletedUserByNick(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"success": "true"})
 	return
 }
-
