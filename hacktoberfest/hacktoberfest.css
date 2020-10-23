@@ -1,0 +1,16 @@
+p {
+    font-weight: bolder;
+}
+
+p#title {
+    font-style: italic;
+    font-size: 36px;
+}
+
+p#line {
+    font-weight: lighter;
+}
+
+button {
+    color: blueviolet;
+}
