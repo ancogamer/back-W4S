@@ -2,28 +2,25 @@
 package authc
 
 import (
-	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/gin-gonic/gin"
-	"github.com/jinzhu/gorm"
 	"net/http"
 	"os"
 	"strings"
 	"time"
 	"w4s/models"
+
+	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt"
+
+	"github.com/jinzhu/gorm"
 )
 
 // GenerateJWT creates a new token to the client
 func GenerateJWT(userEmail string, experatingTime time.Duration) (string, error) {
-	// Create the Claims
-	claims := models.Claim{
-		UserEmail: userEmail,
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * experatingTime).Unix(),
-			Issuer:    "Find A Table System",
-		},
-	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(os.Getenv("TOKEN_PASSWORD")))
+	/*
+		token := jwt.NewWithClaims(jwt.SigningMethodHS256)
+		return token.SignedString([]byte(os.Getenv("TOKEN_PASSWORD")))
+	*/
+	return "", nil
 }
 
 // ValidateToken validate a JWT
