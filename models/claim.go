@@ -2,8 +2,9 @@ package models
 
 import (
 	"errors"
+
 	"github.com/badoux/checkmail"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 )
 
 type Claim struct {
