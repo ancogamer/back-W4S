@@ -14,7 +14,7 @@ type Claim struct {
 
 func (c *Claim) Validate() error {
 	if err := checkmail.ValidateFormat(c.UserEmail); err != nil {
-		return errors.New("Digite um endereço de e-mail válido")
+		return errors.New("digite um endereço de e-mail válido")
 	}
 	return nil
 }

@@ -2,10 +2,11 @@ package models
 
 import (
 	"errors"
-	"github.com/jinzhu/gorm"
 	"strings"
 	"unicode"
 	"w4s/security"
+
+	"github.com/jinzhu/gorm"
 
 	"github.com/badoux/checkmail"
 )
@@ -59,37 +60,37 @@ func (u *User) Validate(action string) error {
 	switch strings.ToLower(action) {
 	case "createuser":
 		if u.Email == "" {
-			return errors.New("Email is required")
+			return errors.New("email is required")
 		}
 		if len(u.Email) > 75 {
-			return errors.New("Email is too big")
+			return errors.New("email is too big")
 		}
 		if err := checkmail.ValidateFormat(u.Email); err != nil {
-			return errors.New("Digite um endereço de e-mail válido")
+			return errors.New("digite um endereço de e-mail válido")
 		}
 		if err := PasswordCheck(u.Password); err != nil {
 			return errors.New(err.Error())
 		}
 	case "updateemailandresendlink":
 		if u.Email == "" {
-			return errors.New("Email is required")
+			return errors.New("email is required")
 		}
 		if len(u.Email) > 75 {
-			return errors.New("Email is too big")
+			return errors.New("email is too big")
 		}
 		if err := checkmail.ValidateFormat(u.Email); err != nil {
-			return errors.New("Digite um endereço de e-mail válido")
+			return errors.New("digite um endereço de e-mail válido")
 		}
 
 	case "login":
 		if len(u.Email) > 75 {
-			return errors.New("Email is too big")
+			return errors.New("email is too big")
 		}
 		if err := checkmail.ValidateFormat(u.Email); u.Email != "" && err != nil {
-			return errors.New("Invalid email")
+			return errors.New("invalid email")
 		}
 		if u.Password == "" {
-			return errors.New("Password is required")
+			return errors.New("password is required")
 		}
 	default:
 	}
@@ -98,13 +99,13 @@ func (u *User) Validate(action string) error {
 
 func PasswordCheck(password string) error {
 	if password == "" {
-		return errors.New("Password is required")
+		return errors.New("password is required")
 	}
 	if len(password) > 20 {
-		return errors.New("Insira uma senha valida")
+		return errors.New("insira uma senha valida")
 	}
-	if err := ValidatorPassword(password); err != true {
-		return errors.New("Insira uma senha valida")
+	if err := ValidatorPassword(password); !err {
+		return errors.New("insira uma senha valida")
 	}
 	return nil
 }
