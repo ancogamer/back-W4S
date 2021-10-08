@@ -19,6 +19,9 @@ Yuri Guimarães
 *and others <3 
 
 
+So what this is about, this is about a backend for a social network, based on RPG. 
+
+
 Issues: 
 Jwt auth, was found a possible bug in the lib we was using, so we need to change it
 
