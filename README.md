@@ -17,3 +17,11 @@ Yuri Guimarães
 *https://github.com/theckman 
 *https://github.com/odilonjk 
 *and others <3 
+
+
+Issues: 
+Jwt auth, was found a possible bug in the lib we was using, so we need to change it
+
+Refactor of the code, when i wrote this, i didn't follow any kinda patters, so would be nice to see some interfaces around (WHEN IS NEEDED), to give more tests
+
+Change GIN to Fiber
