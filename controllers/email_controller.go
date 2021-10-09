@@ -21,13 +21,13 @@ func ResendConfirmationCreateAccountLink(userEmail string, c *gin.Context) {
 	msg := []byte("To: " + userEmail + "\r\n" +
 		"Subject: NÂO RESPONDA ESTE EMAIL - Confirmação de Conta(Reenvio) \r\n" +
 		"\r\n" +
-		"Bem vindo ! obrigado por criar uma conta no Find a Table - RPG !\r\n" +
+		"Bem vindo! Obrigado por criar uma conta no Find a Table - RPG!\r\n" +
 		"\r\n" +
 		"Clique aqui para confirmar sua conta = " + userURL +
 		"\r\n" +
-		"Caso não consiga, é só copiar o link e colar no navegador ! " +
+		"Caso não consiga, é só copiar o link e colar no navegador! " +
 		"\r\n" +
-		"Caso não tenha criado, por favor entrar em contato com findatablew4s@gmail.com, com o Assunto : Conta Criada Indevidamente ")
+		"Caso não tenha criado, por favor entrar em contato com findatablew4s@gmail.com, com o Assunto : Conta Criada Indevidamente")
 	if err := SendEmail(userEmail, msg); err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -56,13 +56,13 @@ func SendConfirmationCreateAccountEmail(userEmail string, c *gin.Context) error 
 	msg := []byte("To: " + userEmail + "\r\n" +
 		"Subject: NÂO RESPONDA ESTE EMAIL - Confirmação de Conta \r\n" +
 		"\r\n" +
-		"Bem vindo ! obrigado por criar uma conta no Find a Table - RPG !\r\n" +
+		"Bem vindo! Obrigado por criar uma conta no Find a Table - RPG!\r\n" +
 		"\r\n" +
 		"Clique aqui para confirmar sua conta = " + userURL +
 		"\r\n" +
-		"Caso não consiga, é só copiar o link e colar no navegador ! " +
+		"Caso não consiga, é só copiar o link e colar no navegador! " +
 		"\r\n" +
-		"Caso não tenha criado, por favor entrar em contato com findatablew4s@gmail.com, com o Assunto : Conta Criada Indevidamente ")
+		"Caso não tenha criado, por favor entrar em contato com findatablew4s@gmail.com, com o Assunto : Conta Criada Indevidamente")
 	db := c.MustGet("db").(*gorm.DB)
 	if err := SendEmail(userEmail, msg); err != nil {
 		//Declaring a new user to be populated/
