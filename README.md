@@ -1,13 +1,13 @@
 # W4S
 School work, using GO lang on backend, and Flutter at frontend. 
-Frontend end : https://github.com/saulogp/find-a-table
+Link to the frontend project: https://github.com/saulogp/find-a-table
 
 Developers:
-Andrew Seratti
-Leonardo Sudatti
+Andrew G. C. Serati
+Leonardo Sudati
 João Vitor Astori Saletti 
 Saulo Godoy Proetti  
-Yuri Guimarães
+Yuri Falsetti Guimarães
 
 **Agradecimentos(Thanks for the amazing help): **
 
@@ -19,8 +19,7 @@ Yuri Guimarães
 *and others <3 
 
 
-So what this is about, this is about a backend for a social network, based on RPG. 
-
+So what this is about, this is about a backend for a social network, based on RPG.
 
 Issues: 
 Jwt auth, was found a possible bug in the lib we was using, so we need to change it
